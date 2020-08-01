@@ -1,6 +1,6 @@
 package jp.co.joshua.common.db.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.seasar.doma.Entity;
 import org.seasar.doma.GeneratedValue;
@@ -22,16 +22,10 @@ public class DailyWorkEntryData extends BaseEntity {
     private Integer seqDailyWorkEntryDataId;
     /** 勤怠ユーザマスタID */
     private Integer seqWorkUserMtId;
-    /** 勤怠日 */
-    private LocalDate workDate;
-    /** 始業時間(時) */
-    private Integer beginHour;
-    /** 始業時間(分) */
-    private Integer beginMinute;
-    /** 終業時間(時) */
-    private Integer endHour;
-    /** 終業時間(分) */
-    private Integer endMinute;
+    /** 始業時間 */
+    private LocalDateTime begin;
+    /** 終業時間 */
+    private LocalDateTime end;
     /** 承認ステータス */
     private String status;
     /** 備考 */
@@ -53,44 +47,20 @@ public class DailyWorkEntryData extends BaseEntity {
         return seqWorkUserMtId;
     }
 
-    public void setWorkDate(LocalDate workDate) {
-        this.workDate = workDate;
+    public void setBegin(LocalDateTime begin) {
+        this.begin = begin;
     }
 
-    public LocalDate getWorkDate() {
-        return workDate;
+    public LocalDateTime getBegin() {
+        return begin;
     }
 
-    public void setBeginHour(Integer beginHour) {
-        this.beginHour = beginHour;
+    public void setEnd(LocalDateTime end) {
+        this.end = end;
     }
 
-    public Integer getBeginHour() {
-        return beginHour;
-    }
-
-    public void setBeginMinute(Integer beginMinute) {
-        this.beginMinute = beginMinute;
-    }
-
-    public Integer getBeginMinute() {
-        return beginMinute;
-    }
-
-    public void setEndHour(Integer endHour) {
-        this.endHour = endHour;
-    }
-
-    public Integer getEndHour() {
-        return endHour;
-    }
-
-    public void setEndMinute(Integer endMinute) {
-        this.endMinute = endMinute;
-    }
-
-    public Integer getEndMinute() {
-        return endMinute;
+    public LocalDateTime getEnd() {
+        return end;
     }
 
     public void setStatus(String status) {

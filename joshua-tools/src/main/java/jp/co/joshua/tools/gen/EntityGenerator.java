@@ -95,7 +95,8 @@ public class EntityGenerator extends BaseGenerator {
     private void setCommonInfo(JavaSource source) {
 
         // パッケージ
-        source.setPackage(new jp.co.joshua.tools.source.Package("jp.co.nok.db.entity"));
+        source.setPackage(
+                new jp.co.joshua.tools.source.Package("jp.co.joshua.common.db.entity"));
         // ソースのクラスタイプ
         source.setClassType(ClassType.CLASS);
         // ソースのアクセス修飾子

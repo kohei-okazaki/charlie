@@ -142,7 +142,8 @@ public class DaoGenerator extends BaseGenerator {
     private void setCommonInfo(JavaSource source) {
 
         // パッケージ
-        source.setPackage(new jp.co.joshua.tools.source.Package("jp.co.nok.db.dao"));
+        source.setPackage(
+                new jp.co.joshua.tools.source.Package("jp.co.joshua.common.db.dao"));
         // ソースのクラスタイプ
         source.setClassType(ClassType.INTERFACE);
         // ソースのアクセス修飾子

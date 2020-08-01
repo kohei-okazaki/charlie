@@ -117,20 +117,21 @@ public abstract class BaseGenerator {
     public static enum GenerateType implements BaseEnum {
 
         /** Entity作成 */
-        ENTITY("ENTITY", "nok-app\\src\\main\\java\\jp\\co\\nok\\db\\entity",
+        ENTITY("ENTITY",
+                "joshua-common\\src\\main\\java\\jp\\co\\joshua\\common\\db\\entity",
                 EntityGenerator.class),
         /** DAO作成 */
-        DAO("DAO", "nok-app\\src\\main\\java\\jp\\co\\nok\\db\\dao",
+        DAO("DAO", "joshua-common\\src\\main\\java\\jp\\co\\joshua\\common\\db\\dao",
                 DaoGenerator.class),
         /** DDL作成 */
-        DDL("DDL", "nok-docs\\02_design\\90_db\\01_ddl", CreateTableGenerator.class),
+        DDL("DDL", "joshua-docs\\02_design\\90_db\\01_ddl", CreateTableGenerator.class),
         /** DROP作成 */
-        DROP("DROP", "nok-docs\\02_design\\90_db\\02_drop", DropSqlGenerator.class),
+        DROP("DROP", "joshua-docs\\02_design\\90_db\\02_drop", DropSqlGenerator.class),
         /** テーブル定義作成 */
-        TABLE_DEFINE("TABLE_DEFINE", "nok-docs\\02_design\\90_db\\99_others",
+        TABLE_DEFINE("TABLE_DEFINE", "joshua-docs\\02_design\\90_db\\99_others",
                 TableDefineGenerator.class),
         /** DML作成 */
-        DML("DML", "nok-docs\\02_design\\90_db\\03_dml", DmlGenerator.class);
+        DML("DML", "joshua-docs\\02_design\\90_db\\03_dml", DmlGenerator.class);
 
         /** 値 */
         private String value;
