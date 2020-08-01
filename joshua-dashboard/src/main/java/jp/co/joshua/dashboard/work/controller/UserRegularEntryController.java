@@ -58,7 +58,7 @@ public class UserRegularEntryController {
     }
 
     /**
-     * ユーザ定時情報登録画面表示path処理
+     * ユーザ定時情報登録画面表示処理
      *
      * @param model
      *            Model
