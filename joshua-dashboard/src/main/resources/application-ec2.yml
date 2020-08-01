@@ -29,7 +29,7 @@ doma:
   # SQLファイルをキャッシュ
   sql-file-repository: greedy-cache
 # アプリ独自の設定
-nok:
+joshua:
   # 暗号化設定
   crypt:
     mode: AES/ECB/PKCS5Padding

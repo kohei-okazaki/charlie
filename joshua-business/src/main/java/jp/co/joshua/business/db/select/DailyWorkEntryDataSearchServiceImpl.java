@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.joshua.common.db.dao.DailyWorkEntryDataDao;
-import jp.co.joshua.common.db.entity.BusinessCalendarMt;
-import jp.co.joshua.common.db.entity.DailyWorkEntryData;
-import jp.co.joshua.common.util.CollectionUtil;
+import jp.co.joshua.common.db.entity.CompositeDailyWorkEntryData;
+import jp.co.joshua.common.util.DateUtil;
+import jp.co.joshua.common.util.DateUtil.DateFormatType;
 
 /**
  * 日別勤怠登録情報検索サービス実装クラス
@@ -22,28 +22,17 @@ public class DailyWorkEntryDataSearchServiceImpl
 
     @Autowired
     private DailyWorkEntryDataDao dao;
-    @Autowired
-    private BusinessCalendarMtSearchService businessCalendarMtSerachService;
 
     @Override
-    public List<DailyWorkEntryData> getMonthList(Integer seqWorkUserMtId,
-            LocalDate targetDate) {
+    public List<CompositeDailyWorkEntryData> getMonthList(LocalDate targetDate,
+            Integer seqWorkUserMtId) {
 
-        // 処理対象年月より、営業日マスタリストを検索
-        List<BusinessCalendarMt> businessCalendarMtList = businessCalendarMtSerachService
-                .selectByMonth(targetDate);
-
-        LocalDate begin = CollectionUtil.getFirst(businessCalendarMtList).getDate();
-        LocalDate end = CollectionUtil.getLast(businessCalendarMtList).getDate();
-
-        // TODO SQLを改良する
-        // DATE_FORMAT(BEGIN, '%Y%m') = /* begin */200810
-        List<DailyWorkEntryData> dailyWorkEntryDataList = dao
-                .selectBySeqWorkUserMtIdAndBetweenBegin(seqWorkUserMtId, begin, end);
-
-        // TODO
-        // dailyWorkEntryDataListとbusinessCalendarMtListをマージする
-        return null;
+        List<CompositeDailyWorkEntryData> dailyWorkEntryDataList = dao
+                .selectDailyMtAndCalendarMtByDate(
+                        DateUtil.toString(targetDate, DateFormatType.YYYYMM_NOSEP),
+                        seqWorkUserMtId);
+        System.out.println(dailyWorkEntryDataList.size());
+        return dailyWorkEntryDataList;
     }
 
 }

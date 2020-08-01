@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jp.co.joshua.common.db.dao.WorkUserMtDao;
-import jp.co.joshua.common.db.entity.WorkUserCompositeMt;
+import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
 import jp.co.joshua.common.db.util.DomaUtil;
 
 /**
@@ -28,18 +28,18 @@ public class WorkUserMtSearchServiceImpl implements WorkUserMtSearchService {
     }
 
     @Override
-    public List<WorkUserCompositeMt> selectCompositeRegularMt() {
+    public List<CompositeWorkUserMt> selectCompositeRegularMt() {
         return dao.selectCompositeRegularMt();
     }
 
     @Override
-    public List<WorkUserCompositeMt> selectCompositeRegularMt(Pageable pageable) {
+    public List<CompositeWorkUserMt> selectCompositeRegularMt(Pageable pageable) {
         SelectOptions option = DomaUtil.createSelectOptions(pageable, false);
         return dao.selectCompositeRegularMt(option);
     }
 
     @Override
-    public WorkUserCompositeMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId) {
+    public CompositeWorkUserMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId) {
         return dao.selectByLoginIdAndMaxWorkUserMtId(seqLoginId);
     }
 

@@ -18,6 +18,22 @@
       <h2>当月勤怠登録</h2>
       <div class="row">
         <div class="col-lg">
+          <form th:action="@{/work/month/entry}" method="get">
+            <table class="table  table-borderless">
+              <tr class="form-group zero-margin">
+                <td>YYYYのセレクトリスト</td>
+                <td>MMのセレクトリスト</td>
+                <td><input type="submit" class="btn btn-outline-primary mt-1" value="反映" /></td>
+              </tr>
+            </table>
+          </form>
+          <form th:action="@{/work/month/entry}" method="post">
+            <table class="table  table-borderless">
+              <tr class="form-group zero-margin">
+
+              </tr>
+            </table>
+          </form>
         </div><!-- /.col-lg -->
       </div><!-- /.row -->
     </div><!-- container border col-10 -->

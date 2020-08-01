@@ -23,19 +23,19 @@ public class ApplicationComponent {
     private String springframeworkJdbc;
     @Value("${logging.level.org.thymeleaf}")
     private String thymealeaf;
-    @Value("${logging.level.jp.co.nok}")
-    private String nok;
-    @Value("${nok.crypt.mode}")
+    @Value("${logging.level.jp.co.joshua}")
+    private String joshua;
+    @Value("${joshua.crypt.mode}")
     private String cryptMode;
-    @Value("${nok.crypt.key}")
+    @Value("${joshua.crypt.key}")
     private String cryptKey;
-    @Value("${nok.hash.algorithm}")
+    @Value("${joshua.hash.algorithm}")
     private String hashAlgorithm;
-    @Value("${nok.hash.stretch-count}")
+    @Value("${joshua.hash.stretch-count}")
     private int hashStrechCount;
-    @Value("${nok.hash.key-length}")
+    @Value("${joshua.hash.key-length}")
     private int hashKeyLength;
-    @Value("${nok.hash.salt}")
+    @Value("${joshua.hash.salt}")
     private String hashSalt;
 
     public String getLevel() {
@@ -70,12 +70,12 @@ public class ApplicationComponent {
         this.thymealeaf = thymealeaf;
     }
 
-    public String getNok() {
-        return nok;
+    public String getJoshua() {
+        return joshua;
     }
 
-    public void setNok(String nok) {
-        this.nok = nok;
+    public void setJoshua(String joshua) {
+        this.joshua = joshua;
     }
 
     public String getCryptMode() {

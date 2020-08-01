@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
 import jp.co.joshua.business.db.select.WorkUserMtSearchService;
 import jp.co.joshua.business.work.service.MonthlyWorkEntryService;
-import jp.co.joshua.common.db.entity.WorkUserCompositeMt;
+import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
 import jp.co.joshua.common.web.auth.login.LoginAuthDto;
 import jp.co.joshua.common.web.view.AppView;
 import jp.co.joshua.dashboard.work.form.MonthEntryForm;
@@ -61,17 +61,16 @@ public class MonthlyEntryController {
 
         LoginAuthDto loginAuthDto = (LoginAuthDto) session
                 .getAttribute("loginAuthDto");
-        Integer seqLoginId = loginAuthDto.getSeqLoginId();
         // ログイン中のユーザに適用される最新の定時情報マスタを取得
-        WorkUserCompositeMt regularMt = workUserMtSearchService
-                .selectByLoginIdAndMaxWorkUserMtId(seqLoginId);
+        CompositeWorkUserMt regularMt = workUserMtSearchService
+                .selectByLoginIdAndMaxWorkUserMtId(loginAuthDto.getSeqLoginId());
         model.addAttribute("regularMt", regularMt);
 
-        // 処理対象年月
+        // 処理対象年月初
         LocalDate targetDate = monthlyWorkEntryService.getTargetDate(year, month);
 
         model.addAttribute("thisMonthList", dailyWorkEntryDataSearchService
-                .getMonthList(regularMt.getSeqWorkUserMtId(), targetDate));
+                .getMonthList(targetDate, regularMt.getSeqWorkUserMtId()));
 
         return AppView.WORK_MONTH_ENTRY_VIEW.getValue();
     }

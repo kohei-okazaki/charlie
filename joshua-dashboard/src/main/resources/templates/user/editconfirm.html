@@ -23,7 +23,7 @@
             <table class="table">
               <tr class="form-group zero-margin">
                 <td><label class="control-label zero-margin" th:text="#{seqLoginId}"></label></td>
-                <td><label class="zero-margin" th:text="${session['sessionComponent'].loginAuthDto.seqLoginId}"></label></td>
+                <td><label class="zero-margin" th:text="${session['loginAuthDto'].seqLoginId}"></label></td>
               </tr><!-- /.form-group -->
               <tr class="form-group">
               <tr class="form-group" th:if="${userEditForm.passwordEditFlag} == 'true'">

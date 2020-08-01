@@ -10,6 +10,7 @@ import org.seasar.doma.Select;
 import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
 
+import jp.co.joshua.common.db.entity.CompositeDailyWorkEntryData;
 import jp.co.joshua.common.db.entity.DailyWorkEntryData;
 
 /**
@@ -33,5 +34,9 @@ public interface DailyWorkEntryDataDao extends BaseDao {
     @Select
     public List<DailyWorkEntryData> selectBySeqWorkUserMtIdAndBetweenBegin(
             Integer seqWorkUserMtId, LocalDate begin, LocalDate end);
+
+    @Select
+    List<CompositeDailyWorkEntryData> selectDailyMtAndCalendarMtByDate(String date,
+            Integer seqWorkUserMtId);
 
 }

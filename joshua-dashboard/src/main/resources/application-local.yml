@@ -22,7 +22,7 @@ logging:
     org.springframework: INFO
     org.springframework.jdbc: DEBUG
     org.thymeleaf: INFO
-    jp.co.nok: DEBUG
+    jp.co.joshua: DEBUG
 # Doma設定
 doma:
   dialect: mysql
@@ -31,7 +31,7 @@ doma:
 server:
   port: 88
 # アプリ独自の設定
-nok:
+joshua:
   # 暗号化設定
   crypt:
     mode: AES/ECB/PKCS5Padding

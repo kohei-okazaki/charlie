@@ -10,7 +10,7 @@ import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
 import org.seasar.doma.jdbc.SelectOptions;
 
-import jp.co.joshua.common.db.entity.WorkUserCompositeMt;
+import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
 import jp.co.joshua.common.db.entity.WorkUserMt;
 
 /**
@@ -35,15 +35,15 @@ public interface WorkUserMtDao extends BaseDao {
     public int count();
 
     @Select
-    public List<WorkUserCompositeMt> selectCompositeRegularMt();
+    public List<CompositeWorkUserMt> selectCompositeRegularMt();
 
     @Select
-    public List<WorkUserCompositeMt> selectCompositeRegularMt(SelectOptions option);
+    public List<CompositeWorkUserMt> selectCompositeRegularMt(SelectOptions option);
 
     @Select
     public WorkUserMt selectById(Integer seqWorkUserMtId);
 
     @Select
-    public WorkUserCompositeMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId);
+    public CompositeWorkUserMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId);
 
 }

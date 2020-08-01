@@ -3,7 +3,7 @@ package jp.co.joshua.business.db.select;
 import java.time.LocalDate;
 import java.util.List;
 
-import jp.co.joshua.common.db.entity.DailyWorkEntryData;
+import jp.co.joshua.common.db.entity.CompositeDailyWorkEntryData;
 
 /**
  * 日別勤怠登録情報検索サービスインターフェース
@@ -12,6 +12,7 @@ import jp.co.joshua.common.db.entity.DailyWorkEntryData;
  */
 public interface DailyWorkEntryDataSearchService {
 
-    List<DailyWorkEntryData> getMonthList(Integer seqWorkUserMtId, LocalDate targetDate);
+    List<CompositeDailyWorkEntryData> getMonthList(LocalDate targetDate,
+            Integer seqWorkUserMtId);
 
 }

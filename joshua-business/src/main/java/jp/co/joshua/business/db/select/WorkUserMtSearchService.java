@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
-import jp.co.joshua.common.db.entity.WorkUserCompositeMt;
+import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
 
 /**
  * 勤怠ユーザマスタ検索サービスインターフェース
@@ -15,10 +15,10 @@ public interface WorkUserMtSearchService {
 
     long count();
 
-    List<WorkUserCompositeMt> selectCompositeRegularMt();
+    List<CompositeWorkUserMt> selectCompositeRegularMt();
 
-    List<WorkUserCompositeMt> selectCompositeRegularMt(Pageable pageable);
+    List<CompositeWorkUserMt> selectCompositeRegularMt(Pageable pageable);
 
-    WorkUserCompositeMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId);
+    CompositeWorkUserMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId);
 
 }

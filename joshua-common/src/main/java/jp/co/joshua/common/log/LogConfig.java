@@ -19,8 +19,8 @@ public class LogConfig {
     private String springframeworkJdbc;
     @Value("${logging.level.org.thymeleaf}")
     private String thymealeaf;
-    @Value("${logging.level.jp.co.nok}")
-    private String nok;
+    @Value("${logging.level.jp.co.joshua}")
+    private String joshua;
 
     public String getLevel() {
         return level;
@@ -54,12 +54,12 @@ public class LogConfig {
         this.thymealeaf = thymealeaf;
     }
 
-    public String getNok() {
-        return nok;
+    public String getJoshua() {
+        return joshua;
     }
 
-    public void setNok(String nok) {
-        this.nok = nok;
+    public void setJoshua(String joshua) {
+        this.joshua = joshua;
     }
 
 }

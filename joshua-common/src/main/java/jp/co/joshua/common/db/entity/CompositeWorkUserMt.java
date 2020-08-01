@@ -4,12 +4,12 @@ import org.seasar.doma.Entity;
 import org.seasar.doma.jdbc.entity.NamingType;
 
 /**
- * 勤怠ユーザマスタ結合Entity
+ * 勤怠ユーザマスタ + 定時情報マスタ結合Entity
  *
  * @version 1.0.0
  */
 @Entity(naming = NamingType.SNAKE_UPPER_CASE)
-public class WorkUserCompositeMt extends BaseEntity {
+public class CompositeWorkUserMt extends BaseEntity {
 
     /** 勤怠ユーザマスタID */
     private Integer seqWorkUserMtId;
