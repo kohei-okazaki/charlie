@@ -8,7 +8,7 @@ package jp.co.joshua.dashboard.work.form;
 public class DailyEntryForm {
 
     /** 日にち */
-    private Integer day;
+    private String date;
     /** 始業時間(時) */
     private Integer workBeginHour;
     /** 始業時間(分) */
@@ -18,12 +18,12 @@ public class DailyEntryForm {
     /** 終業時間(分) */
     private Integer workEndMinute;
 
-    public Integer getDay() {
-        return day;
+    public String getDate() {
+        return date;
     }
 
-    public void setDay(Integer day) {
-        this.day = day;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Integer getWorkBeginHour() {

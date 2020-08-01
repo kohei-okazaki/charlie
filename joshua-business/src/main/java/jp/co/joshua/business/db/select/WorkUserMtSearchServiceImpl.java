@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import jp.co.joshua.common.db.dao.WorkUserMtDao;
 import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
+import jp.co.joshua.common.db.entity.WorkUserMt;
 import jp.co.joshua.common.db.util.DomaUtil;
 
 /**
@@ -41,6 +42,11 @@ public class WorkUserMtSearchServiceImpl implements WorkUserMtSearchService {
     @Override
     public CompositeWorkUserMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId) {
         return dao.selectByLoginIdAndMaxWorkUserMtId(seqLoginId);
+    }
+
+    @Override
+    public WorkUserMt selectActiveBySeqLoginId(Integer seqLoginId) {
+        return dao.selectActiveBySeqLoginId(seqLoginId);
     }
 
 }

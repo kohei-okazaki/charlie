@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import jp.co.joshua.common.db.dao.DailyWorkEntryDataDao;
 import jp.co.joshua.common.db.entity.CompositeDailyWorkEntryData;
+import jp.co.joshua.common.db.entity.DailyWorkEntryData;
 import jp.co.joshua.common.util.DateUtil;
 import jp.co.joshua.common.util.DateUtil.DateFormatType;
 
@@ -33,6 +34,16 @@ public class DailyWorkEntryDataSearchServiceImpl
                         seqWorkUserMtId);
         System.out.println(dailyWorkEntryDataList.size());
         return dailyWorkEntryDataList;
+    }
+
+    @Override
+    public List<DailyWorkEntryData> getDailyWorkEntryDataList(LocalDate targetDate,
+            Integer seqWorkUserMtId) {
+
+        return dao
+                .selectDailyMtListByDate(
+                        DateUtil.toString(targetDate, DateFormatType.YYYYMM_NOSEP),
+                        seqWorkUserMtId);
     }
 
 }

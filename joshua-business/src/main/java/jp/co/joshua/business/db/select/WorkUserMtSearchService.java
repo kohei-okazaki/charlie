@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
+import jp.co.joshua.common.db.entity.WorkUserMt;
 
 /**
  * 勤怠ユーザマスタ検索サービスインターフェース
@@ -20,5 +21,7 @@ public interface WorkUserMtSearchService {
     List<CompositeWorkUserMt> selectCompositeRegularMt(Pageable pageable);
 
     CompositeWorkUserMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId);
+
+    WorkUserMt selectActiveBySeqLoginId(Integer seqLoginId);
 
 }

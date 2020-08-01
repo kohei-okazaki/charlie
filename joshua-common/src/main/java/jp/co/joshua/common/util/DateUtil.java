@@ -481,6 +481,19 @@ public class DateUtil {
     }
 
     /**
+     * 指定された２つの日付が同日か判定する
+     *
+     * @param date1
+     *            比較日
+     * @param date2
+     *            比較日
+     * @return 同日の場合True、それ以外の場合False
+     */
+    public static boolean isSameDate(LocalDate date1, LocalDate date2) {
+        return date1.equals(date2);
+    }
+
+    /**
      * java.time.ZoneIdの列挙
      *
      * @version 1.0.0
@@ -532,6 +545,8 @@ public class DateUtil {
         YYYYMMDD("yyyy/MM/dd"),
         /** YYYYMMDD */
         YYYYMMDD_NOSEP("yyyyMMdd"),
+        /** YYYY-MM-DD */
+        YYYYMMDD_HYPHEN("yyyy-MM-dd"),
         /** YYYY/MM/DD HH:mm:ss */
         YYYYMMDDHHMMSS("yyyy/MM/dd HH:mm:ss"),
         /** yyyyMM */

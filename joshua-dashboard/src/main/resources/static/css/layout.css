@@ -63,3 +63,20 @@ body {
   text-decoration: none;
   border-bottom: 3px solid #dd0000;
 }
+
+/* 日曜日の場合のcss */
+.sunday {
+  color: #ff0000;
+}
+
+/* 土曜日の場合のcss */
+.saturday {
+  color: #0000ff;
+}
+
+/* 時刻入力  */
+.date-input {
+  width:100px;
+}
+
+

@@ -46,4 +46,7 @@ public interface WorkUserMtDao extends BaseDao {
     @Select
     public CompositeWorkUserMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId);
 
+    @Select
+    public WorkUserMt selectActiveBySeqLoginId(Integer seqLoginId);
+
 }
