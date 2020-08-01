@@ -1,0 +1,3 @@
+includeFlat  'joshua-common', 'joshua-business', 'joshua-dashboard', 'joshua-tools'
+
+rootProject.name = 'joshua-root'

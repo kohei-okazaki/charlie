@@ -1,0 +1,44 @@
+spring:
+  # プロファイル設定
+  profiles: local
+  # DB設定
+  datasource:
+    platform: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: admin
+    url: jdbc:mysql://localhost:3306/joshuadb?serverTimezone=JST
+  # Flyway設定
+  flyway: 
+    url: jdbc:mysql://localhost:3306/joshuadb?serverTimezone=JST
+    enabled: true
+    user: root
+    password: admin
+    baseline-on-migrate: false
+    locations: classpath:db/migration
+# Log設定
+logging:
+  level:
+    org.springframework: INFO
+    org.springframework.jdbc: DEBUG
+    org.thymeleaf: INFO
+    jp.co.nok: DEBUG
+# Doma設定
+doma:
+  dialect: mysql
+  # SQLファイルをキャッシュしない
+  sql-file-repository: no-cache
+server:
+  port: 88
+# アプリ独自の設定
+nok:
+  # 暗号化設定
+  crypt:
+    mode: AES/ECB/PKCS5Padding
+    key: 1234567890123456
+  # ハッシュ化設定
+  hash:
+    algorithm: PBKDF2WithHmacSHA256
+    stretch-count: 10000
+    key-length: 256
+    salt: nok12345

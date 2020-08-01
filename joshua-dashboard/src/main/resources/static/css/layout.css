@@ -1,0 +1,65 @@
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.header-contents {
+  background-color: #e4e4e4;
+}
+
+.footer-contents {
+  color: white;
+  padding: 5px;
+  background-color: #808080;
+}
+
+/*
+ * Bootstrapの.rowが左右 -15pxとなっているので
+ *左右0pxでラッピングしたrow
+ */
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
+/*
+ * <p>タグ等が下方向にpaddingされているものがあったため、このタグで無理やりPaddingをさせないようにする
+ */
+.zero-margin {
+  margin: 0px !important;
+}
+
+/*
+ * リストメニューのPaddingを調整
+ */
+.nok-list-menu-item {
+  padding-top: 1.25rem;
+  padding-right: 2.25rem;
+  padding-bottom: 1.25rem;
+  padding-left: 2.25rem;
+}
+
+/* ボタンの種類を追加 */
+.btn-black {
+  background-color: #000 !important;
+  color: #fff;
+}
+
+.btn-olive {
+  background-color: olive; ! important;
+  color: #fff;
+}
+
+.btn-orange {
+  background-color: orange !important;
+  color: #000;
+}
+
+.disabled {
+  display: none;
+}
+
+.on {
+  color: #dd0000;
+  text-decoration: none;
+  border-bottom: 3px solid #dd0000;
+}
