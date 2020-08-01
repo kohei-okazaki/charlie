@@ -3,6 +3,8 @@ package jp.co.joshua.business.work.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import jp.co.joshua.business.work.dto.DailyWorkEntryDataDto;
+
 /**
  * 当月勤怠登録画面サービスインタフェース
  *
@@ -16,4 +18,6 @@ public interface MonthlyWorkEntryService {
 
     List<Integer> getMonthList();
 
+    void executeEntry(LocalDate targetDate, Integer seqWorkUserMtId,
+            List<DailyWorkEntryDataDto> dtoList);
 }
