@@ -1,6 +1,7 @@
 package jp.co.joshua.business.work.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * 当月勤怠登録画面サービスインタフェース
@@ -10,5 +11,9 @@ import java.time.LocalDate;
 public interface MonthlyWorkEntryService {
 
     LocalDate getTargetDate(String year, String month);
+
+    List<Integer> getYearList(LocalDate targetDate);
+
+    List<Integer> getMonthList();
 
 }

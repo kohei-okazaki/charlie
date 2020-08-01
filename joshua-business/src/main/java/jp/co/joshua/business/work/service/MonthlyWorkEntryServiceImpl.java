@@ -1,6 +1,11 @@
 package jp.co.joshua.business.work.service;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 
@@ -29,6 +34,22 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
 
         return LocalDate.of(Integer.parseInt(targetYear),
                 Integer.parseInt(targetMonth), 1);
+    }
+
+    @Override
+    public List<Integer> getYearList(LocalDate targetDate) {
+        int min = targetDate.minusYears(1).getYear();
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            list.add(min + i);
+        }
+        return list;
+    }
+
+    @Override
+    public List<Integer> getMonthList() {
+        return Stream.of(Month.class.getEnumConstants()).map(Month::getValue)
+                .collect(Collectors.toList());
     }
 
 }

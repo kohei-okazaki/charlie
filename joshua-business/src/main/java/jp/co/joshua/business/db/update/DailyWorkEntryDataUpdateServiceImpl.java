@@ -1,11 +1,26 @@
 package jp.co.joshua.business.db.update;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import jp.co.joshua.common.db.dao.DailyWorkEntryDataDao;
+import jp.co.joshua.common.db.entity.DailyWorkEntryData;
+
 /**
  * 日別勤怠登録情報更新サービス実装クラス
  *
  * @version 1.0.0
  */
+@Service
 public class DailyWorkEntryDataUpdateServiceImpl
         implements DailyWorkEntryDataUpdateService {
+
+    @Autowired
+    private DailyWorkEntryDataDao dao;
+
+    @Override
+    public void update(DailyWorkEntryData entity) {
+        dao.update(entity);
+    }
 
 }

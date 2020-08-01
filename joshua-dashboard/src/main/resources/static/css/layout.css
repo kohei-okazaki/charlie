@@ -74,9 +74,21 @@ body {
   color: #0000ff;
 }
 
+/* 祝日の場合のcss */
+.holiday {
+  color: #ff0000;
+}
+
 /* 時刻入力  */
 .date-input {
   width:100px;
 }
 
+.work-status-still {
+  color: #ff0000;
+}
+
+.work-status-done {
+  color: #0080ff;
+}
 
