@@ -9,12 +9,6 @@ import jp.co.joshua.common.db.entity.LoginUserData;
  */
 public interface LoginUserDataUpdateService {
 
-    /**
-     * ログインユーザ情報を更新する
-     *
-     * @param entity
-     *            ログインユーザ情報
-     */
     void update(LoginUserData entity);
 
 }

@@ -25,24 +25,22 @@ public class DailyWorkEntryDataSearchServiceImpl
     private DailyWorkEntryDataDao dao;
 
     @Override
-    public List<CompositeDailyWorkEntryData> getMonthList(LocalDate targetDate,
+    public List<CompositeDailyWorkEntryData> selectMonthList(LocalDate date,
             Integer seqWorkUserMngMtId) {
 
-        List<CompositeDailyWorkEntryData> dailyWorkEntryDataList = dao
+        return dao
                 .selectDailyMtAndCalendarMtByDate(
-                        DateUtil.toString(targetDate, DateFormatType.YYYYMM_NOSEP),
+                        DateUtil.toString(date, DateFormatType.YYYYMM_NOSEP),
                         seqWorkUserMngMtId);
-        System.out.println(dailyWorkEntryDataList.size());
-        return dailyWorkEntryDataList;
     }
 
     @Override
-    public List<DailyWorkEntryData> getDailyWorkEntryDataList(LocalDate targetDate,
+    public List<DailyWorkEntryData> selectDailyWorkEntryDataList(LocalDate date,
             Integer seqWorkUserMngMtId) {
 
         return dao
                 .selectDailyMtListByDate(
-                        DateUtil.toString(targetDate, DateFormatType.YYYYMM_NOSEP),
+                        DateUtil.toString(date, DateFormatType.YYYYMM_NOSEP),
                         seqWorkUserMngMtId);
     }
 

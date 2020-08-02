@@ -12,6 +12,11 @@ import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
 import jp.co.joshua.common.db.entity.WorkUserMngMt;
 import jp.co.joshua.common.db.util.DomaUtil;
 
+/**
+ * 勤怠ユーザ管理マスタ検索サービス実装クラス
+ * 
+ * @version 1.0.0
+ */
 @Service
 public class WorkUserMngMtSearchServiceImpl implements WorkUserMngMtSearchService {
 

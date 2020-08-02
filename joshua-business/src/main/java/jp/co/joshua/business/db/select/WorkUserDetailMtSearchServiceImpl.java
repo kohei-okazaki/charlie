@@ -5,6 +5,11 @@ import org.springframework.stereotype.Service;
 
 import jp.co.joshua.common.db.dao.WorkUserDetailMtDao;
 
+/**
+ * 勤怠ユーザ詳細マスタ検索サービス実装クラス
+ * 
+ * @version 1.0.0
+ */
 @Service
 public class WorkUserDetailMtSearchServiceImpl implements WorkUserDetailMtSearchService {
 

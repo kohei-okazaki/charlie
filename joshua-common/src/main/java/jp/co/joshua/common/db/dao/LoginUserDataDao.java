@@ -30,7 +30,7 @@ public interface LoginUserDataDao extends BaseDao {
     public int insert(LoginUserData entity);
 
     @Select
-    public LoginUserData selectById(Integer seqLoginId);
+    public LoginUserData selectById(Integer id);
 
     @Select
     public List<Integer> selectIdList();

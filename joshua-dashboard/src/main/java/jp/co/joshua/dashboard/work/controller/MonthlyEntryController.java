@@ -90,7 +90,7 @@ public class MonthlyEntryController {
         model.addAttribute("selectedYear", targetDate.getYear());
         model.addAttribute("selectedMonth", targetDate.getMonthValue());
         model.addAttribute("thisMonthList", dailyWorkEntryDataSearchService
-                .getMonthList(targetDate, regularMt.getSeqWorkUserMngMtId()));
+                .selectMonthList(targetDate, regularMt.getSeqWorkUserMngMtId()));
 
         return AppView.WORK_MONTH_ENTRY_VIEW.getValue();
     }

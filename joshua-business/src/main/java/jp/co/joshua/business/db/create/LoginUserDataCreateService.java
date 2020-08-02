@@ -9,12 +9,6 @@ import jp.co.joshua.common.db.entity.LoginUserData;
  */
 public interface LoginUserDataCreateService {
 
-    /**
-     * ログインユーザ情報を登録する
-     *
-     * @param entity
-     *            ログインユーザ情報
-     */
     void create(LoginUserData entity);
 
 }

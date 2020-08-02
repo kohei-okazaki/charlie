@@ -91,7 +91,7 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
 
         // 既に登録された日別勤怠登録情報を検索
         List<DailyWorkEntryData> dailyWorkEntryDataList = dailyWorkEntryDataSearchService
-                .getDailyWorkEntryDataList(targetDate, mngMt.getSeqWorkUserMngMtId());
+                .selectDailyWorkEntryDataList(targetDate, mngMt.getSeqWorkUserMngMtId());
 
         for (DailyWorkEntryDataDto dailyWorkEntryDataDto : dtoList) {
             boolean isInsert = true;

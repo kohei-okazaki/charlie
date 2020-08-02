@@ -16,10 +16,8 @@ import jp.co.joshua.common.util.DateUtil;
 @Service
 public class LoginUserDataUpdateServiceImpl implements LoginUserDataUpdateService {
 
-    /** ログインユーザ情報Dao */
     @Autowired
     private LoginUserDataDao dao;
-    /** SHA256変換クラス */
     @Autowired
     private Sha256HashEncoder sha256HashEncoder;
 

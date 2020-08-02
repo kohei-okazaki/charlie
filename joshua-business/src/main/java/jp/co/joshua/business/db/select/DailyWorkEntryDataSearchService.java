@@ -13,9 +13,9 @@ import jp.co.joshua.common.db.entity.DailyWorkEntryData;
  */
 public interface DailyWorkEntryDataSearchService {
 
-    List<CompositeDailyWorkEntryData> getMonthList(LocalDate targetDate,
+    List<CompositeDailyWorkEntryData> selectMonthList(LocalDate date,
             Integer seqWorkUserMngMtId);
 
-    List<DailyWorkEntryData> getDailyWorkEntryDataList(LocalDate targetDate,
+    List<DailyWorkEntryData> selectDailyWorkEntryDataList(LocalDate date,
             Integer seqWorkUserMngMtId);
 }
