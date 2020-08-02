@@ -4,17 +4,19 @@ import org.seasar.doma.Entity;
 import org.seasar.doma.jdbc.entity.NamingType;
 
 /**
- * 勤怠ユーザマスタ + 定時情報マスタ結合Entity
+ * 勤怠ユーザ管理マスタ + 勤怠ユーザ詳細マスタ + 定時情報マスタ結合Entity
  *
  * @version 1.0.0
  */
 @Entity(naming = NamingType.SNAKE_UPPER_CASE)
 public class CompositeWorkUserMt extends BaseEntity {
 
-    /** 勤怠ユーザマスタID */
-    private Integer seqWorkUserMtId;
     /** ログインID */
     private Integer seqLoginId;
+    /** 勤怠ユーザ管理マスタID */
+    private Integer seqWorkUserMngMtId;
+    /** 勤怠ユーザ詳細マスタID */
+    private Integer seqWorkUserDetailMtId;
     /** 定時情報マスタID */
     private Integer seqRegularWorkMtId;
     /** 始業時間(時) */
@@ -26,20 +28,28 @@ public class CompositeWorkUserMt extends BaseEntity {
     /** 終業時間(分) */
     private Integer endMinute;
 
-    public Integer getSeqWorkUserMtId() {
-        return seqWorkUserMtId;
-    }
-
-    public void setSeqWorkUserMtId(Integer seqWorkUserMtId) {
-        this.seqWorkUserMtId = seqWorkUserMtId;
-    }
-
     public Integer getSeqLoginId() {
         return seqLoginId;
     }
 
     public void setSeqLoginId(Integer seqLoginId) {
         this.seqLoginId = seqLoginId;
+    }
+
+    public Integer getSeqWorkUserMngMtId() {
+        return seqWorkUserMngMtId;
+    }
+
+    public void setSeqWorkUserMngMtId(Integer seqWorkUserMngMtId) {
+        this.seqWorkUserMngMtId = seqWorkUserMngMtId;
+    }
+
+    public Integer getSeqWorkUserDetailMtId() {
+        return seqWorkUserDetailMtId;
+    }
+
+    public void setSeqWorkUserDetailMtId(Integer seqWorkUserDetailMtId) {
+        this.seqWorkUserDetailMtId = seqWorkUserDetailMtId;
     }
 
     public Integer getSeqRegularWorkMtId() {

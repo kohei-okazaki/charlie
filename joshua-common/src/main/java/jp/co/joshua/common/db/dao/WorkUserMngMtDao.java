@@ -11,42 +11,36 @@ import org.seasar.doma.boot.ConfigAutowireable;
 import org.seasar.doma.jdbc.SelectOptions;
 
 import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
-import jp.co.joshua.common.db.entity.WorkUserMt;
+import jp.co.joshua.common.db.entity.WorkUserMngMt;
 
 /**
- * 勤怠ユーザマスタ Dao
+ * 勤怠ユーザ管理マスタ Dao
  *
  * @version 1.0.0
  */
 @Dao
 @ConfigAutowireable
-public interface WorkUserMtDao extends BaseDao {
+public interface WorkUserMngMtDao extends BaseDao {
 
     @Delete
-    public int delete(WorkUserMt entity);
+    public int delete(WorkUserMngMt entity);
 
     @Update
-    public int update(WorkUserMt entity);
+    public int update(WorkUserMngMt entity);
 
     @Insert
-    public int insert(WorkUserMt entity);
+    public int insert(WorkUserMngMt entity);
 
     @Select
-    public int count();
-
-    @Select
-    public List<CompositeWorkUserMt> selectCompositeRegularMt();
+    public long count();
 
     @Select
     public List<CompositeWorkUserMt> selectCompositeRegularMt(SelectOptions option);
 
     @Select
-    public WorkUserMt selectById(Integer seqWorkUserMtId);
+    public WorkUserMngMt selectBySeqLoginId(Integer seqLoginId);
 
     @Select
-    public CompositeWorkUserMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId);
-
-    @Select
-    public WorkUserMt selectActiveBySeqLoginId(Integer seqLoginId);
+    public CompositeWorkUserMt selectActiveRegularMt(Integer seqLoginId);
 
 }

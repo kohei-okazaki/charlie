@@ -19,8 +19,8 @@ public class RegularWorkMtUpdateServiceImpl implements RegularWorkMtUpdateServic
     private RegularWorkMtDao dao;
 
     @Override
-    public void update(RegularWorkMt regularWorkMt) {
-        dao.update(regularWorkMt);
+    public void update(RegularWorkMt entity) {
+        dao.update(entity);
     }
 
 }

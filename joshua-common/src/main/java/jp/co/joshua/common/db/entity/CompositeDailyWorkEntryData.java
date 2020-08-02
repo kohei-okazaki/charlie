@@ -16,8 +16,8 @@ public class CompositeDailyWorkEntryData extends BaseEntity {
 
     /** 日別勤怠登録情報ID */
     private Integer seqDailyWorkEntryDataId;
-    /** 勤怠ユーザマスタID */
-    private Integer seqWorkUserMtId;
+    /** 勤怠ユーザ管理マスタID */
+    private Integer seqWorkUserMngMtId;
     /** 始業時間 */
     private LocalDateTime begin;
     /** 終業時間 */
@@ -41,12 +41,12 @@ public class CompositeDailyWorkEntryData extends BaseEntity {
         this.seqDailyWorkEntryDataId = seqDailyWorkEntryDataId;
     }
 
-    public Integer getSeqWorkUserMtId() {
-        return seqWorkUserMtId;
+    public Integer getSeqWorkUserMngMtId() {
+        return seqWorkUserMngMtId;
     }
 
-    public void setSeqWorkUserMtId(Integer seqWorkUserMtId) {
-        this.seqWorkUserMtId = seqWorkUserMtId;
+    public void setSeqWorkUserMngMtId(Integer seqWorkUserMngMtId) {
+        this.seqWorkUserMngMtId = seqWorkUserMngMtId;
     }
 
     public LocalDateTime getBegin() {

@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import jp.co.joshua.common.db.dao.MailUserDataDao;
 import jp.co.joshua.common.db.entity.MailUserData;
 
-;
-
 /**
  * メールユーザ情報検索サービス実装クラス
  *
@@ -16,7 +14,6 @@ import jp.co.joshua.common.db.entity.MailUserData;
 @Service
 public class MailUserDataSearchServiceImpl implements MailUserDataSearchService {
 
-    /** メールユーザ情報Dao */
     @Autowired
     private MailUserDataDao dao;
 

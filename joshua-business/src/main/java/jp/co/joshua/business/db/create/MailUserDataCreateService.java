@@ -12,8 +12,8 @@ public interface MailUserDataCreateService {
     /**
      * メールユーザ情報を登録する
      *
-     * @param mailUserData
+     * @param entity
      *            メールユーザ情報
      */
-    void create(MailUserData mailUserData);
+    void create(MailUserData entity);
 }

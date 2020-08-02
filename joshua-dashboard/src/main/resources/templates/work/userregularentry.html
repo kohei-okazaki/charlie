@@ -65,8 +65,8 @@
               <div class="col">
                 <br>
                 <div th:if="${entrySuccess == '1'}" class="alert alert-success" role="alert">登録完了しました</div>
-              </div>
-            </div>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
             <table class="table table-borderless">
               <tr class="form-group zero-margin">
                 <td>
@@ -111,7 +111,7 @@
             <th th:text="#{endWork}"></th>
             <th th:text="#{regDate}"></th>
           </tr>
-          <tr th:each="mt : ${workUserCopositeMtList}">
+          <tr th:each="mt : ${workUserCompositeMtList}">
             <td th:text="${mt.seqLoginId}"></td>
             <td th:text="${mt.seqRegularWorkMtId}"></td>
             <td th:text="${#numbers.formatInteger(mt.beginHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.beginMinute, 2, 'COMMA')}"></td>

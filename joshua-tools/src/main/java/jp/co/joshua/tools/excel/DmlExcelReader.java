@@ -41,8 +41,6 @@ public class DmlExcelReader extends ExcelReader {
             while (rowIte.hasNext()) {
                 org.apache.poi.ss.usermodel.Row row = rowIte.next();
 
-                int lastPosition = row.getLastCellNum();
-                System.out.println("lastPosition=" + lastPosition);
                 Iterator<org.apache.poi.ss.usermodel.Cell> cellIterator = row
                         .cellIterator();
 

@@ -1,12 +1,14 @@
 package jp.co.joshua.common.db.entity;
 
-import java.time.LocalDateTime;
-
+import jp.co.joshua.common.db.entity.BaseEntity;
 import org.seasar.doma.Entity;
+import org.seasar.doma.jdbc.entity.NamingType;
+import org.seasar.doma.Id;
 import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
-import org.seasar.doma.Id;
-import org.seasar.doma.jdbc.entity.NamingType;
+import java.lang.Integer;
+import java.time.LocalDateTime;
+import java.lang.String;
 
 /**
  * 日別勤怠登録情報 Entity
@@ -20,8 +22,8 @@ public class DailyWorkEntryData extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer seqDailyWorkEntryDataId;
-    /** 勤怠ユーザマスタID */
-    private Integer seqWorkUserMtId;
+    /** 勤怠ユーザ管理マスタID */
+    private Integer seqWorkUserMngMtId;
     /** 始業時間 */
     private LocalDateTime begin;
     /** 終業時間 */
@@ -39,12 +41,12 @@ public class DailyWorkEntryData extends BaseEntity {
         return seqDailyWorkEntryDataId;
     }
 
-    public void setSeqWorkUserMtId(Integer seqWorkUserMtId) {
-        this.seqWorkUserMtId = seqWorkUserMtId;
+    public void setSeqWorkUserMngMtId(Integer seqWorkUserMngMtId) {
+        this.seqWorkUserMngMtId = seqWorkUserMngMtId;
     }
 
-    public Integer getSeqWorkUserMtId() {
-        return seqWorkUserMtId;
+    public Integer getSeqWorkUserMngMtId() {
+        return seqWorkUserMngMtId;
     }
 
     public void setBegin(LocalDateTime begin) {

@@ -12,9 +12,9 @@ public interface MailUserDataUpdateService {
     /**
      * メールユーザ情報を更新する
      *
-     * @param mailUserData
+     * @param entity
      *            メールユーザ情報
      */
-    void update(MailUserData mailUserData);
+    void update(MailUserData entity);
 
 }

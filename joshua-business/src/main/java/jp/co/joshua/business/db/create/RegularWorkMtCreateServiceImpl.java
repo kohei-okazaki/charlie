@@ -18,8 +18,8 @@ public class RegularWorkMtCreateServiceImpl implements RegularWorkMtCreateServic
     private RegularWorkMtDao dao;
 
     @Override
-    public void create(RegularWorkMt regularWorkMt) {
-        dao.insert(regularWorkMt);
+    public void create(RegularWorkMt entity) {
+        dao.insert(entity);
     }
 
 }

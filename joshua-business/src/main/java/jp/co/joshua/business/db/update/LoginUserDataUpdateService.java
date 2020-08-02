@@ -12,9 +12,9 @@ public interface LoginUserDataUpdateService {
     /**
      * ログインユーザ情報を更新する
      *
-     * @param loginUserData
+     * @param entity
      *            ログインユーザ情報
      */
-    void update(LoginUserData loginUserData);
+    void update(LoginUserData entity);
 
 }

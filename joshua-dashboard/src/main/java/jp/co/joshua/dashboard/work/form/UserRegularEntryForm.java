@@ -1,5 +1,7 @@
 package jp.co.joshua.dashboard.work.form;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * ユーザ定時情報登録Form
  *
@@ -8,8 +10,10 @@ package jp.co.joshua.dashboard.work.form;
 public class UserRegularEntryForm {
 
     /** ログインID */
+    @NotBlank
     private Integer seqLoginId;
     /** 定時情報マスタID */
+    @NotBlank
     private Integer seqRegularWorkMtId;
 
     public Integer getSeqLoginId() {

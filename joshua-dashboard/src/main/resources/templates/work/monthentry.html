@@ -54,8 +54,16 @@ $(function() {
               </tr>
             </table>
           </form>
+
+          <div class="row">
+            <div class="col">
+              <br>
+              <div th:if="${entrySuccess == '1'}" class="alert alert-success" role="alert">登録完了しました</div>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+
           <form th:action="@{/work/month/entry}" method="post" th:object="${monthEntryForm}" novalidate>
-            <table class="table table-borderless">
+            <table class="table table-borderless table-sm">
               <tr class="form-group zero-margin">
                 <td>
                   <input type="submit" class="btn btn-outline-primary mt-1" value="登録" />

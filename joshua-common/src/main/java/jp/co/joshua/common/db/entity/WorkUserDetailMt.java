@@ -7,36 +7,26 @@ import org.seasar.doma.Id;
 import org.seasar.doma.jdbc.entity.NamingType;
 
 /**
- * 勤怠ユーザマスタ Entity
+ * 勤怠ユーザ詳細マスタ Entity
  *
  * @version 1.0.0
  */
 @Entity(naming = NamingType.SNAKE_UPPER_CASE)
-public class WorkUserMt extends BaseEntity {
+public class WorkUserDetailMt extends BaseEntity {
 
-    /** 勤怠ユーザマスタID */
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /** 勤怠ユーザ詳細マスタID */
     @Id
-    private Integer seqWorkUserMtId;
-    /** ログインID */
-    private Integer seqLoginId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer seqWorkUserDetailMtId;
     /** 定時情報マスタID */
     private Integer seqRegularWorkMtId;
 
-    public void setSeqWorkUserMtId(Integer seqWorkUserMtId) {
-        this.seqWorkUserMtId = seqWorkUserMtId;
+    public void setSeqWorkUserDetailMtId(Integer seqWorkUserDetailMtId) {
+        this.seqWorkUserDetailMtId = seqWorkUserDetailMtId;
     }
 
-    public Integer getSeqWorkUserMtId() {
-        return seqWorkUserMtId;
-    }
-
-    public void setSeqLoginId(Integer seqLoginId) {
-        this.seqLoginId = seqLoginId;
-    }
-
-    public Integer getSeqLoginId() {
-        return seqLoginId;
+    public Integer getSeqWorkUserDetailMtId() {
+        return seqWorkUserDetailMtId;
     }
 
     public void setSeqRegularWorkMtId(Integer seqRegularWorkMtId) {

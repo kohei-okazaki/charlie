@@ -12,9 +12,9 @@ public interface LoginUserDataCreateService {
     /**
      * ログインユーザ情報を登録する
      *
-     * @param loginUserData
+     * @param entity
      *            ログインユーザ情報
      */
-    void create(LoginUserData loginUserData);
+    void create(LoginUserData entity);
 
 }

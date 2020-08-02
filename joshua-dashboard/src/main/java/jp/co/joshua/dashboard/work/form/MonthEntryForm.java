@@ -3,6 +3,8 @@ package jp.co.joshua.dashboard.work.form;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 /**
  * 当月勤怠登録Form
  *
@@ -11,6 +13,7 @@ import java.util.List;
 public class MonthEntryForm {
 
     /** 1日あたりの勤怠データのリスト */
+    @Valid
     private List<DailyEntryForm> dailyEntryFormList = new ArrayList<>();
 
     public List<DailyEntryForm> getDailyEntryFormList() {

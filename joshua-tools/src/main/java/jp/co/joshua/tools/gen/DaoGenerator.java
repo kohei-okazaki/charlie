@@ -71,7 +71,7 @@ public class DaoGenerator extends BaseGenerator {
                 source.setClassName(
                         ToolUtil.toJavaFileName(ToolUtil.getPhysicalName(row)) + "Dao");
 
-                Class<?> entityClass = Class.forName("jp.co.nok.db.entity."
+                Class<?> entityClass = Class.forName("jp.co.joshua.common.db.entity."
                         + ToolUtil.toJavaFileName(ToolUtil.getPhysicalName(row)));
                 Field field = new Field("", "", entityClass, null);
 

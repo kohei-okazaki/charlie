@@ -19,8 +19,8 @@ public class MailUserDataCreateServiceImpl implements MailUserDataCreateService 
     private MailUserDataDao dao;
 
     @Override
-    public void create(MailUserData mailUserData) {
-        dao.insert(mailUserData);
+    public void create(MailUserData entity) {
+        dao.insert(entity);
     }
 
 }

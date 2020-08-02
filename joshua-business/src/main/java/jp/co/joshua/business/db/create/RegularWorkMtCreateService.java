@@ -9,5 +9,5 @@ import jp.co.joshua.common.db.entity.RegularWorkMt;
  */
 public interface RegularWorkMtCreateService {
 
-    void create(RegularWorkMt regularWorkMt);
+    void create(RegularWorkMt entity);
 }

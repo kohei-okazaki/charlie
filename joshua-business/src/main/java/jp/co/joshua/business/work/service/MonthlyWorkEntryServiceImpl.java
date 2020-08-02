@@ -1,5 +1,6 @@
 package jp.co.joshua.business.work.service;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -14,8 +15,11 @@ import jp.co.joshua.business.db.create.DailyWorkEntryDataCreateService;
 import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
 import jp.co.joshua.business.db.update.DailyWorkEntryDataUpdateService;
 import jp.co.joshua.business.work.WorkAuthStatus;
+import jp.co.joshua.business.work.component.WorkEntryComponent;
 import jp.co.joshua.business.work.dto.DailyWorkEntryDataDto;
 import jp.co.joshua.common.db.entity.DailyWorkEntryData;
+import jp.co.joshua.common.db.entity.WorkUserMngMt;
+import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.util.DateUtil;
 import jp.co.joshua.common.util.DateUtil.DateFormatType;
 import jp.co.joshua.common.util.StringUtil;
@@ -28,6 +32,9 @@ import jp.co.joshua.common.util.StringUtil;
 @Service
 public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
 
+    /** 勤怠関連Component */
+    @Autowired
+    private WorkEntryComponent workEntryComponent;
     /** 日別勤怠登録情報検索サービス */
     @Autowired
     private DailyWorkEntryDataSearchService dailyWorkEntryDataSearchService;
@@ -39,18 +46,24 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
     private DailyWorkEntryDataUpdateService dailyWorkEntryDataUpdateService;
 
     @Override
-    public LocalDate getTargetDate(String year, String month) {
+    public LocalDate getTargetDate(String year, String month) throws AppException {
 
-        String targetYear = StringUtil.isEmpty(year)
-                ? DateUtil.toString(DateUtil.getSysDate(), DateFormatType.YYYY)
-                : year;
+        try {
+            String targetYear = StringUtil.isEmpty(year)
+                    ? DateUtil.toString(DateUtil.getSysDate(), DateFormatType.YYYY)
+                    : year;
 
-        String targetMonth = StringUtil.isEmpty(month)
-                ? DateUtil.toString(DateUtil.getSysDate(), DateFormatType.MM)
-                : month;
+            String targetMonth = StringUtil.isEmpty(month)
+                    ? DateUtil.toString(DateUtil.getSysDate(), DateFormatType.MM)
+                    : month;
 
-        return LocalDate.of(Integer.parseInt(targetYear),
-                Integer.parseInt(targetMonth), 1);
+            return LocalDate.of(Integer.parseInt(targetYear),
+                    Integer.parseInt(targetMonth), 1);
+
+        } catch (DateTimeException e) {
+            throw new AppException("指定された日付が無効です. year=" + year + ",month=" + month, e);
+        }
+
     }
 
     @Override
@@ -70,12 +83,15 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
     }
 
     @Override
-    public void executeEntry(LocalDate targetDate, Integer seqWorkUserMtId,
+    public void executeEntry(LocalDate targetDate, Integer seqLoginId,
             List<DailyWorkEntryDataDto> dtoList) {
+
+        WorkUserMngMt mngMt = workEntryComponent
+                .getActiveWorkUserMtBySeqLoginId(seqLoginId);
 
         // 既に登録された日別勤怠登録情報を検索
         List<DailyWorkEntryData> dailyWorkEntryDataList = dailyWorkEntryDataSearchService
-                .getDailyWorkEntryDataList(targetDate, seqWorkUserMtId);
+                .getDailyWorkEntryDataList(targetDate, mngMt.getSeqWorkUserMngMtId());
 
         for (DailyWorkEntryDataDto dailyWorkEntryDataDto : dtoList) {
             boolean isInsert = true;
@@ -97,7 +113,7 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
             if (isInsert) {
                 // 登録処理
                 DailyWorkEntryData entity = new DailyWorkEntryData();
-                entity.setSeqWorkUserMtId(seqWorkUserMtId);
+                entity.setSeqWorkUserMngMtId(mngMt.getSeqWorkUserMngMtId());
                 entity.setBegin(dailyWorkEntryDataDto.getBegin());
                 entity.setEnd(dailyWorkEntryDataDto.getEnd());
                 entity.setStatus(WorkAuthStatus.STILL.getValue());

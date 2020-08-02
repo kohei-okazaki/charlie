@@ -24,14 +24,14 @@ public class LoginUserDataCreateServiceImpl implements LoginUserDataCreateServic
     private Sha256HashEncoder sha256HashEncoder;
 
     @Override
-    public void create(LoginUserData loginUserData) {
+    public void create(LoginUserData entity) {
 
         // パスワード(SHA-256でハッシュ化)
-        loginUserData.setPassword(sha256HashEncoder.encode(loginUserData.getPassword()));
+        entity.setPassword(sha256HashEncoder.encode(entity.getPassword()));
         // パスワード有効期限(システム日時 + 12ヶ月)
-        loginUserData.setPasswordExpire(
+        entity.setPasswordExpire(
                 DateUtil.addMonth(DateUtil.toLocalDate(DateUtil.getSysDate()), 12));
-        dao.insert(loginUserData);
+        dao.insert(entity);
     }
 
 }

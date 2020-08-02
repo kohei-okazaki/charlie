@@ -19,8 +19,8 @@ public class MailUserDataUpdateServiceImpl implements MailUserDataUpdateService 
     private MailUserDataDao dao;
 
     @Override
-    public void update(MailUserData mailUserData) {
-        dao.update(mailUserData);
+    public void update(MailUserData entity) {
+        dao.update(entity);
     }
 
 }

@@ -7,30 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import jp.co.joshua.common.db.dao.WorkUserMtDao;
+import jp.co.joshua.common.db.dao.WorkUserMngMtDao;
 import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
-import jp.co.joshua.common.db.entity.WorkUserMt;
+import jp.co.joshua.common.db.entity.WorkUserMngMt;
 import jp.co.joshua.common.db.util.DomaUtil;
 
-/**
- * 勤怠ユーザマスタ検索サービス実装クラス
- *
- * @version 1.0.0
- */
 @Service
-public class WorkUserMtSearchServiceImpl implements WorkUserMtSearchService {
+public class WorkUserMngMtSearchServiceImpl implements WorkUserMngMtSearchService {
 
     @Autowired
-    private WorkUserMtDao dao;
+    private WorkUserMngMtDao dao;
 
     @Override
     public long count() {
         return dao.count();
-    }
-
-    @Override
-    public List<CompositeWorkUserMt> selectCompositeRegularMt() {
-        return dao.selectCompositeRegularMt();
     }
 
     @Override
@@ -40,13 +30,13 @@ public class WorkUserMtSearchServiceImpl implements WorkUserMtSearchService {
     }
 
     @Override
-    public CompositeWorkUserMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId) {
-        return dao.selectByLoginIdAndMaxWorkUserMtId(seqLoginId);
+    public WorkUserMngMt selectBySeqLoginId(Integer seqLoginId) {
+        return dao.selectBySeqLoginId(seqLoginId);
     }
 
     @Override
-    public WorkUserMt selectActiveBySeqLoginId(Integer seqLoginId) {
-        return dao.selectActiveBySeqLoginId(seqLoginId);
+    public CompositeWorkUserMt selectActiveRegularMt(Integer seqLoginId) {
+        return dao.selectActiveRegularMt(seqLoginId);
     }
 
 }

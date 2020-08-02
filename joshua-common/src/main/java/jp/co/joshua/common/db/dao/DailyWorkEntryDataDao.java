@@ -32,10 +32,10 @@ public interface DailyWorkEntryDataDao extends BaseDao {
 
     @Select
     List<CompositeDailyWorkEntryData> selectDailyMtAndCalendarMtByDate(String date,
-            Integer seqWorkUserMtId);
+            Integer seqWorkUserMngMtId);
 
     @Select
     public List<DailyWorkEntryData> selectDailyMtListByDate(String date,
-            Integer seqWorkUserMtId);
+            Integer seqWorkUserMngMtId);
 
 }

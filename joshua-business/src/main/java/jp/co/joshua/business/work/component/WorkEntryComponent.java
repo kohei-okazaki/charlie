@@ -3,9 +3,9 @@ package jp.co.joshua.business.work.component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import jp.co.joshua.business.db.select.WorkUserMtSearchService;
+import jp.co.joshua.business.db.select.WorkUserMngMtSearchService;
 import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
-import jp.co.joshua.common.db.entity.WorkUserMt;
+import jp.co.joshua.common.db.entity.WorkUserMngMt;
 import jp.co.joshua.common.exception.AppException;
 
 /**
@@ -18,22 +18,23 @@ import jp.co.joshua.common.exception.AppException;
 public class WorkEntryComponent {
 
     @Autowired
-    private WorkUserMtSearchService workUserMtSearchService;
+    private WorkUserMngMtSearchService mngSearchService;
 
     public CompositeWorkUserMt getActiveRegularMtBySeqLoginId(Integer seqLoginId)
             throws AppException {
 
-        CompositeWorkUserMt regularMt = workUserMtSearchService
-                .selectByLoginIdAndMaxWorkUserMtId(seqLoginId);
+        CompositeWorkUserMt regularMt = mngSearchService
+                .selectActiveRegularMt(seqLoginId);
         if (regularMt == null) {
-            throw new AppException("このユーザに定時情報または勤怠ユーザマスタが設定されていません seqLoginId="
-                    + seqLoginId);
+            throw new AppException(
+                    "このユーザに勤怠ユーザ管理マスタ、勤怠ユーザ詳細マスタが設定されていません seqLoginId="
+                            + seqLoginId);
         }
         return regularMt;
     }
 
-    public WorkUserMt getActiveWorkUserMtBySeqLoginId(Integer seqLoginId) {
-        return workUserMtSearchService.selectActiveBySeqLoginId(seqLoginId);
+    public WorkUserMngMt getActiveWorkUserMtBySeqLoginId(Integer seqLoginId) {
+        return mngSearchService.selectBySeqLoginId(seqLoginId);
     }
 
 }

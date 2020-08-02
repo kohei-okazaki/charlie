@@ -19,7 +19,6 @@ import jp.co.joshua.common.db.util.DomaUtil;
 @Service
 public class RegularWorkMtSearchServiceImpl implements RegularWorkMtSearchService {
 
-    /** 定時情報マスタDao */
     @Autowired
     private RegularWorkMtDao dao;
 
