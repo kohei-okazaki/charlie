@@ -1,14 +1,12 @@
 package jp.co.joshua.common.db.entity;
 
-import jp.co.joshua.common.db.entity.BaseEntity;
+import java.time.LocalDateTime;
+
 import org.seasar.doma.Entity;
-import org.seasar.doma.jdbc.entity.NamingType;
-import org.seasar.doma.Id;
 import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
-import java.lang.Integer;
-import java.time.LocalDateTime;
-import java.lang.String;
+import org.seasar.doma.Id;
+import org.seasar.doma.jdbc.entity.NamingType;
 
 /**
  * 日別勤怠登録情報 Entity
