@@ -36,7 +36,7 @@ public class DateUtil {
     }
 
     /**
-     * 指定された<code>zoneIdType</code>よりシステム日時を取得
+     * 指定された{@linkplain ZoneIdType}より、システム日時を取得
      *
      * @param zoneIdType
      *            zoneIdType
@@ -412,11 +412,11 @@ public class DateUtil {
     }
 
     /**
-     * 指定した<code>java.util.Date</code>型の日付を<code>java.time.LocalDate</code>に変換する
+     * 指定した{@linkplain Date}型の日付を{@linkplain LocalDate}に変換する
      *
      * @param date
      *            日付
-     * @return <code>java.time.LocalDate</code>型の日付
+     * @return {@linkplain LocalDate}型の日付
      */
     public static LocalDate toLocalDate(Date date) {
         Instant instant = date.toInstant();
@@ -426,13 +426,13 @@ public class DateUtil {
     }
 
     /**
-     * 文字列型の日付を<code>java.time.LocalDateTime</code>型の日付に変換する
+     * 文字列型の日付を{@linkplain LocalDateTime}型の日付に変換する
      *
      * @param strDate
      *            日付
      * @param formatType
      *            フォーマット
-     * @return <code>java.time.LocalDateTime</code>型の日付
+     * @return {@linkplain LocalDateTime}型の日付
      */
     public static LocalDateTime toLocalDateTime(String strDate,
             DateFormatType formatType) {
@@ -442,13 +442,13 @@ public class DateUtil {
     }
 
     /**
-     * 文字列型の日付を<code>java.time.LocalDate</code>型の日付に変換する
+     * 文字列型の日付を{@linkplain LocalDate}型の日付に変換する
      *
      * @param strDate
      *            日付
      * @param formatType
      *            フォーマット
-     * @return <code>java.time.LocalDate</code>型の日付
+     * @return {@linkplain LocalDate}型の日付
      */
     public static LocalDate toLocalDate(String strDate,
             DateFormatType formatType) {
@@ -457,11 +457,11 @@ public class DateUtil {
     }
 
     /**
-     * 指定した<code>java.time.LocalDate</code>型の日付を<code>java.time.LocalDateTime</code>型の日付に変換する
+     * 指定した{@linkplain LocalDate}型の日付を{@linkplain LocalDateTime}型の日付に変換する
      *
      * @param localDate
      *            日付
-     * @return <code>java.time.LocalDateTime</code>型の日付
+     * @return {@linkplain LocalDateTime}型の日付
      */
     public static LocalDateTime toLocalDateTime(LocalDate localDate) {
         return LocalDateTime.of(localDate.getYear(), localDate.getMonthValue(),
@@ -469,11 +469,11 @@ public class DateUtil {
     }
 
     /**
-     * 指定した<code>java.time.LocalDateTime</code>型の日付を<code>java.time.LocalDate</code>型の日付に変換する
+     * 指定した{@linkplain LocalDateTime}型の日付を{@linkplain LocalDate}型の日付に変換する
      *
      * @param localDateTime
      *            日付
-     * @return <code>java.time.LocalDate</code>型の日付
+     * @return {@linkplain LocalDate}型の日付
      */
     public static LocalDate toLocalDate(LocalDateTime localDateTime) {
         return LocalDate.of(localDateTime.getYear(), localDateTime.getMonth(),
@@ -494,7 +494,7 @@ public class DateUtil {
     }
 
     /**
-     * java.time.ZoneIdの列挙
+     * {@linkplain ZoneId}の列挙型
      *
      * @version 1.0.0
      */

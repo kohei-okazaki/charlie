@@ -16,6 +16,11 @@ import java.util.function.BiConsumer;
 import jp.co.joshua.common.log.Logger;
 import jp.co.joshua.common.log.LoggerFactory;
 
+/**
+ * Bean操作のUtilクラス
+ *
+ * @version 1.0.0
+ */
 public class BeanUtil {
 
     /** LOG */

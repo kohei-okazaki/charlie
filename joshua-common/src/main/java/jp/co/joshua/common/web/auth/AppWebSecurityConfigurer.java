@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import jp.co.joshua.common.web.auth.login.LoginAuthServiceImpl;
 import jp.co.joshua.common.web.auth.login.PasswordEncoderImpl;
 
 /**
@@ -27,7 +28,7 @@ public class AppWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     private static final String[] PERMIT_URIS = new String[] { "/login",
             "/login/regist", "/login/registconfirm", "/login/registprocess",
             "/login/login-error", "/css/**", "/js/**", "/webjars/**", "/actuator" };
-    /** ログイン認証サービス */
+    /** ログイン認証サービス {@linkplain LoginAuthServiceImpl} */
     @Autowired
     @Qualifier("loginAuthService")
     private UserDetailsService userService;

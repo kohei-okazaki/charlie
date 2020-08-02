@@ -124,10 +124,10 @@ public class MonthlyEntryController {
 
         List<DailyWorkEntryDataDto> dtoList = form.getDailyEntryFormList().stream()
                 .filter(e -> {
-                    return e.getWorkBeginHour() == null
-                            && e.getWorkBeginMinute() == null
-                            && e.getWorkEndHour() == null
-                            && e.getWorkEndMinute() == null;
+                    return e.getWorkBeginHour() != null
+                            && e.getWorkBeginMinute() != null
+                            && e.getWorkEndHour() != null
+                            && e.getWorkEndMinute() != null;
                 }).map(e -> {
                     LocalDate date = DateUtil.toLocalDate(e.getDate(),
                             DateFormatType.YYYYMMDD_HYPHEN);

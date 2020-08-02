@@ -29,19 +29,16 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Object o = auth.getPrincipal();
-        if (o instanceof LoginAuthDto) {
-            LoginAuthDto dto = (LoginAuthDto) o;
+        Object principal = auth.getPrincipal();
+        if (principal instanceof LoginAuthDto) {
+            LoginAuthDto dto = (LoginAuthDto) principal;
             if (dto != null) {
                 LoggerFactory.getLogger(this.getClass()).debugBean(dto);
             }
         }
 
         // TODO
-        System.out.println(request.getRequestURI());
-        if ("q".equals(request.getRequestURI())) {
-            response.sendRedirect("/login/error");
-        }
+        // response.sendRedirect("/login/error");
 
         return true;
     }
