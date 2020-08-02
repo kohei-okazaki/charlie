@@ -1,6 +1,5 @@
 package jp.co.joshua.common.db.dao;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.seasar.doma.Dao;
@@ -30,10 +29,6 @@ public interface DailyWorkEntryDataDao extends BaseDao {
 
     @Insert
     public int insert(DailyWorkEntryData entity);
-
-    @Select
-    public List<DailyWorkEntryData> selectBySeqWorkUserMtIdAndBetweenBegin(
-            Integer seqWorkUserMtId, LocalDate begin, LocalDate end);
 
     @Select
     List<CompositeDailyWorkEntryData> selectDailyMtAndCalendarMtByDate(String date,
