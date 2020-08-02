@@ -31,7 +31,7 @@ public interface DailyWorkEntryDataDao extends BaseDao {
     public int insert(DailyWorkEntryData entity);
 
     @Select
-    List<CompositeDailyWorkEntryData> selectDailyMtAndCalendarMtByDate(String date,
+    public List<CompositeDailyWorkEntryData> selectDailyMtAndCalendarMtByDate(String date,
             Integer seqWorkUserMngMtId);
 
     @Select
