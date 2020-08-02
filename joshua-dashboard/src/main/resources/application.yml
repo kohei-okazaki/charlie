@@ -1,0 +1,34 @@
+spring:
+  devtools:
+    restart:
+      exclude: static/**, public/**
+      additional-exclude: test/**
+    livereload:
+      enabled: false
+  messages:
+    basename: messages,validationMessage,field
+    cache-duration: -1
+    encoding: UTF-8
+  profiles:
+    # localを読み込む
+    default: local
+    active: local
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: 20MB
+logging:
+  pattern:
+    level: "[%X{X-Track-Id} %5p]"
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+    info:
+      enabled: true
+          

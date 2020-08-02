@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{common/layout}">
+<head>
+<title>ユーザ定時情報登録</title>
+<script>
+</script>
+</head>
+<body>
+<div layout:fragment="content">
+  <br>
+  <div class="container border col-10">
+    <br>
+    <h2>ユーザ定時登録</h2>
+    <br>
+
+    <div class="row">
+      <div class="col-lg">
+        <h3>定時一覧</h3>
+        <table class="table">
+          <tr>
+            <th th:text="#{seqRegularWorkMtId}"></th>
+            <th th:text="#{beginWork}"></th>
+            <th th:text="#{endWork}"></th>
+            <th th:text="#{regDate}"></th>
+          </tr>
+          <tr th:each="mt : ${mtList}">
+            <td th:text="${mt.seqRegularWorkMtId}"></td>
+            <td th:text="${#numbers.formatInteger(mt.beginHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.beginMinute, 2, 'COMMA')}"></td>
+            <td th:text="${#numbers.formatInteger(mt.endHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.endMinute, 2, 'COMMA')}"></td>
+            <td th:text="${#temporals.format(mt.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+          </tr>
+        </table><!-- /.table -->
+        <div>
+          <p th:text="${regularMtPaging.totalRecordNum} + '件中 ' + ${regularMtPaging.fromRecordNum} + '～' + ${regularMtPaging.toRecordNum} + '件表示中'" />
+          <a class="link" th:classappend="!${regularMtPaging.canGoFirst} ? 'disabled'" th:href="${regularMtPaging.firstHref}">&lt;&lt;</a>
+          <a class="link" th:classappend="!${regularMtPaging.canGoPrevious} ? 'disabled'" th:href="${regularMtPaging.previousHref}">&lt;</a>
+<!--           <a class="link" th:each="element : ${paging.pagingViewElements}" th:href="${element.href}"
+                th:text="${element.name}" th:classappend="${element.name} == ${paging.currentPageNum + 1} ? 'on'"></a> -->
+          <a class="link" th:classappend="!${regularMtPaging.canGoNext} ? 'disabled'" th:href="${regularMtPaging.nextHref}">&gt;</a>
+          <a class="link" th:classappend="!${regularMtPaging.canGoLast} ? 'disabled'" th:href="${regularMtPaging.lastHref}">&gt;&gt;</a>
+        </div>
+        <div>
+          <form th:action="@{/work/regular/entry}" method="get">
+            <input type="submit" class="btn btn-outline-primary mt-1" value="定時登録する" />
+          </form>
+        </div>
+        <br><br>
+      </div><!-- col-lg -->
+    </div><!-- row -->
+
+    <div class="row">
+      <div class="col-lg">
+        <h3>ユーザの定時を登録</h3>
+        <div class="border">
+          <form th:action="@{/work/userregular/entry}" method="post" class="needs-validation" th:object="${userRegularEntryForm}" novalidate>
+            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('seqLoginId')}" th:errors="*{seqLoginId}"></div>
+            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('seqRegularWorkMtId')}" th:errors="*{seqRegularWorkMtId}"></div>
+
+            <div class="row">
+              <div class="col">
+                <br>
+                <div th:if="${entrySuccess == '1'}" class="alert alert-success" role="alert">登録完了しました</div>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+            <table class="table table-borderless">
+              <tr class="form-group zero-margin">
+                <td>
+                  <label class="control-label zero-margin" th:text="#{seqLoginId}"></label>
+                  <span class="badge badge-danger">必須</span>
+                </td>
+                <td>
+                  <select id="seqLoginId" name="seqLoginId" class="custom-select">
+                    <option th:each="seqLoginId : ${seqLoginIdList}" th:value="${seqLoginId}" th:inline="text">[[${seqLoginId}]]</option>
+                  </select>
+                </td>
+              </tr>
+              <tr class="form-group zero-margin">
+                <td>
+                  <label class="control-label zero-margin" th:text="#{seqRegularWorkMtId}"></label>
+                  <span class="badge badge-danger">必須</span>
+                </td>
+                <td>
+                  <select id="seqRegularWorkMtId" name="seqRegularWorkMtId" class="custom-select">
+                    <option th:each="seqRegularWorkMtId : ${seqRegularWorkMtIdList}" th:value="${seqRegularWorkMtId}" th:inline="text">[[${seqRegularWorkMtId}]]</option>
+                  </select>
+                </td>
+              </tr>
+              <tr class="form-group zero-margin">
+                <td><input type="submit" class="btn btn-outline-primary mt-1" value="登録" /></td>
+              </tr>
+            </table>
+          </form>
+        </div>
+        <br>
+      </div><!-- col-lg -->
+    </div><!-- row -->
+
+    <div class="row">
+      <div class="col-lg">
+        <h3>ユーザ一覧</h3>
+        <table class="table">
+          <tr>
+            <th th:text="#{seqLoginId}"></th>
+            <th th:text="#{seqRegularWorkMtId}"></th>
+            <th th:text="#{beginWork}"></th>
+            <th th:text="#{endWork}"></th>
+            <th th:text="#{regDate}"></th>
+          </tr>
+          <tr th:each="mt : ${workUserCompositeMtList}">
+            <td th:text="${mt.seqLoginId}"></td>
+            <td th:text="${mt.seqRegularWorkMtId}"></td>
+            <td th:text="${#numbers.formatInteger(mt.beginHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.beginMinute, 2, 'COMMA')}"></td>
+            <td th:text="${#numbers.formatInteger(mt.endHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.endMinute, 2, 'COMMA')}"></td>
+            <td th:text="${#temporals.format(mt.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+          </tr>
+        </table><!-- /.table -->
+        <p th:text="${userMtPaging.totalRecordNum} + '件中 ' + ${userMtPaging.fromRecordNum} + '～' + ${userMtPaging.toRecordNum} + '件表示中'" />
+        <a class="link" th:classappend="!${userMtPaging.canGoFirst} ? 'disabled'" th:href="${userMtPaging.firstHref}">&lt;&lt;</a>
+        <a class="link" th:classappend="!${userMtPaging.canGoPrevious} ? 'disabled'" th:href="${userMtPaging.previousHref}">&lt;</a>
+        <a class="link" th:classappend="!${userMtPaging.canGoNext} ? 'disabled'" th:href="${userMtPaging.nextHref}">&gt;</a>
+        <a class="link" th:classappend="!${userMtPaging.canGoLast} ? 'disabled'" th:href="${userMtPaging.lastHref}">&gt;&gt;</a>
+      </div><!-- col-lg -->
+    </div><!-- row -->
+
+  </div><!-- /.container.border.col-10 -->
+  <br>
+  <br>
+  <br>
+</div>
+</body>
+</html>

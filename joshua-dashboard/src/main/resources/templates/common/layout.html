@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title layout:title-pattern="$LAYOUT_TITLE|$CONTENT_TITLE" th:text="#{appName}">管理アプリ</title>
+<link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/css/layout.css}" rel="stylesheet" />
+<link th:href="@{/images/favicon.png}" rel="icon" />
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.bundle.min.js}"></script>
+<!-- <script th:src="@{/js/common.js}"></script> -->
+<script>
+  function on(target_id) {
+    document.getElementById(target_id).style.display = "block";
+  }
+  function off(target_id) {
+    document.getElementById(target_id).style.display = "none";
+  }
+</script>
+</head>
+<body>
+  <header class="sticky-top header-contents">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <h1 class="text-muted zero-margin" th:text="#{appName}"></h1>
+      <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <div th:if="${session['loginAuthDto'] != null}">
+                <div th:if="${session['loginAuthDto'].seqLoginId != null}">
+                  <a class="nav-link" th:href="@{/top}" th:text="${'ログインID : ' + session['loginAuthDto'].seqLoginId}"></a>
+                </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/login/logout}">ログアウト</a>
+          </li><!-- /.nav-item -->
+        </ul><!-- /.navbar-nav -->
+      </div><!-- /.collapse navbar-collapse justify-content-end -->
+    </nav><!-- /.navbar navbar-expand-sm navbar-dark bg-dark -->
+  </header><!-- /.sticky-top header-contents -->
+
+  <div class="content">
+    <div class="content-wrapper">
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="card">
+              <div class="card-header" role="tab" id="heading1">
+                <h4 class="mb-0">
+                  <a class="text-body d-block p-3 m-n3" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="true" aria-controls="collapse1">勤怠管理</a>
+                </h4><!-- /.mb-0 -->
+              </div><!-- /.card-header -->
+              <div id="collapse1" class="collapse" role="tabpanel" aria-labelledby="heading1" data-parent="#accordion">
+                <div class="card-body">
+                  <ul>
+                    <li><a th:href="@{/work/month/entry}">勤怠登録</a></li>
+                    <li><a href="#">履歴確認</a></li>
+                    <li><a th:href="@{/work/regular/entry}">定時登録</a></li>
+                    <li><a th:href="@{/work/userregular/entry}">ユーザ定時登録</a></li>
+                  </ul>
+                </div><!-- /.card-body -->
+              </div><!-- /.collapse -->
+            </div><!-- /.card -->
+
+            <div class="card">
+              <div class="card-header" role="tab" id="heading2">
+                <h4 class="mb-0">
+                  <a class="text-body d-block p-3 m-n3" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="true" aria-controls="collapse2">SNS</a>
+                </h4><!-- /.mb-0 -->
+              </div><!-- /.card-header -->
+              <div id="collapse2" class="collapse" role="tabpanel" aria-labelledby="heading2" data-parent="#accordion">
+                <div class="card-body">
+                  <ul>
+                    <li><a href="#">投稿一覧</a></li>
+                    <li><a href="#">投稿する</a></li>
+                  </ul>
+                </div><!-- /.card-body -->
+              </div><!-- /.collapse -->
+            </div><!-- /.card -->
+
+            <div class="card">
+              <div class="card-header" role="tab" id="heading3">
+                <h4 class="mb-0">
+                  <a class="text-body d-block p-3 m-n3" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="true" aria-controls="collapse3">タスク管理</a>
+                </h4><!-- /.mb-0 -->
+              </div><!-- /.card-header -->
+              <div id="collapse3" class="collapse" role="tabpanel" aria-labelledby="heading3" data-parent="#accordion">
+                <div class="card-body">
+                  <ul>
+                    <li><a href="#">タスク一覧</a></li>
+                  </ul>
+                </div><!-- /.card-body -->
+              </div><!-- /.collapse -->
+            </div><!-- /.card -->
+
+            <div class="card">
+              <div class="card-header" role="tab" id="heading4">
+                <h4 class="mb-0">
+                  <a class="text-body d-block p-3 m-n3" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="true" aria-controls="collapse4">メモ管理</a>
+                </h4><!-- /.mb-0 -->
+              </div><!-- /.card-header -->
+              <div id="collapse4" class="collapse" role="tabpanel" aria-labelledby="heading4" data-parent="#accordion">
+                <div class="card-body">
+                  <ul>
+                    <li><a href="#">メモ一覧</a></li>
+                  </ul>
+                </div><!-- /.card-body -->
+              </div><!-- /.collapse -->
+            </div><!-- /.card -->
+
+            <div class="card">
+              <div class="card-header" role="tab" id="heading5">
+                <h4 class="mb-0">
+                  <a class="text-body d-block p-3 m-n3" data-toggle="collapse" href="#collapse5" role="button" aria-expanded="true" aria-controls="collapse5">設定</a>
+                </h4><!-- /.mb-0 -->
+              </div><!-- /.card-header -->
+              <div id="collapse5" class="collapse" role="tabpanel" aria-labelledby="heading5" data-parent="#accordion">
+                <div class="card-body">
+                  <ul>
+                    <li><a th:href="@{/user/edit}">ユーザ変更</a></li>
+                  </ul>
+                </div><!-- /.card-body -->
+              </div><!-- /.collapse -->
+            </div><!-- /.card -->
+          </div><!-- /.accordion #accordion -->
+
+        </div><!-- /.col-xs-4 -->
+        <div class="col-lg-10">
+          <section layout:fragment="content" class="content">
+            <!-- 各画面個別で差し替えるエリア -->
+          </section><!-- /.content -->
+        </div><!-- /.col-lg-10 -->
+      </div><!-- /.row -->
+    </div><!-- /.content-wrapper -->
+  </div><!-- /.content -->
+
+  <footer class="fixed-bottom footer-contents">
+    <p class="zero-margin" align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;NOK'"></p>
+  </footer><!-- /.fixed-bottom footer-contents -->
+
+</body>
+</html>
