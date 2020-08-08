@@ -3,6 +3,9 @@ package jp.co.joshua.business.db.select;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
+import jp.co.joshua.common.db.entity.CompositeDailyWorkAuthData;
 import jp.co.joshua.common.db.entity.CompositeDailyWorkEntryData;
 import jp.co.joshua.common.db.entity.DailyWorkEntryData;
 
@@ -13,9 +16,12 @@ import jp.co.joshua.common.db.entity.DailyWorkEntryData;
  */
 public interface DailyWorkEntryDataSearchService {
 
-    List<CompositeDailyWorkEntryData> selectMonthList(LocalDate date,
+    List<CompositeDailyWorkEntryData> selectDailyMtAndCalendarMtByDate(LocalDate date,
             Integer seqWorkUserMngMtId);
 
-    List<DailyWorkEntryData> selectDailyWorkEntryDataList(LocalDate date,
+    List<DailyWorkEntryData> selectDailyMtListByDate(LocalDate date,
             Integer seqWorkUserMngMtId);
+
+    List<CompositeDailyWorkAuthData> selectStatusList(LocalDate date, Pageable pageable);
+
 }

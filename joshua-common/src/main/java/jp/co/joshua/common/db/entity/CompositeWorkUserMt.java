@@ -4,7 +4,11 @@ import org.seasar.doma.Entity;
 import org.seasar.doma.jdbc.entity.NamingType;
 
 /**
- * 勤怠ユーザ管理マスタ + 勤怠ユーザ詳細マスタ + 定時情報マスタ結合Entity
+ * 勤怠ユーザ管理マスタ + 勤怠ユーザ詳細マスタ + 定時情報マスタ結合Entity<br>
+ * <ul>
+ * <li>selectCompositeRegularMt.sql</li>
+ * <li>selectActiveRegularMt.sql</li>
+ * </ul>
  *
  * @version 1.0.0
  */

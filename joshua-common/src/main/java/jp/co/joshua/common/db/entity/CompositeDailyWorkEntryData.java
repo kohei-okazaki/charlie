@@ -11,7 +11,10 @@ import jp.co.joshua.common.db.type.Weekday;
 import jp.co.joshua.common.db.type.WorkAuthStatus;
 
 /**
- * 日別勤怠登録情報 + 営業日マスタ結合Entity
+ * 日別勤怠登録情報 + 営業日マスタ結合Entity<br>
+ * <ul>
+ * <li>selectDailyMtAndCalendarMtByDate.sql</li>
+ * </ul>
  *
  * @version 1.0.0
  */

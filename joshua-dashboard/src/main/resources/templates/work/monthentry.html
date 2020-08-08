@@ -43,12 +43,12 @@ $(function() {
                 <td>
                   <select id="year" name="year" class="custom-select">
                     <option th:each="year : ${yearList}" th:value="${year}" th:selected="${year == selectedYear}" th:inline="text">[[${year}]]</option>
-                  </select>
+                  </select><!-- custom-select -->
                 </td>
                 <td>
                   <select id="month" name="month" class="custom-select">
                     <option th:each="month : ${monthList}" th:value="${month}" th:selected="${month == selectedMonth}" th:inline="text">[[${month}]]</option>
-                  </select>
+                  </select><!-- custom-select -->
                 </td>
                 <td><input type="submit" class="btn btn-outline-primary mt-1" value="切替" /></td>
               </tr>
@@ -68,7 +68,7 @@ $(function() {
                 <td>
                   <input type="submit" class="btn btn-outline-primary mt-1" value="登録" />
                 </td>
-              </tr>
+              </tr><!-- /.form-group zero-margin -->
               <tr class="form-group zero-margin">
                 <th th:text=#{day}></th>
                 <th th:text=#{weekDay}></th>
@@ -76,7 +76,7 @@ $(function() {
                 <th th:text=#{endWork}></th>
                 <th th:text=#{regular}></th>
                 <th th:text=#{workStatus}></th>
-              </tr>
+              </tr><!-- /.form-group zero-margin -->
               <tr th:each="mt, status : ${thisMonthList}">
                 <td>
                   <div th:text="${#temporals.format(mt.date, 'd')}"></div>
@@ -96,12 +96,12 @@ $(function() {
                     <input type="number" name="beginHour" class="form-control date-input" th:name="${'dailyEntryFormList[' + status.index + '].workBeginHour'}" />
                     &nbsp;:&nbsp;
                     <input type="number" name="beginMinute" class="form-control date-input" th:name="${'dailyEntryFormList[' + status.index + '].workBeginMinute'}" />
-                  </div>
+                  </div><!-- /.row -->
                   <div th:if="${mt.begin != null && mt.workAuthStatus != null && mt.workAuthStatus.value == '10'}" class="row">
                     <input type="number" name="beginHour" class="form-control date-input" th:value="${#temporals.format(mt.begin, 'HH')}" th:name="${'dailyEntryFormList[' + status.index + '].workBeginHour'}" />
                     &nbsp;:&nbsp;
                     <input type="number" name="beginMinute" class="form-control date-input" th:value="${#temporals.format(mt.begin, 'mm')}" th:name="${'dailyEntryFormList[' + status.index + '].workBeginMinute'}" />
-                  </div>
+                  </div><!-- /.row -->
                   <div th:if="${mt.begin != null && mt.workAuthStatus != null && mt.workAuthStatus.value == '20'}" th:text="${#temporals.format(mt.begin, 'HH:mm')}"></div>
                 </td>
                 <td>
@@ -109,12 +109,12 @@ $(function() {
                     <input type="number" name="endHour" class="form-control date-input" th:name="${'dailyEntryFormList[' + status.index + '].workEndHour'}" />
                     &nbsp;:&nbsp;
                     <input type="number" name="endMinute" class="form-control date-input" th:name="${'dailyEntryFormList[' + status.index + '].workEndMinute'}" />
-                  </div>
+                  </div><!-- /.row -->
                   <div th:if="${mt.end != null && mt.workAuthStatus != null && mt.workAuthStatus.value == '10'}" class="row">
                     <input type="number" name="endHour" class="form-control date-input" th:value="${#temporals.format(mt.end, 'HH')}" th:name="${'dailyEntryFormList[' + status.index + '].workEndHour'}" />
                     &nbsp;:&nbsp;
                     <input type="number" name="endMinute" class="form-control date-input" th:value="${#temporals.format(mt.end, 'mm')}" th:name="${'dailyEntryFormList[' + status.index + '].workEndMinute'}" />
-                  </div>
+                  </div><!-- /.row -->
                   <div th:if="${mt.end != null && mt.workAuthStatus != null && mt.workAuthStatus.value == '20'}" th:text="${#temporals.format(mt.end, 'HH:mm')}"></div>
                 </td>
                 <td>
@@ -132,7 +132,7 @@ $(function() {
                   <input type="submit" class="btn btn-outline-primary mt-1" value="登録" />
                 </td>
               </tr>
-            </table>
+            </table><!-- table table-borderless table-sm -->
           </form>
         </div><!-- /.col-lg -->
       </div><!-- /.row -->

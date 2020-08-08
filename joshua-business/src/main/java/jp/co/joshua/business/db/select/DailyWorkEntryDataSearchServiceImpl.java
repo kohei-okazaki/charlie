@@ -3,12 +3,16 @@ package jp.co.joshua.business.db.select;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.seasar.doma.jdbc.SelectOptions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jp.co.joshua.common.db.dao.DailyWorkEntryDataDao;
+import jp.co.joshua.common.db.entity.CompositeDailyWorkAuthData;
 import jp.co.joshua.common.db.entity.CompositeDailyWorkEntryData;
 import jp.co.joshua.common.db.entity.DailyWorkEntryData;
+import jp.co.joshua.common.db.util.DomaUtil;
 import jp.co.joshua.common.util.DateUtil;
 import jp.co.joshua.common.util.DateUtil.DateFormatType;
 
@@ -25,8 +29,8 @@ public class DailyWorkEntryDataSearchServiceImpl
     private DailyWorkEntryDataDao dao;
 
     @Override
-    public List<CompositeDailyWorkEntryData> selectMonthList(LocalDate date,
-            Integer seqWorkUserMngMtId) {
+    public List<CompositeDailyWorkEntryData> selectDailyMtAndCalendarMtByDate(
+            LocalDate date, Integer seqWorkUserMngMtId) {
 
         return dao
                 .selectDailyMtAndCalendarMtByDate(
@@ -35,13 +39,21 @@ public class DailyWorkEntryDataSearchServiceImpl
     }
 
     @Override
-    public List<DailyWorkEntryData> selectDailyWorkEntryDataList(LocalDate date,
+    public List<DailyWorkEntryData> selectDailyMtListByDate(LocalDate date,
             Integer seqWorkUserMngMtId) {
 
         return dao
                 .selectDailyMtListByDate(
                         DateUtil.toString(date, DateFormatType.YYYYMM_NOSEP),
                         seqWorkUserMngMtId);
+    }
+
+    @Override
+    public List<CompositeDailyWorkAuthData> selectStatusList(LocalDate date,
+            Pageable pageable) {
+        SelectOptions option = DomaUtil.createSelectOptions(pageable, false);
+        return dao.selectStatusList(DateUtil.toString(date, DateFormatType.YYYYMM_NOSEP),
+                option);
     }
 
 }
