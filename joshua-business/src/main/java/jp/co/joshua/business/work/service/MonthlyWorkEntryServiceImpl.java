@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 import jp.co.joshua.business.db.create.DailyWorkEntryDataCreateService;
 import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
 import jp.co.joshua.business.db.update.DailyWorkEntryDataUpdateService;
-import jp.co.joshua.business.work.WorkAuthStatus;
 import jp.co.joshua.business.work.component.WorkEntryComponent;
 import jp.co.joshua.business.work.dto.DailyWorkEntryDataDto;
 import jp.co.joshua.common.db.entity.DailyWorkEntryData;
 import jp.co.joshua.common.db.entity.WorkUserMngMt;
+import jp.co.joshua.common.db.type.WorkAuthStatus;
 import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.util.DateUtil;
 import jp.co.joshua.common.util.DateUtil.DateFormatType;
@@ -103,7 +103,7 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
                     // 更新処理
                     entity.setBegin(dailyWorkEntryDataDto.getBegin());
                     entity.setEnd(dailyWorkEntryDataDto.getEnd());
-                    entity.setStatus(WorkAuthStatus.STILL.getValue());
+                    entity.setWorkAuthStatus(WorkAuthStatus.STILL);
                     dailyWorkEntryDataUpdateService.update(entity);
                     isInsert = false;
                     break;
@@ -116,7 +116,7 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
                 entity.setSeqWorkUserMngMtId(mngMt.getSeqWorkUserMngMtId());
                 entity.setBegin(dailyWorkEntryDataDto.getBegin());
                 entity.setEnd(dailyWorkEntryDataDto.getEnd());
-                entity.setStatus(WorkAuthStatus.STILL.getValue());
+                entity.setWorkAuthStatus(WorkAuthStatus.STILL);
                 dailyWorkEntryDataCreateService.create(entity);
             }
         }

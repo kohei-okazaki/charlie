@@ -83,13 +83,13 @@ $(function() {
                   <input type="hidden" th:name="${'dailyEntryFormList[' + status.index + '].date'}" th:value="${mt.date}" />
                 </td>
                 <td>
-                  <div th:if="${mt.weekday == '1'}" th:text="#{sunday}" class="sunday"></div>
-                  <div th:if="${mt.weekday == '2'}" th:text="#{monday}" th:classappend="${mt.businessFlg == '0'} ? 'holiday'"></div>
-                  <div th:if="${mt.weekday == '3'}" th:text="#{tuesday}" th:classappend="${mt.businessFlg == '0'} ? 'holiday'"></div>
-                  <div th:if="${mt.weekday == '4'}" th:text="#{wednesday}" th:classappend="${mt.businessFlg == '0'} ? 'holiday'"></div>
-                  <div th:if="${mt.weekday == '5'}" th:text="#{thursday}" th:classappend="${mt.businessFlg == '0'} ? 'holiday'"></div>
-                  <div th:if="${mt.weekday == '6'}" th:text="#{friday}" th:classappend="${mt.businessFlg == '0'} ? 'holiday'"></div>
-                  <div th:if="${mt.weekday == '7'}" th:text="#{saturday}" class="saturday"></div>
+                  <div th:if="${mt.weekday.value == '1'}" th:text="#{sunday}" class="sunday"></div>
+                  <div th:if="${mt.weekday.value == '2'}" th:text="#{monday}" th:classappend="${mt.businessFlg.value == '0'} ? 'holiday'"></div>
+                  <div th:if="${mt.weekday.value == '3'}" th:text="#{tuesday}" th:classappend="${mt.businessFlg.value == '0'} ? 'holiday'"></div>
+                  <div th:if="${mt.weekday.value == '4'}" th:text="#{wednesday}" th:classappend="${mt.businessFlg.value == '0'} ? 'holiday'"></div>
+                  <div th:if="${mt.weekday.value == '5'}" th:text="#{thursday}" th:classappend="${mt.businessFlg.value == '0'} ? 'holiday'"></div>
+                  <div th:if="${mt.weekday.value == '6'}" th:text="#{friday}" th:classappend="${mt.businessFlg.value == '0'} ? 'holiday'"></div>
+                  <div th:if="${mt.weekday.value == '7'}" th:text="#{saturday}" class="saturday"></div>
                 </td>
                 <td>
                   <div th:if="${mt.begin == null}" class="row">
@@ -97,12 +97,12 @@ $(function() {
                     &nbsp;:&nbsp;
                     <input type="number" name="beginMinute" class="form-control date-input" th:name="${'dailyEntryFormList[' + status.index + '].workBeginMinute'}" />
                   </div>
-                  <div th:if="${mt.begin != null && mt.status == '10'}" class="row">
+                  <div th:if="${mt.begin != null && mt.workAuthStatus != null && mt.workAuthStatus.value == '10'}" class="row">
                     <input type="number" name="beginHour" class="form-control date-input" th:value="${#temporals.format(mt.begin, 'HH')}" th:name="${'dailyEntryFormList[' + status.index + '].workBeginHour'}" />
                     &nbsp;:&nbsp;
                     <input type="number" name="beginMinute" class="form-control date-input" th:value="${#temporals.format(mt.begin, 'mm')}" th:name="${'dailyEntryFormList[' + status.index + '].workBeginMinute'}" />
                   </div>
-                  <div th:if="${mt.begin != null && mt.status == '20'}" th:text="${#temporals.format(mt.begin, 'HH:mm')}"></div>
+                  <div th:if="${mt.begin != null && mt.workAuthStatus != null && mt.workAuthStatus.value == '20'}" th:text="${#temporals.format(mt.begin, 'HH:mm')}"></div>
                 </td>
                 <td>
                   <div th:if="${mt.end == null}" class="row">
@@ -110,12 +110,12 @@ $(function() {
                     &nbsp;:&nbsp;
                     <input type="number" name="endMinute" class="form-control date-input" th:name="${'dailyEntryFormList[' + status.index + '].workEndMinute'}" />
                   </div>
-                  <div th:if="${mt.end != null && mt.status == '10'}" class="row">
+                  <div th:if="${mt.end != null && mt.workAuthStatus != null && mt.workAuthStatus.value == '10'}" class="row">
                     <input type="number" name="endHour" class="form-control date-input" th:value="${#temporals.format(mt.end, 'HH')}" th:name="${'dailyEntryFormList[' + status.index + '].workEndHour'}" />
                     &nbsp;:&nbsp;
                     <input type="number" name="endMinute" class="form-control date-input" th:value="${#temporals.format(mt.end, 'mm')}" th:name="${'dailyEntryFormList[' + status.index + '].workEndMinute'}" />
                   </div>
-                  <div th:if="${mt.end != null && mt.status == '20'}" th:text="${#temporals.format(mt.end, 'HH:mm')}"></div>
+                  <div th:if="${mt.end != null && mt.workAuthStatus != null && mt.workAuthStatus.value == '20'}" th:text="${#temporals.format(mt.end, 'HH:mm')}"></div>
                 </td>
                 <td>
                   <div class="applyRegularMt">
@@ -123,8 +123,8 @@ $(function() {
                   </div>
                 </td>
                 <td>
-                  <div th:if="${mt.status} == '10'" th:text="#{work.auth.status.still}" class="work-status-still"></div>
-                  <div th:if="${mt.status} == '20'" th:text="#{work.auth.status.done}" class="work-status-done"></div>
+                  <div th:if="${mt.workAuthStatus != null && mt.workAuthStatus.value == '10'}" th:text="#{work.auth.status.still}" class="work-status-still"></div>
+                  <div th:if="${mt.workAuthStatus != null && mt.workAuthStatus.value == '20'}" th:text="#{work.auth.status.done}" class="work-status-done"></div>
                 </td>
               </tr>
               <tr>

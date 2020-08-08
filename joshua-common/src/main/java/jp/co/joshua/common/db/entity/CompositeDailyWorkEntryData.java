@@ -6,6 +6,10 @@ import java.time.LocalDateTime;
 import org.seasar.doma.Entity;
 import org.seasar.doma.jdbc.entity.NamingType;
 
+import jp.co.joshua.common.db.type.BusinessFlg;
+import jp.co.joshua.common.db.type.Weekday;
+import jp.co.joshua.common.db.type.WorkAuthStatus;
+
 /**
  * 日別勤怠登録情報 + 営業日マスタ結合Entity
  *
@@ -23,15 +27,15 @@ public class CompositeDailyWorkEntryData extends BaseEntity {
     /** 終業時間 */
     private LocalDateTime end;
     /** 承認ステータス */
-    private String status;
+    private WorkAuthStatus workAuthStatus;
     /** 備考 */
     private String note;
     /** 日付 */
     private LocalDate date;
     /** 曜日 */
-    private String weekday;
+    private Weekday weekday;
     /** 営業日フラグ */
-    private String businessFlg;
+    private BusinessFlg businessFlg;
 
     public Integer getSeqDailyWorkEntryDataId() {
         return seqDailyWorkEntryDataId;
@@ -65,12 +69,12 @@ public class CompositeDailyWorkEntryData extends BaseEntity {
         this.end = end;
     }
 
-    public String getStatus() {
-        return status;
+    public WorkAuthStatus getWorkAuthStatus() {
+        return workAuthStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setWorkAuthStatus(WorkAuthStatus workAuthStatus) {
+        this.workAuthStatus = workAuthStatus;
     }
 
     public String getNote() {
@@ -89,19 +93,19 @@ public class CompositeDailyWorkEntryData extends BaseEntity {
         this.date = date;
     }
 
-    public String getWeekday() {
+    public Weekday getWeekday() {
         return weekday;
     }
 
-    public void setWeekday(String weekday) {
+    public void setWeekday(Weekday weekday) {
         this.weekday = weekday;
     }
 
-    public String getBusinessFlg() {
+    public BusinessFlg getBusinessFlg() {
         return businessFlg;
     }
 
-    public void setBusinessFlg(String businessFlg) {
+    public void setBusinessFlg(BusinessFlg businessFlg) {
         this.businessFlg = businessFlg;
     }
 

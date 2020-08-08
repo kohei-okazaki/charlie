@@ -1,12 +1,14 @@
-package jp.co.joshua.business.work;
+package jp.co.joshua.common.db.type;
 
 import jp.co.joshua.common.type.BaseEnum;
+import org.seasar.doma.Domain;
 
 /**
- * 勤怠承認ステータス
+ * 勤怠承認状態の列挙型
  *
  * @version 1.0.0
  */
+@Domain(valueType = String.class, factoryMethod = "of")
 public enum WorkAuthStatus implements BaseEnum {
 
     /** 10:未承認 */
@@ -23,11 +25,11 @@ public enum WorkAuthStatus implements BaseEnum {
 
     @Override
     public String getValue() {
-        return this.value;
+        return value;
     }
 
-    public static WorkAuthStatus of(String value) {
-        return BaseEnum.of(WorkAuthStatus.class, value);
-    }
+     public static WorkAuthStatus of(String value) {
+          return BaseEnum.of(WorkAuthStatus.class, value);
+     }
 
 }

@@ -195,6 +195,17 @@ public class ToolUtil {
     }
 
     /**
+     * Domainクラス対象カラムかどうかを判定する
+     *
+     * @param row
+     *            行情報
+     * @return Domainクラス対象カラムの場合true、それ以外の場合false
+     */
+    public static boolean isDomainClass(Row row) {
+        return StringUtil.hasValue(row.getCell(CellPositionType.DOMAIN).getValue());
+    }
+
+    /**
      * 指定された行情報からフィールド名を返す
      *
      * @param row
@@ -206,13 +217,25 @@ public class ToolUtil {
     }
 
     /**
-     * 指定された行情報からクラスタイプを返す
+     * 指定された行情報からクラスタイプを返す<br>
+     * Domainクラスを指定している場合、そのDomainクラスを返す
      *
      * @param row
      *            行情報
      * @return クラスタイプ
      */
     public static Class<?> getClassType(Row row) {
+
+        try {
+            if (isDomainClass(row)) {
+                String domainClassName = row.getCell(CellPositionType.DOMAIN)
+                        .getValue();
+                return Class.forName(domainClassName);
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         String columnType = row.getCell(CellPositionType.COLUMN_TYPE).getValue();
         return ColumnType.of(columnType).getClassType();
     }

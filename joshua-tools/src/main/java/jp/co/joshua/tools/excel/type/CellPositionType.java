@@ -31,8 +31,8 @@ public enum CellPositionType implements BaseEnum {
     COLUMN_SIZE(9, "columnSize"),
     /** 備考 */
     REMARKS(10, "remarks"),
-    /** 追加フラグ */
-    ADD_FLG(11, "addFlg");
+    /** Domainクラス */
+    DOMAIN(11, "domainClass");
 
     /** 位置 */
     private int position;

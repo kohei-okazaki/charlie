@@ -25,15 +25,16 @@ public class ToolInvoker {
         // GenerateInvoker.invoke(GenerateType.ENTITY);
         // GenerateInvoker.invoke(GenerateType.DAO);
         // GenerateInvoker.invoke(GenerateType.DML);
-        GenerateInvoker.invoke(GenerateType.ENUM);
+        // GenerateInvoker.invoke(GenerateType.ENUM);
 
-        // GenerateInvoker.invoke(
-        // GenerateType.TABLE_DEFINE,
-        // GenerateType.DDL,
-        // GenerateType.DROP,
-        // GenerateType.ENTITY,
-        // GenerateType.DAO,
-        // GenerateType.DML);
+        GenerateInvoker.invoke(
+                GenerateType.TABLE_DEFINE,
+                GenerateType.DDL,
+                GenerateType.DROP,
+                GenerateType.ENTITY,
+                GenerateType.DAO,
+                GenerateType.DML,
+                GenerateType.ENUM);
 
     }
 
