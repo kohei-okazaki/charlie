@@ -7,6 +7,9 @@ import jp.co.joshua.common.io.property.annotation.Property;
 
 public class ToolProperty {
 
+    /** バージョン情報 */
+    @Property(name = "tool.version")
+    private String version;
     /** 基底パス */
     @Property(name = "tool.basedir")
     private String baseDir;
@@ -22,13 +25,27 @@ public class ToolProperty {
     /** DML対象テーブル */
     @Property(name = "tool.dml.tables")
     private String dmlTables;
-    /** バージョン情報 */
-    @Property(name = "tool.version")
-    private String version;
+    /** 列挙一覧Excelまでのパス */
+    @Property(name = "tool.enum.excel.path")
+    private String enumExcelPath;
+    /** 列挙作成対象シート名リスト */
+    @Property(name = "tool.enum.sheets")
+    private String enumSheets;
+
     /** 処理対象テーブルリスト */
     private List<String> targetTableList = new ArrayList<>();
     /** DML対象テーブルリスト */
     private List<String> dmlTableList = new ArrayList<>();
+    /** 列挙作成対象シート名リスト */
+    private List<String> enumSheetList = new ArrayList<>();
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
     public String getBaseDir() {
         return baseDir;
@@ -70,6 +87,22 @@ public class ToolProperty {
         this.dmlTables = dmlTables;
     }
 
+    public String getEnumExcelPath() {
+        return enumExcelPath;
+    }
+
+    public void setEnumExcelPath(String enumExcelPath) {
+        this.enumExcelPath = enumExcelPath;
+    }
+
+    public String getEnumSheets() {
+        return enumSheets;
+    }
+
+    public void setEnumSheets(String enumSheets) {
+        this.enumSheets = enumSheets;
+    }
+
     public List<String> getTargetTableList() {
         return targetTableList;
     }
@@ -86,12 +119,12 @@ public class ToolProperty {
         this.dmlTableList.add(dmlTable);
     }
 
-    public String getVersion() {
-        return version;
+    public List<String> getEnumSheetList() {
+        return enumSheetList;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public void addEnumSheet(String enumSheet) {
+        this.enumSheetList.add(enumSheet);
     }
 
 }

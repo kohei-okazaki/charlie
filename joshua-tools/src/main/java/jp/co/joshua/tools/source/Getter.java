@@ -43,6 +43,10 @@ public class Getter extends Method {
         final String TAB = "    ";
 
         StringJoiner body = new StringJoiner(StringUtil.NEW_LINE);
+
+        if (isOverride) {
+            body.add(TAB + "@Override");
+        }
         body.add(TAB + accessType.getValue() + " "
                 + field.getClassType().getSimpleName() + " "
                 + getMethodName() + "() {");

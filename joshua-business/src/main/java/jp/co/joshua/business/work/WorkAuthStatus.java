@@ -9,9 +9,9 @@ import jp.co.joshua.common.type.BaseEnum;
  */
 public enum WorkAuthStatus implements BaseEnum {
 
-    /** 未承認 */
+    /** 10:未承認 */
     STILL("10"),
-    /** 承認済 */
+    /** 20:承認済 */
     DONE("20");
 
     /** 値 */

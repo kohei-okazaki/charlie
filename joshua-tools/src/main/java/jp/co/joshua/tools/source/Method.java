@@ -22,8 +22,12 @@ public abstract class Method {
     protected Class<?> returnType;
     /** 抽象メソッドかどうか */
     protected boolean isAbstract;
+    /** 静的メソッドかどうか */
+    protected boolean isStatic;
     /** 引数情報 */
     protected Signature signature;
+    /** Overrideアノテーションを付与するかどうか */
+    protected boolean isOverride;
 
     /**
      * コンストラクタ
@@ -61,7 +65,7 @@ public abstract class Method {
      * returnTypeを設定する
      *
      * @param returnType
-     *            returnType
+     *            戻り値
      */
     public void setReturnType(Class<?> returnType) {
         this.returnType = returnType;
@@ -71,20 +75,40 @@ public abstract class Method {
      * isAbstractを設定する
      *
      * @param isAbstract
-     *            isAbstract
+     *            抽象メソッドかどうか
      */
     public void setAbstract(boolean isAbstract) {
         this.isAbstract = isAbstract;
     }
 
     /**
+     * isStaticを設定する
+     *
+     * @param isStatic
+     *            静的メソッドかどうか
+     */
+    public void setStatic(boolean isStatic) {
+        this.isStatic = isStatic;
+    }
+
+    /**
      * signatureを設定する
      *
      * @param signature
-     *            signature
+     *            引数情報
      */
     public void setSignature(Signature signature) {
         this.signature = signature;
+    }
+
+    /**
+     * isOverrideを設定する
+     *
+     * @param isOverride
+     *            Overrideアノテーションを付与するかどうか
+     */
+    public void setOverride(boolean isOverride) {
+        this.isOverride = isOverride;
     }
 
 }

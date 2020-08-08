@@ -21,9 +21,20 @@ public class Signature {
      *            クラス型
      * @param name
      *            引数名
+     * @return Signature
      */
-    public void addArgs(Class<?> clazz, String name) {
+    public Signature addArgs(Class<?> clazz, String name) {
         argsMap.put(clazz, name);
+        return this;
+    }
+
+    /**
+     * argsMapを返す
+     *
+     * @return argsMap
+     */
+    public Map<Class<?>, String> getArgsMap() {
+        return argsMap;
     }
 
     @Override

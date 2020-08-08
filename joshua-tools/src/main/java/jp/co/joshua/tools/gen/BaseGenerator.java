@@ -101,9 +101,11 @@ public abstract class BaseGenerator {
         sj.add(binDir);
         sj.add("main");
         sj.add("tool.properties");
+
         ToolProperty prop = new PropertyReader().read(sj.toString(), ToolProperty.class);
         Stream.of(prop.getTargetTables().split(",")).forEach(e -> prop.addTargetTable(e));
         Stream.of(prop.getDmlTables().split(",")).forEach(e -> prop.addDmlTable(e));
+        Stream.of(prop.getEnumSheets().split(",")).forEach(e -> prop.addEnumSheet(e));
 
         return prop;
 
@@ -131,7 +133,10 @@ public abstract class BaseGenerator {
         TABLE_DEFINE("TABLE_DEFINE", "joshua-docs\\02_design\\90_db\\99_others",
                 TableDefineGenerator.class),
         /** DML作成 */
-        DML("DML", "joshua-docs\\02_design\\90_db\\03_dml", DmlGenerator.class);
+        DML("DML", "joshua-docs\\02_design\\90_db\\03_dml", DmlGenerator.class),
+        /** Enum作成 */
+        ENUM("ENUM", "joshua-common\\src\\main\\java\\jp\\co\\joshua\\common\\db\\type",
+                EnumGenerator.class);
 
         /** 値 */
         private String value;

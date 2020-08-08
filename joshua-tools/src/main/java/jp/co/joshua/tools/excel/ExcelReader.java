@@ -41,8 +41,8 @@ public class ExcelReader {
             org.apache.poi.ss.usermodel.Sheet sheet = sheetIte.next();
 
             if (!"TABLE_LIST".equals(sheet.getSheetName())) {
-                // ”TABLE_LIST” シートでない場合、次のシートへ
-                break;
+                // ”TABLE_LIST” シートでない場合、読み込み対象外
+                continue;
             }
 
             excelSheet.setName(sheet.getSheetName());
