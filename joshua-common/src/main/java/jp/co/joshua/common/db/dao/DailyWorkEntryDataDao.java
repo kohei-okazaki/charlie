@@ -38,4 +38,7 @@ public interface DailyWorkEntryDataDao extends BaseDao {
     public List<DailyWorkEntryData> selectDailyMtListByDate(String date,
             Integer seqWorkUserMngMtId);
 
+    @Select
+    public DailyWorkEntryData selectById(Integer id);
+
 }

@@ -60,6 +60,14 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
             return LocalDate.of(Integer.parseInt(targetYear),
                     Integer.parseInt(targetMonth), 1);
 
+        } catch (@SuppressWarnings("unused") NumberFormatException e) {
+            // 指定年月が数字以外の場合、システム日付を返す
+            return LocalDate.of(
+                    Integer.parseInt(DateUtil.toString(DateUtil.getSysDate(),
+                            DateFormatType.YYYY)),
+                    Integer.parseInt(
+                            DateUtil.toString(DateUtil.getSysDate(), DateFormatType.MM)),
+                    1);
         } catch (DateTimeException e) {
             throw new AppException("指定された日付が無効です. year=" + year + ",month=" + month, e);
         }
