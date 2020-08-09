@@ -1,12 +1,15 @@
 package jp.co.joshua.common.db.entity;
 
-import java.time.LocalDate;
-
+import jp.co.joshua.common.db.entity.BaseEntity;
 import org.seasar.doma.Entity;
+import org.seasar.doma.jdbc.entity.NamingType;
+import org.seasar.doma.Id;
 import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
-import org.seasar.doma.Id;
-import org.seasar.doma.jdbc.entity.NamingType;
+import java.lang.Integer;
+import java.lang.String;
+import java.time.LocalDate;
+import jp.co.joshua.common.db.type.AppAuth;
 
 /**
  * ログインユーザ情報 Entity
@@ -17,13 +20,15 @@ import org.seasar.doma.jdbc.entity.NamingType;
 public class LoginUserData extends BaseEntity {
 
     /** ログインID */
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer seqLoginId;
     /** パスワード */
     private String password;
     /** パスワード有効期限 */
     private LocalDate passwordExpire;
+    /** アプリの権限 */
+    private AppAuth appAuth;
 
     public void setSeqLoginId(Integer seqLoginId) {
         this.seqLoginId = seqLoginId;
@@ -47,6 +52,14 @@ public class LoginUserData extends BaseEntity {
 
     public LocalDate getPasswordExpire() {
         return passwordExpire;
+    }
+
+    public void setAppAuth(AppAuth appAuth) {
+        this.appAuth = appAuth;
+    }
+
+    public AppAuth getAppAuth() {
+        return appAuth;
     }
 
 }

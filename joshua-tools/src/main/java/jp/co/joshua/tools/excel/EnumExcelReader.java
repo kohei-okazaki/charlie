@@ -30,7 +30,6 @@ public class EnumExcelReader extends ExcelReader {
             Sheet excelSheet = new Sheet();
             org.apache.poi.ss.usermodel.Sheet sheet = sheetIte.next();
 
-            System.out.println(sheet.getSheetName());
             if (!prop.getEnumSheetList().contains(sheet.getSheetName())) {
                 // Enum生成処理対象外の場合、次のシートへ
                 continue;
