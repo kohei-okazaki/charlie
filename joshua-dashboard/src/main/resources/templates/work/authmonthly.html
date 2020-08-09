@@ -20,7 +20,8 @@
 
     <div class="row">
       <div class="col-lg">
-        <form th:action="@{'/work/auth/monthly?seq_login_id=' + ${seqLoginId} + '&year=' + ${selectedYear} + '&month=' + ${selectedMonth}}" method="get" class="form-inline">
+        <form th:action="@{/work/auth/monthly}" method="get" class="form-inline">
+          <input type="hidden" name="seq_login_id" th:value="${seqLoginId}" />
           <table class="table table-borderless">
             <tr class="form-group zero-margin">
               <td>
