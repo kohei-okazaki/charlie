@@ -18,14 +18,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.joshua.business.db.create.WorkUserDetailMtCreateService;
+import jp.co.joshua.business.db.create.WorkUserHistMtCreateService;
 import jp.co.joshua.business.db.create.WorkUserMngMtCreateService;
 import jp.co.joshua.business.db.select.LoginUserDataSearchService;
 import jp.co.joshua.business.db.select.RegularWorkMtSearchService;
-import jp.co.joshua.business.db.select.WorkUserDetailMtSearchService;
+import jp.co.joshua.business.db.select.WorkUserHistMtSearchService;
 import jp.co.joshua.business.db.select.WorkUserMngMtSearchService;
 import jp.co.joshua.business.db.update.WorkUserMngMtUpdateService;
 import jp.co.joshua.common.db.entity.RegularWorkMt;
 import jp.co.joshua.common.db.entity.WorkUserDetailMt;
+import jp.co.joshua.common.db.entity.WorkUserHistMt;
 import jp.co.joshua.common.db.entity.WorkUserMngMt;
 import jp.co.joshua.common.web.view.AppView;
 import jp.co.joshua.common.web.view.PagingFactory;
@@ -52,9 +54,6 @@ public class UserRegularEntryController {
     /** 勤怠ユーザ管理マスタ検索サービス */
     @Autowired
     private WorkUserMngMtSearchService mngMtSearchService;
-    /** 勤怠ユーザ詳細マスタ検索サービス */
-    @Autowired
-    private WorkUserDetailMtSearchService detailMtSearchService;
     /** 勤怠ユーザ管理マスタ作成サービス */
     @Autowired
     private WorkUserMngMtCreateService mngMtCreateService;
@@ -64,6 +63,12 @@ public class UserRegularEntryController {
     /** 勤怠ユーザ詳細マスタ作成サービス */
     @Autowired
     private WorkUserDetailMtCreateService detailMtCreateService;
+    /** 勤怠ユーザ履歴マスタ作成サービス */
+    @Autowired
+    private WorkUserHistMtCreateService histMtCreateService;
+    /** 勤怠ユーザ履歴マスタ検索サービス */
+    @Autowired
+    private WorkUserHistMtSearchService histMtSearchService;
 
     @ModelAttribute
     public UserRegularEntryForm userRegularEntryForm() {
@@ -77,31 +82,31 @@ public class UserRegularEntryController {
      *            Model
      * @param mtPage
      *            定時情報マスタのリクエストページ数
-     * @param userMtPage
-     *            勤怠ユーザマスタのリクエストページ数
+     * @param histMtPage
+     *            勤怠ユーザ履歴マスタのリクエストページ数
      * @return ユーザ定時情報登録画面View
      */
     @GetMapping("entry")
     public String entry(Model model,
             @RequestParam(name = "mt_page", required = false) String mtPage,
-            @RequestParam(name = "user_mt_page", required = false) String userMtPage) {
+            @RequestParam(name = "hist_mt_page", required = false) String histMtPage) {
 
         Pageable regularMtPageable = PagingFactory.getPageable(mtPage, 5);
-        Pageable userMtPageable = PagingFactory.getPageable(userMtPage, 10);
+        Pageable histMtPageable = PagingFactory.getPageable(histMtPage, 5);
 
         // 勤怠ユーザページはそのまま
         model.addAttribute("regularMtPaging",
                 PagingFactory.getPageView(regularMtPageable,
-                        "/work/userregular/entry?user_mt_page="
-                                + userMtPageable.getPageNumber() + "&mt_page",
+                        "/work/userregular/entry?hist_mt_page="
+                                + histMtPageable.getPageNumber() + "&mt_page",
                         regularWorkMtSearchService.count()));
 
         // 定時情報マスタのページはそのまま
-        model.addAttribute("userMtPaging",
-                PagingFactory.getPageView(userMtPageable,
+        model.addAttribute("histMtPaging",
+                PagingFactory.getPageView(histMtPageable,
                         "/work/userregular/entry?mt_page="
-                                + regularMtPageable.getPageNumber() + "&user_mt_page",
-                        detailMtSearchService.count()));
+                                + regularMtPageable.getPageNumber() + "&hist_mt_page",
+                        histMtSearchService.count()));
 
         List<RegularWorkMt> mtList = regularWorkMtSearchService
                 .selectAll(regularMtPageable);
@@ -111,8 +116,8 @@ public class UserRegularEntryController {
         model.addAttribute("seqRegularWorkMtIdList", mtList.stream()
                 .map(RegularWorkMt::getSeqRegularWorkMtId)
                 .collect(Collectors.toList()));
-        model.addAttribute("workUserCompositeMtList", mngMtSearchService
-                .selectCompositeRegularMt(userMtPageable));
+        model.addAttribute("histMtList",
+                histMtSearchService.selectAllJoinRegularMt(histMtPageable));
 
         return AppView.WORK_USER_REGULAR_ENTRY_VIEW.getValue();
     }
@@ -155,6 +160,11 @@ public class UserRegularEntryController {
             mngMt.setSeqWorkUserDetailMtId(detailMt.getSeqWorkUserDetailMtId());
             mngMtUpdateService.update(mngMt);
         }
+
+        // 履歴マスタを作成
+        WorkUserHistMt histMt = modelMapper.map(mngMt, WorkUserHistMt.class);
+        histMt.setSeqRegularWorkMtId(detailMt.getSeqRegularWorkMtId());
+        histMtCreateService.create(histMt);
 
         redirectAttributes.addFlashAttribute("entrySuccess", "1");
 
