@@ -56,6 +56,13 @@
             <td th:text="${selectedYear} + '/' + ${#numbers.formatInteger(selectedMonth, 2, 'COMMA')}"></td>
           </tr>
         </table><!-- /.table -->
+        <div>
+          <p th:text="${paging.totalRecordNum} + '件中 ' + ${paging.fromRecordNum} + '～' + ${paging.toRecordNum} + '件表示中'" />
+          <a class="link" th:classappend="!${paging.canGoFirst} ? 'disabled'" th:href="${paging.firstHref}">&lt;&lt;</a>
+          <a class="link" th:classappend="!${paging.canGoPrevious} ? 'disabled'" th:href="${paging.previousHref}">&lt;</a>
+          <a class="link" th:classappend="!${paging.canGoNext} ? 'disabled'" th:href="${paging.nextHref}">&gt;</a>
+          <a class="link" th:classappend="!${paging.canGoLast} ? 'disabled'" th:href="${paging.lastHref}">&gt;&gt;</a>
+         </div>
       </div><!-- col-lg -->
     </div><!-- row -->
   </div><!-- /.container.border.col-10 -->

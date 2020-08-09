@@ -1,6 +1,7 @@
 package jp.co.joshua.dashboard.work.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
 import jp.co.joshua.business.work.component.WorkEntryComponent;
+import jp.co.joshua.common.db.entity.CompositeDailyWorkAuthData;
 import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.web.view.AppView;
+import jp.co.joshua.common.web.view.PagingFactory;
 
 /**
  * 勤怠承認画面のController<br>
@@ -63,8 +66,12 @@ public class WorkAuthController {
         model.addAttribute("monthList", workEntryComponent.getMonthList());
         model.addAttribute("selectedYear", date.getYear());
         model.addAttribute("selectedMonth", date.getMonthValue());
-        model.addAttribute("userList", dailyWorkEntryDataSearchService
-                .selectStatusList(date, pageable));
+
+        List<CompositeDailyWorkAuthData> list = dailyWorkEntryDataSearchService
+                .selectStatusList(date, pageable);
+        model.addAttribute("userList", list);
+        model.addAttribute("paging", PagingFactory.getPageView(pageable,
+                "/work/regular/entry?page", list.size()));
 
         return AppView.WORK_AUTH_USER_LIST.getValue();
     }

@@ -60,7 +60,7 @@ public class RegularEntryController {
     }
 
     /**
-     * 定時時刻登録画面
+     * 定時時刻登録画面表示処理
      *
      * @param model
      *            Model
@@ -113,7 +113,7 @@ public class RegularEntryController {
     }
 
     /**
-     * 定時情報更新画面表示
+     * 定時情報更新画面表示処理
      *
      * @param model
      *            Model
@@ -145,6 +145,8 @@ public class RegularEntryController {
     }
 
     /**
+     * 定時情報更新処理
+     *
      * @param model
      *            Model
      * @param form
