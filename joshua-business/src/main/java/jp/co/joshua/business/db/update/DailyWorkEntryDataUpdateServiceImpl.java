@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import jp.co.joshua.common.db.dao.DailyWorkEntryDataDao;
 import jp.co.joshua.common.db.entity.DailyWorkEntryData;
+import jp.co.joshua.common.db.type.WorkAuthStatus;
 
 /**
  * 日別勤怠登録情報更新サービス実装クラス
@@ -20,6 +21,18 @@ public class DailyWorkEntryDataUpdateServiceImpl
 
     @Override
     public void update(DailyWorkEntryData entity) {
+        dao.update(entity);
+    }
+
+    @Override
+    public void updateAuthDone(DailyWorkEntryData entity) {
+        entity.setWorkAuthStatus(WorkAuthStatus.DONE);
+        dao.update(entity);
+    }
+
+    @Override
+    public void updateAuthReject(DailyWorkEntryData entity) {
+        entity.setWorkAuthStatus(WorkAuthStatus.STILL);
         dao.update(entity);
     }
 

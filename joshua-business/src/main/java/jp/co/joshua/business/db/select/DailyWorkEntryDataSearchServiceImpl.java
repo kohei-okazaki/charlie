@@ -64,4 +64,9 @@ public class DailyWorkEntryDataSearchServiceImpl
                 DateUtil.toString(date, DateFormatType.YYYYMM_NOSEP));
     }
 
+    @Override
+    public DailyWorkEntryData selectById(Integer seqDailyWorkEntryDataId) {
+        return dao.selectById(seqDailyWorkEntryDataId);
+    }
+
 }

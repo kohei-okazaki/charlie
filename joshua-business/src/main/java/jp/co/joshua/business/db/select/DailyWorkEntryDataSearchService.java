@@ -29,4 +29,6 @@ public interface DailyWorkEntryDataSearchService {
     List<CompositeWorkAuthTargetData> selectAuthTargetDataList(Integer seqLoginId,
             LocalDate date);
 
+    DailyWorkEntryData selectById(Integer seqDailyWorkEntryDataId);
+
 }

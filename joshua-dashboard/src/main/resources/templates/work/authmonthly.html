@@ -40,6 +40,59 @@
         </form>
       </div><!-- col-lg -->
     </div><!-- row -->
+
+    <div class="row">
+      <div class="col-lg">
+        <a class="link" th:href="@{'/work/auth/userlist?year=' + ${selectedYear} + '&month=' + ${selectedMonth}}">ユーザ一覧へ戻る</a>
+      </div><!-- col-lg -->
+    </div><!-- row -->
+    <br>
+
+    <div class="row">
+      <div class="col-lg">
+        <div th:text="'承認対象ログインID:' + ${seqLoginId}"></div>
+      </div><!-- col-lg -->
+    </div><!-- row -->
+    <br>
+
+    <div class="row">
+      <div class="col-lg">
+        <table class="table table-borderless table-sm">
+            <tr class="form-group zero-margin">
+              <th th:text=#{day}></th>
+              <th th:text=#{weekDay}></th>
+              <th th:text=#{beginWork}></th>
+              <th th:text=#{endWork}></th>
+              <th th:text=#{workStatus}></th>
+              <th></th>
+            </tr><!-- /.form-group zero-margin -->
+            <tr th:each="data, status : ${authDataList}" class="form-group zero-margin">
+              <td th:text="${#temporals.format(data.date, 'd')}"></td>
+              <td>
+                <div th:if="${data.weekday.value == '1'}" th:text="#{sunday}" class="sunday"></div>
+                <div th:if="${data.weekday.value == '2'}" th:text="#{monday}" th:classappend="${data.businessFlg.value == '0'} ? 'holiday'"></div>
+                <div th:if="${data.weekday.value == '3'}" th:text="#{tuesday}" th:classappend="${data.businessFlg.value == '0'} ? 'holiday'"></div>
+                <div th:if="${data.weekday.value == '4'}" th:text="#{wednesday}" th:classappend="${data.businessFlg.value == '0'} ? 'holiday'"></div>
+                <div th:if="${data.weekday.value == '5'}" th:text="#{thursday}" th:classappend="${data.businessFlg.value == '0'} ? 'holiday'"></div>
+                <div th:if="${data.weekday.value == '6'}" th:text="#{friday}" th:classappend="${data.businessFlg.value == '0'} ? 'holiday'"></div>
+                <div th:if="${data.weekday.value == '7'}" th:text="#{saturday}" class="saturday"></div>
+              </td>
+              <td th:text="${#temporals.format(data.begin, 'HH:mm')}"></td>
+              <td th:text="${#temporals.format(data.end, 'HH:mm')}"></td>
+              <td>
+                <div th:if="${data.workAuthStatus != null && data.workAuthStatus.value == '10'}" th:text="#{work.auth.status.still}" class="work-status-still"></div>
+                <div th:if="${data.workAuthStatus != null && data.workAuthStatus.value == '20'}" th:text="#{work.auth.status.done}" class="work-status-done"></div>
+              </td>
+              <td>
+                <a th:if="${data.workAuthStatus != null && data.workAuthStatus.value == '10'}" th:href="@{'/work/auth/done/' + ${data.seqDailyWorkEntryDataId} + '?seq_login_id=' + ${seqLoginId} + '&year=' + ${selectedYear} + '&month=' + ${selectedMonth}}" class="link">承認する</a>
+                <a th:if="${data.workAuthStatus != null && data.workAuthStatus.value == '20'}" th:href="@{'/work/auth/reject/' + ${data.seqDailyWorkEntryDataId} + '?seq_login_id=' + ${seqLoginId} + '&year=' + ${selectedYear} + '&month=' + ${selectedMonth}}" class="link">却下する</a>
+              </td>
+            </tr>
+        </table><!-- /.table table-borderless table-sm -->
+      </div><!-- col-lg -->
+    </div><!-- row -->
+    <br>
+
   </div><!-- /.container.border.col-10 -->
   <br>
   <br>

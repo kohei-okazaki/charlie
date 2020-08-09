@@ -9,12 +9,18 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
+import jp.co.joshua.business.db.update.DailyWorkEntryDataUpdateService;
 import jp.co.joshua.business.work.component.WorkEntryComponent;
 import jp.co.joshua.common.db.entity.CompositeDailyWorkAuthStatusData;
+import jp.co.joshua.common.db.entity.CompositeWorkAuthTargetData;
+import jp.co.joshua.common.db.entity.DailyWorkEntryData;
+import jp.co.joshua.common.db.type.WorkAuthStatus;
 import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.web.view.AppView;
 import jp.co.joshua.common.web.view.PagingFactory;
@@ -38,6 +44,9 @@ public class WorkAuthController {
     /** 日別勤怠登録情報検索サービス */
     @Autowired
     private DailyWorkEntryDataSearchService dailyWorkEntryDataSearchService;
+    /** 日別勤怠登録情報更新サービス */
+    @Autowired
+    private DailyWorkEntryDataUpdateService dailyWorkEntryDataUpdateService;
 
     /**
      * ユーザ一覧表示処理
@@ -93,7 +102,7 @@ public class WorkAuthController {
      */
     @GetMapping("monthly")
     public String monthly(Model model,
-            @RequestParam(name = "seq_login_id") String seqLoginId,
+            @RequestParam("seq_login_id") String seqLoginId,
             @RequestParam(name = "year", required = false) String year,
             @RequestParam(name = "month", required = false) String month)
             throws AppException {
@@ -105,11 +114,107 @@ public class WorkAuthController {
         model.addAttribute("selectedMonth", date.getMonthValue());
         model.addAttribute("seqLoginId", seqLoginId);
 
-        model.addAttribute("authDataList",
-                dailyWorkEntryDataSearchService
-                        .selectAuthTargetDataList(Integer.valueOf(seqLoginId), date));
+        List<CompositeWorkAuthTargetData> list = dailyWorkEntryDataSearchService
+                .selectAuthTargetDataList(Integer.valueOf(seqLoginId), date);
+        model.addAttribute("authDataList", list);
 
         return AppView.WORK_AUTH_MONTHLY.getValue();
+    }
+
+    /**
+     * 承認処理
+     *
+     * @param model
+     *            Model
+     * @param seqDailyWorkEntryDataId
+     *            日別勤怠登録情報ID
+     * @param seqLoginId
+     *            ログインID
+     * @param year
+     *            指定年
+     * @param month
+     *            指定月
+     * @param redirectAttributes
+     *            RedirectAttributes
+     * @return 勤怠承認画面-月別勤怠一覧
+     * @throws AppException
+     *             日別勤怠登録情報が存在しない場合
+     */
+    @GetMapping("done/{seqDailyWorkEntryDataId}")
+    public String done(Model model,
+            @PathVariable("seqDailyWorkEntryDataId") String seqDailyWorkEntryDataId,
+            @RequestParam(name = "seq_login_id") String seqLoginId,
+            @RequestParam(name = "year", required = false) String year,
+            @RequestParam(name = "month", required = false) String month,
+            RedirectAttributes redirectAttributes) throws AppException {
+
+        DailyWorkEntryData entity = dailyWorkEntryDataSearchService
+                .selectById(Integer.valueOf(seqDailyWorkEntryDataId));
+
+        if (entity == null) {
+            throw new AppException("指定した日別勤怠登録情報が存在しない.seqDailyWorkEntryDataId="
+                    + seqDailyWorkEntryDataId);
+        } else if (WorkAuthStatus.STILL != entity.getWorkAuthStatus()) {
+            throw new AppException("指定した日別勤怠登録情報のステータスが一致しない.seqDailyWorkEntryDataId="
+                    + seqDailyWorkEntryDataId + ",workAuthStatus="
+                    + entity.getWorkAuthStatus());
+        }
+
+        dailyWorkEntryDataUpdateService.updateAuthDone(entity);
+
+        redirectAttributes.addAttribute("seq_login_id", seqLoginId);
+        redirectAttributes.addAttribute("year", year);
+        redirectAttributes.addAttribute("month", month);
+
+        return AppView.WORK_AUTH_MONTHLY.toRedirect();
+    }
+
+    /**
+     * 承認却下処理
+     *
+     * @param model
+     *            Model
+     * @param seqDailyWorkEntryDataId
+     *            日別勤怠登録情報ID
+     * @param seqLoginId
+     *            ログインID
+     * @param year
+     *            指定年
+     * @param month
+     *            指定月
+     * @param redirectAttributes
+     *            RedirectAttributes
+     * @return 勤怠承認画面-月別勤怠一覧
+     * @throws AppException
+     *             日別勤怠登録情報が存在しない場合
+     */
+    @GetMapping("reject/{seqDailyWorkEntryDataId}")
+    public String reject(Model model,
+            @PathVariable("seqDailyWorkEntryDataId") String seqDailyWorkEntryDataId,
+            @RequestParam(name = "seq_login_id") String seqLoginId,
+            @RequestParam(name = "year", required = false) String year,
+            @RequestParam(name = "month", required = false) String month,
+            RedirectAttributes redirectAttributes) throws AppException {
+
+        DailyWorkEntryData entity = dailyWorkEntryDataSearchService
+                .selectById(Integer.valueOf(seqDailyWorkEntryDataId));
+
+        if (entity == null) {
+            throw new AppException("指定した日別勤怠登録情報が存在しない.seqDailyWorkEntryDataId="
+                    + seqDailyWorkEntryDataId);
+        } else if (WorkAuthStatus.DONE != entity.getWorkAuthStatus()) {
+            throw new AppException("指定した日別勤怠登録情報のステータスが一致しない.seqDailyWorkEntryDataId="
+                    + seqDailyWorkEntryDataId + ",workAuthStatus="
+                    + entity.getWorkAuthStatus());
+        }
+
+        dailyWorkEntryDataUpdateService.updateAuthReject(entity);
+
+        redirectAttributes.addAttribute("seq_login_id", seqLoginId);
+        redirectAttributes.addAttribute("year", year);
+        redirectAttributes.addAttribute("month", month);
+
+        return AppView.WORK_AUTH_MONTHLY.toRedirect();
     }
 
 }

@@ -11,4 +11,8 @@ public interface DailyWorkEntryDataUpdateService {
 
     void update(DailyWorkEntryData entity);
 
+    void updateAuthDone(DailyWorkEntryData entity);
+
+    void updateAuthReject(DailyWorkEntryData entity);
+
 }

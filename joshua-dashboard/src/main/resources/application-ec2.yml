@@ -18,6 +18,9 @@ spring:
     locations: classpath:db/migration
 # Log設定
 logging:
+  file:
+    name: app.log
+    path: /var/logs
   level:
     org.springframework: INFO
     org.springframework.jdbc: INFO

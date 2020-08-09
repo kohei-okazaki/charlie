@@ -77,7 +77,7 @@ $(function() {
                 <th th:text=#{regular}></th>
                 <th th:text=#{workStatus}></th>
               </tr><!-- /.form-group zero-margin -->
-              <tr th:each="mt, status : ${thisMonthList}">
+              <tr th:each="mt, status : ${thisMonthList}" class="form-group zero-margin">
                 <td>
                   <div th:text="${#temporals.format(mt.date, 'd')}"></div>
                   <input type="hidden" th:name="${'dailyEntryFormList[' + status.index + '].date'}" th:value="${mt.date}" />
