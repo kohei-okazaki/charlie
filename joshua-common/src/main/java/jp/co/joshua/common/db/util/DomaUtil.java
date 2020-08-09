@@ -47,29 +47,4 @@ public class DomaUtil {
         return selectOptions;
     }
 
-    // /**
-    // * SelectOptionsを作成して返す
-    // *
-    // * @param pageable
-    // * Pageable
-    // * @return SelectOptions
-    // */
-    // public static SelectOptions createSelectOptions(Pageable pageable) {
-    // return createSelectOptions(pageable.getPage(), pageable.getPerpage());
-    // }
-    //
-    // /**
-    // * SelectOptionsを作成して返す
-    // *
-    // * @param page
-    // * ページ数
-    // * @param perpage
-    // * 許容数
-    // * @return SelectOptions
-    // */
-    // private static SelectOptions createSelectOptions(int page, int perpage) {
-    // int offset = (page - 1) * perpage;
-    // return createSelectOptions().offset(offset).limit(perpage);
-    // }
-
 }
