@@ -48,7 +48,7 @@
             <th th:text="#{authTargetDate}"></th>
           </tr>
           <tr th:each="user : ${userList}">
-            <td><a class="link" th:href="@{'/work/auth/monthly?seqLoginId=' + ${user.seqLoginId} + '&year=' + ${selectedYear} + '&month=' + ${selectedMonth}}">承認</a></td>
+            <td><a class="link" th:href="@{'/work/auth/monthly?seq_login_id=' + ${user.seqLoginId} + '&year=' + ${selectedYear} + '&month=' + ${selectedMonth}}">承認</a></td>
             <td th:text="${user.seqLoginId}"></td>
             <td th:if="${user.nonAuthCount > 0}" th:text="#{work.auth.status.still}" class="work-status-still"></td>
             <td th:if="${user.authCount == user.businessDayCount}" th:text="#{work.auth.status.done}" class="work-status-done"></td>

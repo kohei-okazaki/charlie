@@ -12,7 +12,7 @@ import org.seasar.doma.jdbc.entity.NamingType;
  * @version 1.0.0
  */
 @Entity(naming = NamingType.SNAKE_UPPER_CASE)
-public class CompositeDailyWorkAuthData extends BaseEntity {
+public class CompositeDailyWorkAuthStatusData extends BaseEntity {
 
     /** ログインID */
     private Integer seqLoginId;

@@ -10,8 +10,9 @@ import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
 import org.seasar.doma.jdbc.SelectOptions;
 
-import jp.co.joshua.common.db.entity.CompositeDailyWorkAuthData;
+import jp.co.joshua.common.db.entity.CompositeDailyWorkAuthStatusData;
 import jp.co.joshua.common.db.entity.CompositeDailyWorkEntryData;
+import jp.co.joshua.common.db.entity.CompositeWorkAuthTargetData;
 import jp.co.joshua.common.db.entity.DailyWorkEntryData;
 
 /**
@@ -44,7 +45,11 @@ public interface DailyWorkEntryDataDao extends BaseDao {
     public DailyWorkEntryData selectById(Integer id);
 
     @Select
-    public List<CompositeDailyWorkAuthData> selectStatusList(String date,
+    public List<CompositeDailyWorkAuthStatusData> selectStatusList(String date,
             SelectOptions option);
+
+    @Select
+    public List<CompositeWorkAuthTargetData> selectAuthTargetDataList(Integer seqLoginId,
+            String date);
 
 }

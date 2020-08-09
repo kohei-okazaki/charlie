@@ -9,8 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jp.co.joshua.common.db.dao.DailyWorkEntryDataDao;
-import jp.co.joshua.common.db.entity.CompositeDailyWorkAuthData;
+import jp.co.joshua.common.db.entity.CompositeDailyWorkAuthStatusData;
 import jp.co.joshua.common.db.entity.CompositeDailyWorkEntryData;
+import jp.co.joshua.common.db.entity.CompositeWorkAuthTargetData;
 import jp.co.joshua.common.db.entity.DailyWorkEntryData;
 import jp.co.joshua.common.db.util.DomaUtil;
 import jp.co.joshua.common.util.DateUtil;
@@ -49,11 +50,18 @@ public class DailyWorkEntryDataSearchServiceImpl
     }
 
     @Override
-    public List<CompositeDailyWorkAuthData> selectStatusList(LocalDate date,
+    public List<CompositeDailyWorkAuthStatusData> selectStatusList(LocalDate date,
             Pageable pageable) {
         SelectOptions option = DomaUtil.createSelectOptions(pageable, false);
         return dao.selectStatusList(DateUtil.toString(date, DateFormatType.YYYYMM_NOSEP),
                 option);
+    }
+
+    @Override
+    public List<CompositeWorkAuthTargetData> selectAuthTargetDataList(Integer seqLoginId,
+            LocalDate date) {
+        return dao.selectAuthTargetDataList(seqLoginId,
+                DateUtil.toString(date, DateFormatType.YYYYMM_NOSEP));
     }
 
 }

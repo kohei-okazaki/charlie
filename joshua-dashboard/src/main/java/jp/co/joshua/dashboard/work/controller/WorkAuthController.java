@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
 import jp.co.joshua.business.work.component.WorkEntryComponent;
-import jp.co.joshua.common.db.entity.CompositeDailyWorkAuthData;
+import jp.co.joshua.common.db.entity.CompositeDailyWorkAuthStatusData;
 import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.web.view.AppView;
 import jp.co.joshua.common.web.view.PagingFactory;
@@ -67,13 +67,49 @@ public class WorkAuthController {
         model.addAttribute("selectedYear", date.getYear());
         model.addAttribute("selectedMonth", date.getMonthValue());
 
-        List<CompositeDailyWorkAuthData> list = dailyWorkEntryDataSearchService
+        List<CompositeDailyWorkAuthStatusData> list = dailyWorkEntryDataSearchService
                 .selectStatusList(date, pageable);
         model.addAttribute("userList", list);
         model.addAttribute("paging", PagingFactory.getPageView(pageable,
                 "/work/regular/entry?page", list.size()));
 
         return AppView.WORK_AUTH_USER_LIST.getValue();
+    }
+
+    /**
+     * 月別勤怠一覧画面表示処理
+     *
+     * @param model
+     *            Model
+     * @param seqLoginId
+     *            ログインID
+     * @param year
+     *            指定年
+     * @param month
+     *            指定月
+     * @return 月別勤怠一覧画面
+     * @throws AppException
+     *             日付変換に失敗した場合
+     */
+    @GetMapping("monthly")
+    public String monthly(Model model,
+            @RequestParam(name = "seq_login_id") String seqLoginId,
+            @RequestParam(name = "year", required = false) String year,
+            @RequestParam(name = "month", required = false) String month)
+            throws AppException {
+
+        LocalDate date = workEntryComponent.getTargetDate(year, month);
+        model.addAttribute("yearList", workEntryComponent.getYearList(date));
+        model.addAttribute("monthList", workEntryComponent.getMonthList());
+        model.addAttribute("selectedYear", date.getYear());
+        model.addAttribute("selectedMonth", date.getMonthValue());
+        model.addAttribute("seqLoginId", seqLoginId);
+
+        model.addAttribute("authDataList",
+                dailyWorkEntryDataSearchService
+                        .selectAuthTargetDataList(Integer.valueOf(seqLoginId), date));
+
+        return AppView.WORK_AUTH_MONTHLY.getValue();
     }
 
 }
