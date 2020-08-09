@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,6 +65,7 @@ public class WorkAuthController {
      *             日付変換に失敗した場合
      */
     @GetMapping("userlist")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String userList(Model model,
             @RequestParam(name = "year", required = false) String year,
             @RequestParam(name = "month", required = false) String month,
@@ -101,6 +103,7 @@ public class WorkAuthController {
      *             日付変換に失敗した場合
      */
     @GetMapping("monthly")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String monthly(Model model,
             @RequestParam("seq_login_id") String seqLoginId,
             @RequestParam(name = "year", required = false) String year,
@@ -141,6 +144,7 @@ public class WorkAuthController {
      *             日別勤怠登録情報が存在しない場合
      */
     @GetMapping("done/{seqDailyWorkEntryDataId}")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String done(Model model,
             @PathVariable("seqDailyWorkEntryDataId") String seqDailyWorkEntryDataId,
             @RequestParam(name = "seq_login_id") String seqLoginId,
@@ -189,6 +193,7 @@ public class WorkAuthController {
      *             日別勤怠登録情報が存在しない場合
      */
     @GetMapping("reject/{seqDailyWorkEntryDataId}")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String reject(Model model,
             @PathVariable("seqDailyWorkEntryDataId") String seqDailyWorkEntryDataId,
             @RequestParam(name = "seq_login_id") String seqLoginId,

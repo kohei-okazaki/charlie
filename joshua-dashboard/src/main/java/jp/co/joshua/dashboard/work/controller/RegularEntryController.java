@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -69,6 +70,7 @@ public class RegularEntryController {
      * @return 定時時刻登録画面View
      */
     @GetMapping("/entry")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String entry(Model model,
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
@@ -96,6 +98,7 @@ public class RegularEntryController {
      * @return 定時時刻登録画面View
      */
     @PostMapping("/entry")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String entry(Model model, @Validated RegularEntryForm form,
             BindingResult result, RedirectAttributes redirectAttributes) {
 
@@ -124,6 +127,7 @@ public class RegularEntryController {
      * @return 更新画面View
      */
     @GetMapping("/edit")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String edit(Model model,
             @RequestParam(name = "id", required = false) Optional<Integer> seqRegularWorkMtId,
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
@@ -158,6 +162,7 @@ public class RegularEntryController {
      * @return 更新画面View
      */
     @PostMapping("/edit")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String edit(Model model, @Validated RegularEditForm form,
             BindingResult result, RedirectAttributes redirectAttributes) {
 
