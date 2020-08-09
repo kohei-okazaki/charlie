@@ -1,5 +1,10 @@
 package jp.co.joshua.dashboard.login.controller;
 
+import java.util.Enumeration;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,8 +27,11 @@ import jp.co.joshua.dashboard.login.form.LoginForm;
 @RequestMapping("/login")
 public class LoginController {
 
+    @Autowired
+    private HttpSession session;
+
     @ModelAttribute
-    public LoginForm loginUserRegistForm() {
+    public LoginForm loginForm() {
         return new LoginForm();
     }
 
@@ -60,6 +68,14 @@ public class LoginController {
 
     @GetMapping("/logout")
     public String logout(RedirectAttributes redirectAttributes) {
+
+        Enumeration<String> sessionData = session.getAttributeNames();
+        while (sessionData.hasMoreElements()) {
+            String key = sessionData.nextElement();
+            System.out.println(key);
+            session.removeAttribute(key);
+        }
+
         redirectAttributes.addFlashAttribute("isLogout", true);
         redirectAttributes.addFlashAttribute("infoMessage", "ログアウトしました");
         return "redirect:/login";

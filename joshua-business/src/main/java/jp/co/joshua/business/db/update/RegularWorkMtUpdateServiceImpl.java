@@ -14,7 +14,6 @@ import jp.co.joshua.common.db.entity.RegularWorkMt;
 @Service
 public class RegularWorkMtUpdateServiceImpl implements RegularWorkMtUpdateService {
 
-    /** 定時情報マスタDao */
     @Autowired
     private RegularWorkMtDao dao;
 

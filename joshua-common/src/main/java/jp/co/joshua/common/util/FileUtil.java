@@ -53,7 +53,6 @@ public class FileUtil {
      */
     public static boolean isExists(String path) {
         return Files.exists(getPath(path));
-        // return getFile(path).exists();
     }
 
     /**

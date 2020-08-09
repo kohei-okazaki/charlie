@@ -7,14 +7,13 @@ import jp.co.joshua.common.db.dao.MailUserDataDao;
 import jp.co.joshua.common.db.entity.MailUserData;
 
 /**
- * メールユーザ情報サービス実装クラス
+ * メールユーザ情報作成サービス実装クラス
  *
  * @version 1.0.0
  */
 @Service
 public class MailUserDataCreateServiceImpl implements MailUserDataCreateService {
 
-    /** メールユーザ情報Dao */
     @Autowired
     private MailUserDataDao dao;
 

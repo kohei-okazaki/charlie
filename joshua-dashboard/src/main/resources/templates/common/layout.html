@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title layout:title-pattern="$LAYOUT_TITLE|$CONTENT_TITLE" th:text="#{appName}">管理アプリ</title>
+<title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE" th:text="#{appName}">管理アプリ</title>
 <link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/css/layout.css}" rel="stylesheet" />
 <link th:href="@{/images/favicon.png}" rel="icon" />
@@ -63,6 +63,7 @@
                     <li><a href="#">履歴確認</a></li>
                     <li><a th:href="@{/work/regular/entry}">定時登録</a></li>
                     <li><a th:href="@{/work/userregular/entry}">ユーザ定時登録</a></li>
+                    <li><a th:href="@{/work/auth/userlist}">勤怠承認</a></li>
                   </ul>
                 </div><!-- /.card-body -->
               </div><!-- /.collapse -->
@@ -141,7 +142,7 @@
   </div><!-- /.content -->
 
   <footer class="fixed-bottom footer-contents">
-    <p class="zero-margin" align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;NOK'"></p>
+    <p class="zero-margin" align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;かんりあぷり'"></p>
   </footer><!-- /.fixed-bottom footer-contents -->
 
 </body>

@@ -20,8 +20,12 @@ spring:
     multipart:
       max-file-size: -1
       max-request-size: 20MB
+  output:
+    ansi:
+      enabled: always
 logging:
   pattern:
+    dateformat: yyyy/MM/dd HH:mm:ss.SSS
     level: "[%X{X-Track-Id} %5p]"
 management:
   endpoints:

@@ -1,12 +1,15 @@
 package jp.co.joshua.common.db.entity;
 
-import java.time.LocalDateTime;
-
+import jp.co.joshua.common.db.entity.BaseEntity;
 import org.seasar.doma.Entity;
+import org.seasar.doma.jdbc.entity.NamingType;
+import org.seasar.doma.Id;
 import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
-import org.seasar.doma.Id;
-import org.seasar.doma.jdbc.entity.NamingType;
+import java.lang.Integer;
+import java.time.LocalDateTime;
+import jp.co.joshua.common.db.type.WorkAuthStatus;
+import java.lang.String;
 
 /**
  * 日別勤怠登録情報 Entity
@@ -17,8 +20,8 @@ import org.seasar.doma.jdbc.entity.NamingType;
 public class DailyWorkEntryData extends BaseEntity {
 
     /** 日別勤怠登録情報ID */
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Integer seqDailyWorkEntryDataId;
     /** 勤怠ユーザ管理マスタID */
     private Integer seqWorkUserMngMtId;
@@ -27,7 +30,7 @@ public class DailyWorkEntryData extends BaseEntity {
     /** 終業時間 */
     private LocalDateTime end;
     /** 承認ステータス */
-    private String status;
+    private WorkAuthStatus workAuthStatus;
     /** 備考 */
     private String note;
 
@@ -63,12 +66,12 @@ public class DailyWorkEntryData extends BaseEntity {
         return end;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setWorkAuthStatus(WorkAuthStatus workAuthStatus) {
+        this.workAuthStatus = workAuthStatus;
     }
 
-    public String getStatus() {
-        return status;
+    public WorkAuthStatus getWorkAuthStatus() {
+        return workAuthStatus;
     }
 
     public void setNote(String note) {

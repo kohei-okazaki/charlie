@@ -9,12 +9,6 @@ import jp.co.joshua.common.db.entity.MailUserData;
  */
 public interface MailUserDataUpdateService {
 
-    /**
-     * メールユーザ情報を更新する
-     *
-     * @param entity
-     *            メールユーザ情報
-     */
     void update(MailUserData entity);
 
 }

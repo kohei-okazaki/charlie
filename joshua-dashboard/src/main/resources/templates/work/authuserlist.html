@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{common/layout}">
+<head>
+<title>勤怠承認画面 - ユーザ一覧</title>
+<script>
+</script>
+</head>
+<body>
+<div layout:fragment="content">
+  <br>
+  <div class="container border col-10">
+    <br>
+    <h2>勤怠承認画面 - ユーザ一覧</h2>
+    <br>
+
+    <div class="row">
+      <div class="col-lg">
+        <form th:action="@{/work/auth/userlist}" method="get" class="form-inline">
+          <table class="table table-borderless">
+            <tr class="form-group zero-margin">
+              <td>
+                <select id="year" name="year" class="custom-select">
+                  <option th:each="year : ${yearList}" th:value="${year}" th:selected="${year == selectedYear}" th:inline="text">[[${year}]]</option>
+                </select><!-- custom-select -->
+              </td>
+              <td>
+                <select id="month" name="month" class="custom-select">
+                  <option th:each="month : ${monthList}" th:value="${month}" th:selected="${month == selectedMonth}" th:inline="text">[[${month}]]</option>
+                </select><!-- custom-select -->
+              </td>
+              <td><input type="submit" class="btn btn-outline-primary mt-1" value="切替" /></td>
+            </tr>
+          </table><!-- table table-borderless -->
+        </form>
+        <br>
+        <br>
+        <br>
+        <table class="table">
+          <tr>
+            <th></th>
+            <th th:text="#{seqLoginId}"></th>
+            <th th:text="#{workStatus}"></th>
+            <th th:text="#{authTargetDate}"></th>
+          </tr>
+          <tr th:each="user : ${userList}">
+            <td><a class="link" th:href="@{'/work/auth/monthly?seq_login_id=' + ${user.seqLoginId} + '&year=' + ${selectedYear} + '&month=' + ${selectedMonth}}">承認</a></td>
+            <td th:text="${user.seqLoginId}"></td>
+            <td th:if="${user.nonAuthCount > 0}" th:text="#{work.auth.status.still}" class="work-status-still"></td>
+            <td th:if="${user.authCount == user.businessDayCount}" th:text="#{work.auth.status.done}" class="work-status-done"></td>
+            <td th:if="${user.nonAuthCount == 0 && user.authCount == 0}">未申請</td>
+            <td th:text="${selectedYear} + '/' + ${#numbers.formatInteger(selectedMonth, 2, 'COMMA')}"></td>
+          </tr>
+        </table><!-- /.table -->
+        <div>
+          <p th:text="${paging.totalRecordNum} + '件中 ' + ${paging.fromRecordNum} + '～' + ${paging.toRecordNum} + '件表示中'" />
+          <a class="link" th:classappend="!${paging.canGoFirst} ? 'disabled'" th:href="${paging.firstHref}">&lt;&lt;</a>
+          <a class="link" th:classappend="!${paging.canGoPrevious} ? 'disabled'" th:href="${paging.previousHref}">&lt;</a>
+          <a class="link" th:classappend="!${paging.canGoNext} ? 'disabled'" th:href="${paging.nextHref}">&gt;</a>
+          <a class="link" th:classappend="!${paging.canGoLast} ? 'disabled'" th:href="${paging.lastHref}">&gt;&gt;</a>
+         </div>
+      </div><!-- col-lg -->
+    </div><!-- row -->
+  </div><!-- /.container.border.col-10 -->
+  <br>
+  <br>
+  <br>
+</div>
+</body>
+</html>

@@ -84,13 +84,14 @@ public class MonthlyEntryController {
         model.addAttribute("regularMt", regularMt);
 
         // 処理対象年月初
-        LocalDate targetDate = monthlyWorkEntryService.getTargetDate(year, month);
-        model.addAttribute("yearList", monthlyWorkEntryService.getYearList(targetDate));
-        model.addAttribute("monthList", monthlyWorkEntryService.getMonthList());
+        LocalDate targetDate = workEntryComponent.getTargetDate(year, month);
+        model.addAttribute("yearList", workEntryComponent.getYearList(targetDate));
+        model.addAttribute("monthList", workEntryComponent.getMonthList());
         model.addAttribute("selectedYear", targetDate.getYear());
         model.addAttribute("selectedMonth", targetDate.getMonthValue());
         model.addAttribute("thisMonthList", dailyWorkEntryDataSearchService
-                .getMonthList(targetDate, regularMt.getSeqWorkUserMngMtId()));
+                .selectDailyMtAndCalendarMtByDate(targetDate,
+                        regularMt.getSeqWorkUserMngMtId()));
 
         return AppView.WORK_MONTH_ENTRY_VIEW.getValue();
     }
@@ -124,10 +125,10 @@ public class MonthlyEntryController {
 
         List<DailyWorkEntryDataDto> dtoList = form.getDailyEntryFormList().stream()
                 .filter(e -> {
-                    return e.getWorkBeginHour() == null
-                            && e.getWorkBeginMinute() == null
-                            && e.getWorkEndHour() == null
-                            && e.getWorkEndMinute() == null;
+                    return e.getWorkBeginHour() != null
+                            && e.getWorkBeginMinute() != null
+                            && e.getWorkEndHour() != null
+                            && e.getWorkEndMinute() != null;
                 }).map(e -> {
                     LocalDate date = DateUtil.toLocalDate(e.getDate(),
                             DateFormatType.YYYYMMDD_HYPHEN);

@@ -82,10 +82,18 @@ public class PagingFactory {
 
         pv.setCanGoFirst(pageable.getPageNumber() != 0);
         pv.setCanGoPrevious(pageable.getPageNumber() != 0);
-        pv.setCanGoNext(
-                pageable.getPageNumber() < (count / pageable.getPageSize()));
-        pv.setCanGoLast(
-                pageable.getPageNumber() < (count / pageable.getPageSize()));
+
+        // (1ページあたりに表示できる件数 * n) と総レコード数が等しいかどうか
+        boolean isFullePage = count % pageable.getPageSize() == 0;
+        if (isFullePage) {
+            pv.setCanGoLast(false);
+            pv.setCanGoNext(false);
+        } else {
+            pv.setCanGoLast(
+                    pageable.getPageNumber() < (count / pageable.getPageSize()));
+            pv.setCanGoNext(
+                    pageable.getPageNumber() < (count / pageable.getPageSize()));
+        }
 
         pv.setCurrentPageNum(pageable.getPageNumber());
         pv.setFirstHref(path + "=" + 0);

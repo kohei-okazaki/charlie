@@ -39,7 +39,7 @@ project(':joshua-common') {
         // MySQL
         implementation 'mysql:mysql-connector-java:8.0.21'
         // flyway
-        implementation 'org.flywaydb:flyway-core:6.5.1'
+        implementation 'org.flywaydb:flyway-core:6.5.3'
         // Doma
         annotationProcessor 'org.seasar.doma.boot:doma-spring-boot-starter:1.2.1'
         implementation ('org.seasar.doma.boot:doma-spring-boot-starter:1.2.1') {

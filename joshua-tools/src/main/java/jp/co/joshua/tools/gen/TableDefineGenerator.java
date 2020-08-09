@@ -28,7 +28,7 @@ public class TableDefineGenerator extends BaseGenerator {
 
         // 自動生成ファイル
         GenerateFile generateFile = new GenerateFile();
-        generateFile.setFileName("table-define.sql");
+        generateFile.setFileName("table_define.sql");
         generateFile.setData(body.toString());
         generateFile.setOutputPath(prop.getBaseDir() + FileSeparator.SYSTEM.getValue()
                 + GenerateType.TABLE_DEFINE.getPath());

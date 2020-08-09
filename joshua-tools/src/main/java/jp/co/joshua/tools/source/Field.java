@@ -1,5 +1,6 @@
 package jp.co.joshua.tools.source;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
 
@@ -23,6 +24,20 @@ public class Field {
     private AccessType accessType;
     /** アノテーションMap */
     private Map<Class<?>, String> annotationMap;
+
+    /**
+     * コンストラクタ
+     *
+     * @param name
+     *            フィールド名
+     * @param comment
+     *            コメント
+     * @param classType
+     *            型
+     */
+    public Field(String name, String comment, Class<?> classType) {
+        this(name, comment, classType, AccessType.PRIVATE, new HashMap<>());
+    }
 
     /**
      * コンストラクタ

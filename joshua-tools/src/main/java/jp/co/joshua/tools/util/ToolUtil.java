@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -194,6 +195,17 @@ public class ToolUtil {
     }
 
     /**
+     * Domainクラス対象カラムかどうかを判定する
+     *
+     * @param row
+     *            行情報
+     * @return Domainクラス対象カラムの場合true、それ以外の場合false
+     */
+    public static boolean isDomainClass(Row row) {
+        return StringUtil.hasValue(row.getCell(CellPositionType.DOMAIN).getValue());
+    }
+
+    /**
      * 指定された行情報からフィールド名を返す
      *
      * @param row
@@ -205,13 +217,25 @@ public class ToolUtil {
     }
 
     /**
-     * 指定された行情報からクラスタイプを返す
+     * 指定された行情報からクラスタイプを返す<br>
+     * Domainクラスを指定している場合、そのDomainクラスを返す
      *
      * @param row
      *            行情報
      * @return クラスタイプ
      */
     public static Class<?> getClassType(Row row) {
+
+        try {
+            if (isDomainClass(row)) {
+                String domainClassName = row.getCell(CellPositionType.DOMAIN)
+                        .getValue();
+                return Class.forName(domainClassName);
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         String columnType = row.getCell(CellPositionType.COLUMN_TYPE).getValue();
         return ColumnType.of(columnType).getClassType();
     }
@@ -347,9 +371,19 @@ public class ToolUtil {
                         + toStrInterfaceList(source)
                         + " {");
 
+        // Enum情報
+        if (ClassType.ENUM == source.getClassType()) {
+            result.add(toStrEnum(source));
+        }
+
         // field情報
         if (!CollectionUtil.isEmpty(source.getFieldList())) {
             result.add(toStrFieldList(source));
+        }
+
+        // field情報
+        if (!CollectionUtil.isEmpty(source.getConstructorList())) {
+            result.add(toStrConstructorList(source));
         }
 
         // method情報
@@ -480,13 +514,28 @@ public class ToolUtil {
             return "";
         }
 
-        String prefix = ClassType.CLASS == source.getClassType()
-                ? " implements "
-                : " extends ";
+        String prefix = Arrays.asList(ClassType.CLASS, ClassType.ENUM)
+                .contains(source.getClassType())
+                        ? " implements "
+                        : " extends ";
         StringJoiner body = new StringJoiner(StringUtil.COMMA + StringUtil.SPACE);
         source.getImplInterfaceList().stream().forEach(e -> body.add(e.getSimpleName()));
 
         return prefix + body.toString();
+    }
+
+    /**
+     * 指定されたJavaSourceのEnum定義の文字列表現を返す
+     *
+     * @param source
+     *            JavaSource
+     * @return Enum定義の文字列表現
+     */
+    public static String toStrEnum(JavaSource source) {
+
+        StringJoiner body = new StringJoiner("," + StringUtil.NEW_LINE);
+        source.getEnumList().stream().forEach(e -> body.add(e.toString()));
+        return body.toString() + ";";
     }
 
     /**
@@ -500,6 +549,20 @@ public class ToolUtil {
 
         StringJoiner body = new StringJoiner(StringUtil.NEW_LINE);
         source.getFieldList().stream().forEach(e -> body.add(e.toString()));
+        return body.toString();
+    }
+
+    /**
+     * 指定されたJavaSourceのConstructorの文字列表現を返す
+     *
+     * @param source
+     *            JavaSource
+     * @return Constructorの文字列表現
+     */
+    public static String toStrConstructorList(JavaSource source) {
+
+        StringJoiner body = new StringJoiner(StringUtil.NEW_LINE);
+        source.getConstructorList().stream().forEach(e -> body.add(e.toString()));
         return body.toString();
     }
 

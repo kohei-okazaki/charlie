@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Collection操作のUtilクラス
+ *
+ * @version 1.0.0
+ */
 public class CollectionUtil {
 
     /**
@@ -61,7 +66,7 @@ public class CollectionUtil {
         if (isEmpty(list)) {
             return null;
         }
-        return list.get(list.size());
+        return list.get(list.size() - 1);
     }
 
     /**

@@ -111,7 +111,7 @@
             <th th:text="#{endWork}"></th>
             <th th:text="#{regDate}"></th>
           </tr>
-          <tr th:each="mt : ${workUserCompositeMtList}">
+          <tr th:each="mt : ${histMtList}">
             <td th:text="${mt.seqLoginId}"></td>
             <td th:text="${mt.seqRegularWorkMtId}"></td>
             <td th:text="${#numbers.formatInteger(mt.beginHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.beginMinute, 2, 'COMMA')}"></td>
@@ -119,11 +119,11 @@
             <td th:text="${#temporals.format(mt.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
           </tr>
         </table><!-- /.table -->
-        <p th:text="${userMtPaging.totalRecordNum} + '件中 ' + ${userMtPaging.fromRecordNum} + '～' + ${userMtPaging.toRecordNum} + '件表示中'" />
-        <a class="link" th:classappend="!${userMtPaging.canGoFirst} ? 'disabled'" th:href="${userMtPaging.firstHref}">&lt;&lt;</a>
-        <a class="link" th:classappend="!${userMtPaging.canGoPrevious} ? 'disabled'" th:href="${userMtPaging.previousHref}">&lt;</a>
-        <a class="link" th:classappend="!${userMtPaging.canGoNext} ? 'disabled'" th:href="${userMtPaging.nextHref}">&gt;</a>
-        <a class="link" th:classappend="!${userMtPaging.canGoLast} ? 'disabled'" th:href="${userMtPaging.lastHref}">&gt;&gt;</a>
+        <p th:text="${histMtPaging.totalRecordNum} + '件中 ' + ${histMtPaging.fromRecordNum} + '～' + ${histMtPaging.toRecordNum} + '件表示中'" />
+        <a class="link" th:classappend="!${histMtPaging.canGoFirst} ? 'disabled'" th:href="${histMtPaging.firstHref}">&lt;&lt;</a>
+        <a class="link" th:classappend="!${histMtPaging.canGoPrevious} ? 'disabled'" th:href="${histMtPaging.previousHref}">&lt;</a>
+        <a class="link" th:classappend="!${histMtPaging.canGoNext} ? 'disabled'" th:href="${histMtPaging.nextHref}">&gt;</a>
+        <a class="link" th:classappend="!${histMtPaging.canGoLast} ? 'disabled'" th:href="${histMtPaging.lastHref}">&gt;&gt;</a>
       </div><!-- col-lg -->
     </div><!-- row -->
 

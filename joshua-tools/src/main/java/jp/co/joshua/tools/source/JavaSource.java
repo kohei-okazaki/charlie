@@ -33,8 +33,12 @@ public class JavaSource {
     private List<Class<?>> implInterfaceList = new ArrayList<>();
     /** クラスに付与するアノテーションのリスト */
     private Map<Class<?>, String> classAnnotationMap = new LinkedHashMap<>();
+    /** Enum定義情報のリスト */
+    private List<Enum> enumList = new ArrayList<>();
     /** フィールド情報のリスト */
     private List<Field> fieldList = new ArrayList<>();
+    /** コンストラクタ情報のリスト */
+    private List<Constructor> constructorList = new ArrayList<>();
     /** メソッドのリスト */
     private List<Method> methodList = new ArrayList<>();
 
@@ -172,6 +176,25 @@ public class JavaSource {
     }
 
     /**
+     * enumListを返す
+     *
+     * @return enumList
+     */
+    public List<Enum> getEnumList() {
+        return enumList;
+    }
+
+    /**
+     * Enumを追加する
+     *
+     * @param e
+     *            Enum
+     */
+    public void addEnum(Enum e) {
+        this.enumList.add(e);
+    }
+
+    /**
      * fieldListを返す
      *
      * @return fieldList
@@ -188,6 +211,25 @@ public class JavaSource {
      */
     public void addField(Field field) {
         this.fieldList.add(field);
+    }
+
+    /**
+     * constructorListを返す
+     *
+     * @return constructorList
+     */
+    public List<Constructor> getConstructorList() {
+        return constructorList;
+    }
+
+    /**
+     * constructorを追加する
+     *
+     * @param constructor
+     *            コンストラクタ
+     */
+    public void addConstructor(Constructor constructor) {
+        this.constructorList.add(constructor);
     }
 
     /**

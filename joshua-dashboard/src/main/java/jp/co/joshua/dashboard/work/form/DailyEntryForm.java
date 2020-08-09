@@ -11,8 +11,6 @@ import javax.validation.constraints.Min;
 public class DailyEntryForm {
 
     /** 日にち */
-    @Min(value = 1)
-    @Max(value = 31)
     private String date;
     /** 始業時間(時) */
     @Min(value = 0)

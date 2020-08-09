@@ -16,7 +16,6 @@ import jp.co.joshua.common.db.entity.LoginUserData;
 @Service
 public class LoginUserDataSearchServiceImpl implements LoginUserDataSearchService {
 
-    /** ログインユーザ情報Dao */
     @Autowired
     private LoginUserDataDao dao;
 

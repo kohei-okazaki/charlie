@@ -14,7 +14,6 @@ import jp.co.joshua.common.db.entity.MailUserData;
 @Service
 public class MailUserDataUpdateServiceImpl implements MailUserDataUpdateService {
 
-    /** メールユーザ情報Dao */
     @Autowired
     private MailUserDataDao dao;
 

@@ -9,12 +9,6 @@ import jp.co.joshua.common.db.entity.WorkUserMngMt;
  */
 public interface WorkUserMngMtCreateService {
 
-    /**
-     * 勤怠ユーザ管理マスタを登録する
-     *
-     * @param entity
-     *            勤怠ユーザ管理マスタ
-     */
     void create(WorkUserMngMt entity);
 
 }
