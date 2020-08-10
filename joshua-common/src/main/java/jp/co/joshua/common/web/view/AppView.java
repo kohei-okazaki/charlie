@@ -38,9 +38,9 @@ public enum AppView implements BaseEnum {
     WORK_REGULAR_EDIT_VIEW("/work/regularedit", "regularedit"),
     /** ユーザ定時情報登録画面View:/work/userregularentry */
     WORK_USER_REGULAR_ENTRY_VIEW("/work/userregularentry", "/work/userregular/entry"),
-    /** 勤怠承認画面-ユーザ一覧 */
+    /** 勤怠承認画面-ユーザ一覧View:/work/authuserlist */
     WORK_AUTH_USER_LIST("/work/authuserlist", "/work/auth/userlist"),
-    /** 勤怠承認画面-月別勤怠一覧 */
+    /** 勤怠承認画面-月別勤怠一覧View:/work/authmonthly */
     WORK_AUTH_MONTHLY("/work/authmonthly", "/work/auth/monthly"),
     ;
 

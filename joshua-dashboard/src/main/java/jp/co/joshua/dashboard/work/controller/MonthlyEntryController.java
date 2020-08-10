@@ -155,7 +155,7 @@ public class MonthlyEntryController {
         monthlyWorkEntryService.executeEntry(targetDate, loginAuthDto.getSeqLoginId(),
                 dtoList);
 
-        redirectAttributes.addFlashAttribute("entrySuccess", "1");
+        redirectAttributes.addFlashAttribute("entrySuccess", true);
 
         return AppView.WORK_MONTH_ENTRY_VIEW.toRedirect();
     }

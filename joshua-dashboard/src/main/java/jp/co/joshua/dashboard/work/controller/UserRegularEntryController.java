@@ -169,7 +169,7 @@ public class UserRegularEntryController {
         histMt.setSeqRegularWorkMtId(detailMt.getSeqRegularWorkMtId());
         histMtCreateService.create(histMt);
 
-        redirectAttributes.addFlashAttribute("entrySuccess", "1");
+        redirectAttributes.addFlashAttribute("entrySuccess", true);
 
         return AppView.WORK_USER_REGULAR_ENTRY_VIEW.toRedirect();
     }

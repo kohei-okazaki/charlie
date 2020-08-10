@@ -36,7 +36,7 @@ $(function() {
               <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('endHour')}" th:errors="*{endHour}"></div>
               <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('endMinute')}" th:errors="*{endMinute}"></div>
 
-              <div th:if="${entrySuccess == '1'}" class="alert alert-success" role="alert">登録完了しました</div>
+              <div th:if="${entrySuccess}" class="alert alert-success" role="alert">登録完了しました</div>
               <table class="table table-borderless">
                 <tr class="form-group zero-margin">
                   <td colspan=4>

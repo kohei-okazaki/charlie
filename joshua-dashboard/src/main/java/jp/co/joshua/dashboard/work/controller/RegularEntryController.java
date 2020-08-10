@@ -111,7 +111,7 @@ public class RegularEntryController {
         RegularWorkMt mt = modelMapper.map(form, RegularWorkMt.class);
         regularWorkMtCreateService.create(mt);
 
-        redirectAttributes.addFlashAttribute("entrySuccess", "1");
+        redirectAttributes.addFlashAttribute("entrySuccess", true);
         return AppView.WORK_REGULAR_ENTRY_VIEW.toRedirect();
     }
 
@@ -181,7 +181,7 @@ public class RegularEntryController {
         modelMapper.map(form, mt);
         regularWorkMtUpdateService.update(mt);
 
-        redirectAttributes.addFlashAttribute("entrySuccess", "1");
+        redirectAttributes.addFlashAttribute("entrySuccess", true);
 
         return AppView.WORK_REGULAR_ENTRY_VIEW.toRedirect();
     }

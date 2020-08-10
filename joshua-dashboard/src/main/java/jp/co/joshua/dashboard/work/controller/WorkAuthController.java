@@ -170,6 +170,8 @@ public class WorkAuthController {
         redirectAttributes.addAttribute("year", year);
         redirectAttributes.addAttribute("month", month);
 
+        redirectAttributes.addFlashAttribute("doneSuccess", true);
+
         return AppView.WORK_AUTH_MONTHLY.toRedirect();
     }
 
@@ -218,6 +220,8 @@ public class WorkAuthController {
         redirectAttributes.addAttribute("seq_login_id", seqLoginId);
         redirectAttributes.addAttribute("year", year);
         redirectAttributes.addAttribute("month", month);
+
+        redirectAttributes.addFlashAttribute("rejestSuccess", true);
 
         return AppView.WORK_AUTH_MONTHLY.toRedirect();
     }

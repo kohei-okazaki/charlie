@@ -57,7 +57,11 @@
 
     <div class="row">
       <div class="col-lg">
-        <table class="table table-borderless table-sm">
+
+        <div th:if="${doneSuccess}" class="alert alert-success" role="alert">承認完了しました</div>
+        <div th:if="${rejestSuccess}" class="alert alert-warning" role="alert">承認却下しました</div>
+
+        <table class="table">
             <tr class="form-group zero-margin">
               <th th:text=#{day}></th>
               <th th:text=#{weekDay}></th>
@@ -88,7 +92,7 @@
                 <a th:if="${data.workAuthStatus != null && data.workAuthStatus.value == '20'}" th:href="@{'/work/auth/reject/' + ${data.seqDailyWorkEntryDataId} + '?seq_login_id=' + ${seqLoginId} + '&year=' + ${selectedYear} + '&month=' + ${selectedMonth}}" class="link">却下する</a>
               </td>
             </tr>
-        </table><!-- /.table table-borderless table-sm -->
+        </table><!-- /.table -->
       </div><!-- col-lg -->
     </div><!-- row -->
     <br>

@@ -51,14 +51,14 @@ $(function() {
                   </select><!-- custom-select -->
                 </td>
                 <td><input type="submit" class="btn btn-outline-primary mt-1" value="切替" /></td>
-              </tr>
-            </table>
-          </form>
+              </tr><!-- /.form-group zero-margin -->
+            </table><!-- /.table table-borderless -->
+          </form><!-- /.form-inline -->
 
           <div class="row">
             <div class="col">
               <br>
-              <div th:if="${entrySuccess == '1'}" class="alert alert-success" role="alert">登録完了しました</div>
+              <div th:if="${entrySuccess}" class="alert alert-success" role="alert">登録完了しました</div>
             </div><!-- /.col -->
           </div><!-- /.row -->
 
@@ -120,7 +120,7 @@ $(function() {
                 <td>
                   <div class="applyRegularMt">
                     <input type="button" th:id="${'applyRegularMt[' + status.index + ']'}" class="btn btn-outline-info mt-1" value="反映" />
-                  </div>
+                  </div><!-- /.applyRegularMt -->
                 </td>
                 <td>
                   <div th:if="${mt.workAuthStatus != null && mt.workAuthStatus.value == '10'}" th:text="#{work.auth.status.still}" class="work-status-still"></div>

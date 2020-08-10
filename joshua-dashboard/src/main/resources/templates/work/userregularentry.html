@@ -64,7 +64,7 @@
             <div class="row">
               <div class="col">
                 <br>
-                <div th:if="${entrySuccess == '1'}" class="alert alert-success" role="alert">登録完了しました</div>
+                <div th:if="${entrySuccess}" class="alert alert-success" role="alert">登録完了しました</div>
               </div><!-- /.col -->
             </div><!-- /.row -->
             <table class="table table-borderless">
@@ -76,9 +76,9 @@
                 <td>
                   <select id="seqLoginId" name="seqLoginId" class="custom-select">
                     <option th:each="seqLoginId : ${seqLoginIdList}" th:value="${seqLoginId}" th:inline="text">[[${seqLoginId}]]</option>
-                  </select>
+                  </select><!-- /#seqLoginId .custom-select -->
                 </td>
-              </tr>
+              </tr><!-- /.form-group zero-margin -->
               <tr class="form-group zero-margin">
                 <td>
                   <label class="control-label zero-margin" th:text="#{seqRegularWorkMtId}"></label>
@@ -87,15 +87,15 @@
                 <td>
                   <select id="seqRegularWorkMtId" name="seqRegularWorkMtId" class="custom-select">
                     <option th:each="seqRegularWorkMtId : ${seqRegularWorkMtIdList}" th:value="${seqRegularWorkMtId}" th:inline="text">[[${seqRegularWorkMtId}]]</option>
-                  </select>
+                  </select><!-- /#seqRegularWorkMtId .custom-select -->
                 </td>
-              </tr>
+              </tr><!-- /.form-group zero-margin -->
               <tr class="form-group zero-margin">
                 <td><input type="submit" class="btn btn-outline-primary mt-1" value="登録" /></td>
-              </tr>
+              </tr><!-- /.form-group zero-margin -->
             </table>
           </form>
-        </div>
+        </div><!-- /.border -->
         <br>
       </div><!-- col-lg -->
     </div><!-- row -->
