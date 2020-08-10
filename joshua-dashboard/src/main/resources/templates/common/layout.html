@@ -125,6 +125,7 @@
                 <div class="card-body">
                   <ul>
                     <li><a th:href="@{/user/edit}">ユーザ変更</a></li>
+                    <li sec:authorize="hasAuthority('00')"><a th:href="@{/user/list}">ユーザ一覧</a></li>
                   </ul>
                 </div><!-- /.card-body -->
               </div><!-- /.collapse -->

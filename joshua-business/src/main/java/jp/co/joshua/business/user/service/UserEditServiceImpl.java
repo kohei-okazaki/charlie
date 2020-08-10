@@ -7,14 +7,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import jp.co.joshua.business.db.create.MailUserDataCreateService;
+import jp.co.joshua.business.db.create.PrivateDataCreateService;
 import jp.co.joshua.business.db.select.LoginUserDataSearchService;
-import jp.co.joshua.business.db.select.MailUserDataSearchService;
+import jp.co.joshua.business.db.select.PrivateDataSearchService;
 import jp.co.joshua.business.db.update.LoginUserDataUpdateService;
-import jp.co.joshua.business.db.update.MailUserDataUpdateService;
+import jp.co.joshua.business.db.update.PrivateDataUpdateService;
 import jp.co.joshua.business.user.dto.UserEditDto;
 import jp.co.joshua.common.db.entity.LoginUserData;
-import jp.co.joshua.common.db.entity.MailUserData;
+import jp.co.joshua.common.db.entity.PrivateData;
 import jp.co.joshua.common.log.Logger;
 import jp.co.joshua.common.log.LoggerFactory;
 
@@ -43,13 +43,13 @@ public class UserEditServiceImpl implements UserEditService {
     private LoginUserDataUpdateService loginUserDataUpdateService;
     /** メールユーザ情報検索サービス */
     @Autowired
-    private MailUserDataSearchService mailUserDataSearchService;
+    private PrivateDataSearchService privateDataSearchService;
     /** メールユーザ情報作成サービス */
     @Autowired
-    private MailUserDataCreateService mailUserDataCreateService;
+    private PrivateDataCreateService privateDataCreateService;
     /** メールユーザ情報更新サービス */
     @Autowired
-    private MailUserDataUpdateService mailUserDataUpdateService;
+    private PrivateDataUpdateService privateDataUpdateService;
     /** ModelMapper */
     @Autowired
     private ModelMapper modelMapper;
@@ -75,24 +75,25 @@ public class UserEditServiceImpl implements UserEditService {
                 LOG.debugBean(loginUserData);
             }
 
-            MailUserData mailUserData = mailUserDataSearchService
+            PrivateData privateData = privateDataSearchService
                     .selectBySeqLoginId(dto.getSeqLoginId());
 
-            if (mailUserData == null) {
+            if (privateData == null) {
 
-                mailUserData = new MailUserData();
-                modelMapper.map(dto, mailUserData);
+                privateData = new PrivateData();
+                modelMapper.map(dto, privateData);
 
-                mailUserDataCreateService.create(mailUserData);
+                privateDataCreateService.create(privateData);
 
             } else {
 
-                mailUserData.setMailAddress(dto.getMailAddress());
+                privateData.setMailAddress(dto.getMailAddress());
+                privateData.setUserName(dto.getUserName());
 
-                mailUserDataUpdateService.update(mailUserData);
+                privateDataUpdateService.update(privateData);
             }
 
-            LOG.debugBean(mailUserData);
+            LOG.debugBean(privateData);
             transactionManager.commit(status);
 
         } catch (Exception e) {
@@ -106,11 +107,13 @@ public class UserEditServiceImpl implements UserEditService {
     @Override
     public UserEditDto getUserEditDto(Integer seqLoginId) {
 
-        MailUserData mailUserData = mailUserDataSearchService
+        PrivateData privateData = privateDataSearchService
                 .selectBySeqLoginId(seqLoginId);
 
         UserEditDto dto = new UserEditDto();
-        dto.setMailAddress(mailUserData == null ? null : mailUserData.getMailAddress());
+        dto.setUserName(
+                privateData == null ? seqLoginId.toString() : privateData.getUserName());
+        dto.setMailAddress(privateData == null ? null : privateData.getMailAddress());
 
         return dto;
     }

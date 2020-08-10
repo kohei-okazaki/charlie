@@ -1,39 +1,43 @@
 package jp.co.joshua.common.db.entity;
 
+import jp.co.joshua.common.db.entity.BaseEntity;
 import org.seasar.doma.Entity;
+import org.seasar.doma.jdbc.entity.NamingType;
+import org.seasar.doma.Id;
 import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
-import org.seasar.doma.Id;
-import org.seasar.doma.jdbc.entity.NamingType;
-
-import jp.co.joshua.common.db.annotation.Crypt;
+import java.lang.Integer;
 import jp.co.joshua.common.log.annotation.Mask;
+import jp.co.joshua.common.db.annotation.Crypt;
+import java.lang.String;
 
 /**
- * メールユーザ情報 Entity
+ * 個別ユーザ情報 Entity
  *
  * @version 1.0.0
  */
 @Entity(naming = NamingType.SNAKE_UPPER_CASE)
-public class MailUserData extends BaseEntity {
+public class PrivateData extends BaseEntity {
 
-    /** メールユーザID */
+    /** ユーザ個別情報ID */
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Integer seqMailUserId;
+    private Integer seqPrivateDataId;
     /** ログインID */
     private Integer seqLoginId;
     /** メールアドレス */
     @Crypt
     @Mask
     private String mailAddress;
+    /** ユーザ名 */
+    private String userName;
 
-    public void setSeqMailUserId(Integer seqMailUserId) {
-        this.seqMailUserId = seqMailUserId;
+    public void setSeqPrivateDataId(Integer seqPrivateDataId) {
+        this.seqPrivateDataId = seqPrivateDataId;
     }
 
-    public Integer getSeqMailUserId() {
-        return seqMailUserId;
+    public Integer getSeqPrivateDataId() {
+        return seqPrivateDataId;
     }
 
     public void setSeqLoginId(Integer seqLoginId) {
@@ -50,6 +54,14 @@ public class MailUserData extends BaseEntity {
 
     public String getMailAddress() {
         return mailAddress;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
 }
