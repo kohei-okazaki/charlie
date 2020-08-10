@@ -14,9 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.joshua.business.db.create.RegularWorkMtCreateService;
@@ -126,10 +126,10 @@ public class RegularEntryController {
      *            Pageable
      * @return 更新画面View
      */
-    @GetMapping("/edit")
+    @GetMapping("edit/{seqRegularWorkMtId}")
     @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String edit(Model model,
-            @RequestParam(name = "id", required = false) Optional<Integer> seqRegularWorkMtId,
+            @PathVariable("seqRegularWorkMtId") Optional<Integer> seqRegularWorkMtId,
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
         if (!seqRegularWorkMtId.isPresent()) {
@@ -138,7 +138,7 @@ public class RegularEntryController {
         }
 
         model.addAttribute("paging", PagingFactory.getPageView(pageable,
-                "/work/regular/edit?id=" + seqRegularWorkMtId.get().intValue() + "&page",
+                "/work/regular/edit/" + seqRegularWorkMtId.get().intValue() + "?page",
                 regularWorkMtSearchService.count()));
         model.addAttribute("mt",
                 regularWorkMtSearchService.selectById(seqRegularWorkMtId.get()));
@@ -161,7 +161,7 @@ public class RegularEntryController {
      *            RedirectAttributes
      * @return 更新画面View
      */
-    @PostMapping("/edit")
+    @PostMapping("edit")
     @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String edit(Model model, @Validated RegularEditForm form,
             BindingResult result, RedirectAttributes redirectAttributes) {
