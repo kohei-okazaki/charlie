@@ -26,21 +26,21 @@
               <td>
                 <select id="year" name="year" class="custom-select">
                   <option th:each="year : ${yearList}" th:value="${year}" th:selected="${year == selectedYear}" th:inline="text">[[${year}]]</option>
-                </select><!-- custom-select -->
+                </select><!-- /.custom-select -->
               </td>
               <td>
                 <select id="month" name="month" class="custom-select">
                   <option th:each="month : ${monthList}" th:value="${month}" th:selected="${month == selectedMonth}" th:inline="text">[[${month}]]</option>
-                </select><!-- custom-select -->
+                </select><!-- /.custom-select -->
               </td>
               <td><input type="submit" class="btn btn-outline-primary mt-1" value="切替" /></td>
             </tr>
-          </table><!-- table table-borderless -->
+          </table><!-- /.table table-borderless -->
         </form>
         <br>
         <br>
         <br>
-        <table class="table table-borderless table-sm">
+        <table class="table">
           <tr>
             <th></th>
             <th th:text="#{seqLoginId}"></th>

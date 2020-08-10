@@ -17,7 +17,29 @@
       <br>
       <div class="row">
         <div class="col-lg">
-
+          <table class="table">
+            <tr>
+              <th></th>
+              <th th:text="#{seqLoginId}"></th>
+              <th th:text="#{userName}"></th>
+              <th th:text="#{appAuth}"></th>
+              <th th:text="#{regDate}"></th>
+            </tr>
+            <tr th:each="user : ${userList}">
+              <td><a class="link" th:href="@{'/user/role/' + ${user.seqLoginId}}">編集</a></td>
+              <td th:text="${user.seqLoginId}"></td>
+              <td th:text="${user.userName}"></td>
+              <td th:text="#{'user.app.auth.' + ${user.appAuth.value}}"></td>
+              <td th:text="${#temporals.format(user.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+            </tr>
+          </table><!-- /.table -->
+          <div>
+            <p th:text="${paging.totalRecordNum} + '件中 ' + ${paging.fromRecordNum} + '～' + ${paging.toRecordNum} + '件表示中'" />
+            <a class="link" th:classappend="!${paging.canGoFirst} ? 'disabled'" th:href="${paging.firstHref}">&lt;&lt;</a>
+            <a class="link" th:classappend="!${paging.canGoPrevious} ? 'disabled'" th:href="${paging.previousHref}">&lt;</a>
+            <a class="link" th:classappend="!${paging.canGoNext} ? 'disabled'" th:href="${paging.nextHref}">&gt;</a>
+            <a class="link" th:classappend="!${paging.canGoLast} ? 'disabled'" th:href="${paging.lastHref}">&gt;&gt;</a>
+          </div>
           <br>
         </div><!-- /.col-lg -->
       </div><!-- /.row -->
