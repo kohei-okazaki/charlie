@@ -27,13 +27,13 @@ public class DailyWorkEntryDataUpdateServiceImpl
     @Override
     public void updateAuthDone(DailyWorkEntryData entity) {
         entity.setWorkAuthStatus(WorkAuthStatus.DONE);
-        dao.update(entity);
+        update(entity);
     }
 
     @Override
     public void updateAuthReject(DailyWorkEntryData entity) {
         entity.setWorkAuthStatus(WorkAuthStatus.STILL);
-        dao.update(entity);
+        update(entity);
     }
 
 }

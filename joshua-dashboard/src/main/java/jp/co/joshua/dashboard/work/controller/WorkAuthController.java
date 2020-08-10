@@ -19,7 +19,6 @@ import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
 import jp.co.joshua.business.db.update.DailyWorkEntryDataUpdateService;
 import jp.co.joshua.business.work.component.WorkEntryComponent;
 import jp.co.joshua.common.db.entity.CompositeDailyWorkAuthStatusData;
-import jp.co.joshua.common.db.entity.CompositeWorkAuthTargetData;
 import jp.co.joshua.common.db.entity.DailyWorkEntryData;
 import jp.co.joshua.common.db.type.WorkAuthStatus;
 import jp.co.joshua.common.exception.AppException;
@@ -116,10 +115,8 @@ public class WorkAuthController {
         model.addAttribute("selectedYear", date.getYear());
         model.addAttribute("selectedMonth", date.getMonthValue());
         model.addAttribute("seqLoginId", seqLoginId);
-
-        List<CompositeWorkAuthTargetData> list = dailyWorkEntryDataSearchService
-                .selectAuthTargetDataList(Integer.valueOf(seqLoginId), date);
-        model.addAttribute("authDataList", list);
+        model.addAttribute("authDataList", dailyWorkEntryDataSearchService
+                .selectAuthTargetDataList(Integer.valueOf(seqLoginId), date));
 
         return AppView.WORK_AUTH_MONTHLY.getValue();
     }

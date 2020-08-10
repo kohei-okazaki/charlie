@@ -54,7 +54,7 @@
             <td th:text="${user.seqLoginId}"></td>
             <td th:if="${user.nonAuthCount > 0 || ((user.businessDayCount - user.authCount) > 0)}" th:text="#{work.auth.status.still}" class="work-status-still"></td>
             <td th:if="${user.authCount == user.businessDayCount}" th:text="#{work.auth.status.done}" class="work-status-done"></td>
-            <td th:if="${user.nonAuthCount == 0 && user.authCount == 0}">未申請</td>
+            <td th:if="${!(user.nonAuthCount > 0 || ((user.businessDayCount - user.authCount) > 0)) && !(user.authCount == user.businessDayCount)}">未申請</td>
             <td th:text="${selectedYear} + '/' + ${#numbers.formatInteger(selectedMonth, 2, 'COMMA')}"></td>
           </tr>
         </table><!-- /.table -->
