@@ -145,12 +145,28 @@ public class MonthlyEntryController {
                             e.getWorkEndHour(), e.getWorkEndMinute());
 
                     // 作業時間
-                    LocalTime actualTime = LocalTime.of(e.getActualTimeHour(),
-                            e.getActualTimeMinute());
+                    LocalTime actualTime;
+                    if (e.getActualTimeHour() == null
+                            || e.getActualTimeMinute() == null) {
+
+                        LocalTime endTime = end.toLocalTime();
+                        LocalTime beginTime = begin.toLocalTime();
+
+                        actualTime = LocalTime.MIN;
+                    } else {
+                        actualTime = LocalTime.of(e.getActualTimeHour(),
+                                e.getActualTimeMinute());
+                    }
 
                     // 休日出勤作業時間
-                    LocalTime holidayWorkTime = LocalTime.of(e.getHolodayWorkTimeHour(),
-                            e.getHolidayWorkTimeMinute());
+                    LocalTime holidayWorkTime;
+                    if (e.getHolidayWorkTimeHour() == null
+                            || e.getHolidayWorkTimeMinute() == null) {
+                        holidayWorkTime = LocalTime.MIN;
+                    } else {
+                        holidayWorkTime = LocalTime.of(e.getHolidayWorkTimeHour(),
+                                e.getHolidayWorkTimeMinute());
+                    }
 
                     DailyWorkEntryDataDto dto = new DailyWorkEntryDataDto();
                     dto.setBegin(begin);

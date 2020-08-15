@@ -39,7 +39,7 @@ public class DailyEntryForm {
     /** 休日出勤作業時間(時) */
     @Min(value = 0)
     @Max(value = 23)
-    private Integer holodayWorkTimeHour;
+    private Integer holidayWorkTimeHour;
     /** 休日出勤作業時間(分) */
     @Min(value = 0)
     @Max(value = 59)
@@ -101,12 +101,12 @@ public class DailyEntryForm {
         this.actualTimeMinute = actualTimeMinute;
     }
 
-    public Integer getHolodayWorkTimeHour() {
-        return holodayWorkTimeHour;
+    public Integer getHolidayWorkTimeHour() {
+        return holidayWorkTimeHour;
     }
 
-    public void setHolodayWorkTimeHour(Integer holodayWorkTimeHour) {
-        this.holodayWorkTimeHour = holodayWorkTimeHour;
+    public void setHolidayWorkTimeHour(Integer holidayWorkTimeHour) {
+        this.holidayWorkTimeHour = holidayWorkTimeHour;
     }
 
     public Integer getHolidayWorkTimeMinute() {

@@ -126,10 +126,40 @@ $(function() {
                     <input type="button" th:id="${'applyRegularMt[' + status.index + ']'}" class="btn btn-outline-info mt-1" value="反映" />
                   </div><!-- /.applyRegularMt -->
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>
+                  <!-- 作業時間 -->
+                  <div th:if="${mt.actualTime == null}" class="row">
+                    <input type="number" name="actualTimeHour" class="form-control date-input" th:name="${'dailyEntryFormList[' + status.index + '].actualTimeHour'}" />
+                    &nbsp;:&nbsp;
+                    <input type="number" name="actualTimeMinute" class="form-control date-input" th:name="${'dailyEntryFormList[' + status.index + '].actualTimeMinute'}" />
+                  </div><!-- /.row -->
+                  <div th:if="${mt.actualTime != null && mt.workAuthStatus != null && mt.workAuthStatus.value == '10'}" class="row">
+                    <input type="number" name="actualTimeHour" class="form-control date-input" th:value="${#temporals.format(mt.actualTime, 'HH')}" th:name="${'dailyEntryFormList[' + status.index + '].actualTimeHour'}" />
+                    &nbsp;:&nbsp;
+                    <input type="number" name="actualTimeMinute" class="form-control date-input" th:value="${#temporals.format(mt.actualTime, 'mm')}" th:name="${'dailyEntryFormList[' + status.index + '].actualTimeMinute'}" />
+                  </div><!-- /.row -->
+                  <div th:if="${mt.actualTime != null && mt.workAuthStatus != null && mt.workAuthStatus.value == '20'}" th:text="${#temporals.format(mt.actualTime, 'HH:mm')}"></div>
+                </td>
+                <td>
+                  <!-- 残業時間 -->
+                </td>
+                <td>
+                  <!-- 深夜残業時間 -->
+                </td>
+                <td>
+                  <!-- 休日出勤作業時間 -->
+                  <div th:if="${mt.holidayWorkTime == null}" class="row">
+                    <input type="number" name="holidayWorkTimeHour" class="form-control date-input" th:name="${'dailyEntryFormList[' + status.index + '].holidayWorkTimeHour'}" />
+                    &nbsp;:&nbsp;
+                    <input type="number" name="holidayWorkTimeMinute" class="form-control date-input" th:name="${'dailyEntryFormList[' + status.index + '].holidayWorkTimeMinute'}" />
+                  </div><!-- /.row -->
+                  <div th:if="${mt.holidayWorkTime != null && mt.workAuthStatus != null && mt.workAuthStatus.value == '10'}" class="row">
+                    <input type="number" name="holidayWorkTimeHour" class="form-control date-input" th:value="${#temporals.format(mt.holidayWorkTime, 'HH')}" th:name="${'dailyEntryFormList[' + status.index + '].holidayWorkTimeHour'}" />
+                    &nbsp;:&nbsp;
+                    <input type="number" name="holidayWorkTimeMinute" class="form-control date-input" th:value="${#temporals.format(mt.holidayWorkTime, 'mm')}" th:name="${'dailyEntryFormList[' + status.index + '].holidayWorkTimeMinute'}" />
+                  </div><!-- /.row -->
+                  <div th:if="${mt.holidayWorkTime != null && mt.workAuthStatus != null && mt.workAuthStatus.value == '20'}" th:text="${#temporals.format(mt.holidayWorkTime, 'HH:mm')}"></div>
+                </td>
                 <td>
                   <div th:if="${mt.workAuthStatus != null && mt.workAuthStatus.value == '10'}" th:text="#{work.auth.status.still}" class="work-status-still"></div>
                   <div th:if="${mt.workAuthStatus != null && mt.workAuthStatus.value == '20'}" th:text="#{work.auth.status.done}" class="work-status-done"></div>
