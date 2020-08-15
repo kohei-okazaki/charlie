@@ -11,6 +11,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import jp.co.joshua.business.db.create.DailyWorkEntryDataCreateService;
+import jp.co.joshua.business.db.delete.DailyWorkEntryDataDeleteService;
 import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
 import jp.co.joshua.business.db.update.DailyWorkEntryDataUpdateService;
 import jp.co.joshua.business.work.component.WorkEntryComponent;
@@ -52,14 +53,18 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
     /** 日別勤怠登録情報更新サービス */
     @Autowired
     private DailyWorkEntryDataUpdateService dailyWorkEntryDataUpdateService;
+    /** 日別勤怠登録情報削除サービス */
+    @Autowired
+    private DailyWorkEntryDataDeleteService dailyWorkEntryDataDeleteService;
 
     @Override
     public void executeEntry(LocalDate targetDate, Integer seqLoginId,
-            List<DailyWorkEntryDataDto> dtoList) {
+            List<DailyWorkEntryDataDto> dtoList, List<Integer> deleteIdList) {
 
         WorkUserMngMt mngMt = workEntryComponent
                 .getActiveWorkUserMtBySeqLoginId(seqLoginId);
 
+        // トランザクション開始
         TransactionStatus status = transactionManager
                 .getTransaction(defaultTransactionDefinition);
 
@@ -108,6 +113,8 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
                     dailyWorkEntryDataCreateService.create(entity);
                 }
             }
+
+            dailyWorkEntryDataDeleteService.deleteById(deleteIdList);
 
         } catch (Exception e) {
             transactionManager.rollback(status);

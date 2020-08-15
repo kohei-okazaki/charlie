@@ -2,6 +2,8 @@ package jp.co.joshua.business.work.component;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +89,21 @@ public class WorkEntryComponent {
     public List<Integer> getMonthList() {
         return Stream.of(Month.class.getEnumConstants()).map(Month::getValue)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 指定した開始時間と終了時間から実作業時間を返す
+     *
+     * @param begin
+     *            開始時間
+     * @param end
+     *            終了時間
+     * @return 実作業時間
+     */
+    public LocalTime getWorkTime(LocalDateTime begin, LocalDateTime end) {
+        long diff = DateUtil.diffLocalTimeByMinute(begin.toLocalTime(),
+                end.toLocalTime());
+        return LocalTime.of((int) diff / 60, (int) diff % 60);
     }
 
 }

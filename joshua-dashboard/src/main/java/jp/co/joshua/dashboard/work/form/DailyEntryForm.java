@@ -3,6 +3,8 @@ package jp.co.joshua.dashboard.work.form;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+import jp.co.joshua.common.db.type.BusinessFlg;
+
 /**
  * 1日あたりの勤怠データ
  *
@@ -10,8 +12,12 @@ import javax.validation.constraints.Min;
  */
 public class DailyEntryForm {
 
+    /** 日別勤怠登録情報ID */
+    private Integer seqDailyWorkEntryDataId;
     /** 日にち */
     private String date;
+    /** 営業日フラグ */
+    private BusinessFlg businessFlg;
     /** 始業時間(時) */
     @Min(value = 0)
     @Max(value = 23)
@@ -45,12 +51,28 @@ public class DailyEntryForm {
     @Max(value = 59)
     private Integer holidayWorkTimeMinute;
 
+    public Integer getSeqDailyWorkEntryDataId() {
+        return seqDailyWorkEntryDataId;
+    }
+
+    public void setSeqDailyWorkEntryDataId(Integer seqDailyWorkEntryDataId) {
+        this.seqDailyWorkEntryDataId = seqDailyWorkEntryDataId;
+    }
+
     public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public BusinessFlg getBusinessFlg() {
+        return businessFlg;
+    }
+
+    public void setBusinessFlg(BusinessFlg businessFlg) {
+        this.businessFlg = businessFlg;
     }
 
     public Integer getWorkBeginHour() {

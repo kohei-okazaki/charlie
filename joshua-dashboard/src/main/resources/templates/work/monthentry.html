@@ -85,6 +85,8 @@ $(function() {
                 <td>
                   <div th:text="${#temporals.format(mt.date, 'd')}"></div>
                   <input type="hidden" th:name="${'dailyEntryFormList[' + status.index + '].date'}" th:value="${mt.date}" />
+                  <input type="hidden" th:name="${'dailyEntryFormList[' + status.index + '].seqDailyWorkEntryDataId'}" th:value="${mt.seqDailyWorkEntryDataId}" />
+                  <input type="hidden" th:name="${'dailyEntryFormList[' + status.index + '].businessFlg'}" th:value="${mt.businessFlg}" />
                 </td>
                 <td>
                   <div th:if="${mt.weekday.value == '1'}" th:text="#{sunday}" class="sunday"></div>

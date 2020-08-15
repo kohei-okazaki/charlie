@@ -52,4 +52,7 @@ public interface DailyWorkEntryDataDao extends BaseDao {
     public List<CompositeWorkAuthTargetData> selectAuthTargetDataList(Integer seqLoginId,
             String date);
 
+    @Delete(sqlFile = true)
+    public int deleteById(List<Integer> seqDailyWorkEntryDataIdList);
+
 }

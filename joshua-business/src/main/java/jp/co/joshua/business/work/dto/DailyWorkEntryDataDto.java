@@ -10,6 +10,8 @@ import java.time.LocalTime;
  */
 public class DailyWorkEntryDataDto {
 
+    /** 日別勤怠登録情報ID */
+    private Integer seqDailyWorkEntryDataId;
     /** 日にち */
     private int day;
     /** 曜日 */
@@ -26,6 +28,14 @@ public class DailyWorkEntryDataDto {
     private LocalTime holidayWorkTime;
     /** 承認ステータス */
     private String status;
+
+    public Integer getSeqDailyWorkEntryDataId() {
+        return seqDailyWorkEntryDataId;
+    }
+
+    public void setSeqDailyWorkEntryDataId(Integer seqDailyWorkEntryDataId) {
+        this.seqDailyWorkEntryDataId = seqDailyWorkEntryDataId;
+    }
 
     public int getDay() {
         return day;

@@ -23,4 +23,15 @@ public class DateUtilTest {
         System.out.println(DateUtil.toString(lt, DateFormatType.HHMM));
 
     }
+
+    @Test
+    public void testDiff() {
+        LocalTime beginTime = LocalTime.of(10, 00);
+        LocalTime endTime = LocalTime.of(18, 30);
+        long diff = DateUtil.diffLocalTimeByMinute(beginTime, endTime);
+        System.out.println(diff);
+
+        LocalTime actualTime = LocalTime.of((int) diff / 60, (int) diff % 60);
+        System.out.println(actualTime);
+    }
 }

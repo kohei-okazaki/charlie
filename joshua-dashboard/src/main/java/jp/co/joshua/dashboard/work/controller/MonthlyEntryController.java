@@ -25,11 +25,13 @@ import jp.co.joshua.business.work.component.WorkEntryComponent;
 import jp.co.joshua.business.work.dto.DailyWorkEntryDataDto;
 import jp.co.joshua.business.work.service.MonthlyWorkEntryService;
 import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
+import jp.co.joshua.common.db.type.BusinessFlg;
 import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.util.DateUtil;
 import jp.co.joshua.common.util.DateUtil.DateFormatType;
 import jp.co.joshua.common.web.auth.login.LoginAuthDto;
 import jp.co.joshua.common.web.view.AppView;
+import jp.co.joshua.dashboard.work.form.DailyEntryForm;
 import jp.co.joshua.dashboard.work.form.MonthEntryForm;
 
 /**
@@ -124,7 +126,28 @@ public class MonthlyEntryController {
         redirectAttributes.addAttribute("year", targetDate.getYear());
         redirectAttributes.addAttribute("month", targetDate.getMonthValue());
 
-        List<DailyWorkEntryDataDto> dtoList = form.getDailyEntryFormList().stream()
+        List<DailyWorkEntryDataDto> dtoList = getDtoList(form.getDailyEntryFormList());
+        List<Integer> deleteIdList = getDeleteIdList(form.getDailyEntryFormList());
+        LoginAuthDto loginAuthDto = (LoginAuthDto) session
+                .getAttribute("loginAuthDto");
+        monthlyWorkEntryService.executeEntry(targetDate, loginAuthDto.getSeqLoginId(),
+                dtoList, deleteIdList);
+
+        redirectAttributes.addFlashAttribute("entrySuccess", true);
+
+        return AppView.WORK_MONTH_ENTRY_VIEW.toRedirect();
+    }
+
+    /**
+     * 日別勤怠登録情報Dtoのリストを返す
+     *
+     * @param dailyEntryFormList
+     *            1日あたりの勤怠情報リスト
+     * @return 日別勤怠登録情報Dtoのリスト
+     */
+    private List<DailyWorkEntryDataDto> getDtoList(
+            List<DailyEntryForm> dailyEntryFormList) {
+        return dailyEntryFormList.stream()
                 .filter(e -> {
                     return e.getWorkBeginHour() != null
                             && e.getWorkBeginMinute() != null
@@ -145,30 +168,33 @@ public class MonthlyEntryController {
                             e.getWorkEndHour(), e.getWorkEndMinute());
 
                     // 作業時間
-                    LocalTime actualTime;
-                    if (e.getActualTimeHour() == null
-                            || e.getActualTimeMinute() == null) {
-
-                        LocalTime endTime = end.toLocalTime();
-                        LocalTime beginTime = begin.toLocalTime();
-
-                        actualTime = LocalTime.MIN;
-                    } else {
-                        actualTime = LocalTime.of(e.getActualTimeHour(),
-                                e.getActualTimeMinute());
-                    }
-
+                    LocalTime actualTime = LocalTime.MIN;
                     // 休日出勤作業時間
-                    LocalTime holidayWorkTime;
-                    if (e.getHolidayWorkTimeHour() == null
-                            || e.getHolidayWorkTimeMinute() == null) {
-                        holidayWorkTime = LocalTime.MIN;
+                    LocalTime holidayWorkTime = LocalTime.MIN;
+
+                    if (BusinessFlg.ON == e.getBusinessFlg()) {
+                        // 営業日の場合
+                        if (e.getActualTimeHour() == null
+                                || e.getActualTimeMinute() == null) {
+                            actualTime = workEntryComponent.getWorkTime(begin, end);
+                        } else {
+                            actualTime = LocalTime.of(e.getActualTimeHour(),
+                                    e.getActualTimeMinute());
+                        }
+
                     } else {
-                        holidayWorkTime = LocalTime.of(e.getHolidayWorkTimeHour(),
-                                e.getHolidayWorkTimeMinute());
+                        // 非営業日の場合
+                        if (e.getHolidayWorkTimeHour() == null
+                                || e.getHolidayWorkTimeMinute() == null) {
+                            holidayWorkTime = workEntryComponent.getWorkTime(begin, end);
+                        } else {
+                            holidayWorkTime = LocalTime.of(e.getHolidayWorkTimeHour(),
+                                    e.getHolidayWorkTimeMinute());
+                        }
                     }
 
                     DailyWorkEntryDataDto dto = new DailyWorkEntryDataDto();
+                    dto.setSeqDailyWorkEntryDataId(e.getSeqDailyWorkEntryDataId());
                     dto.setBegin(begin);
                     dto.setEnd(end);
                     dto.setActualTime(actualTime);
@@ -176,15 +202,32 @@ public class MonthlyEntryController {
 
                     return dto;
                 }).collect(Collectors.toList());
+    }
 
-        LoginAuthDto loginAuthDto = (LoginAuthDto) session
-                .getAttribute("loginAuthDto");
-        monthlyWorkEntryService.executeEntry(targetDate, loginAuthDto.getSeqLoginId(),
-                dtoList);
-
-        redirectAttributes.addFlashAttribute("entrySuccess", true);
-
-        return AppView.WORK_MONTH_ENTRY_VIEW.toRedirect();
+    /**
+     * 日別勤怠登録情報の削除対象のIDをリストで返す
+     * <ul>
+     * <li>日別勤怠登録情報のID <> NULL</li>
+     * <li>form.始業時間(時) == null</li>
+     * <li>form.始業時間(分) == null</li>
+     * <li>form.終業時間(時) == null</li>
+     * <li>form.終業時間(分) == null</li>
+     * </ul>
+     *
+     * @param dailyEntryFormList
+     *            1日あたりの勤怠情報リスト
+     * @return 日別勤怠登録情報の削除対象のIDリスト
+     */
+    private List<Integer> getDeleteIdList(
+            List<DailyEntryForm> dailyEntryFormList) {
+        return dailyEntryFormList.stream()
+                .filter(e -> e.getSeqDailyWorkEntryDataId() != null)
+                .filter(e -> e.getWorkBeginHour() == null)
+                .filter(e -> e.getWorkBeginMinute() == null)
+                .filter(e -> e.getWorkEndHour() == null)
+                .filter(e -> e.getWorkEndMinute() == null)
+                .map(e -> e.getSeqDailyWorkEntryDataId())
+                .collect(Collectors.toList());
     }
 
 }

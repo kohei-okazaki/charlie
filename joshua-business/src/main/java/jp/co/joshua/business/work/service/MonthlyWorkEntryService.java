@@ -13,5 +13,5 @@ import jp.co.joshua.business.work.dto.DailyWorkEntryDataDto;
 public interface MonthlyWorkEntryService {
 
     void executeEntry(LocalDate targetDate, Integer seqWorkUserMngMtId,
-            List<DailyWorkEntryDataDto> dtoList);
+            List<DailyWorkEntryDataDto> dtoList, List<Integer> deleteIdList);
 }
