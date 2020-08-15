@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import jp.co.joshua.common.algorithm.Sha256HashEncoder;
 import jp.co.joshua.common.db.dao.LoginUserDataDao;
 import jp.co.joshua.common.db.entity.LoginUserData;
+import jp.co.joshua.common.db.type.AppAuth;
 import jp.co.joshua.common.util.DateUtil;
 
 /**
@@ -30,6 +31,9 @@ public class LoginUserDataCreateServiceImpl implements LoginUserDataCreateServic
         // パスワード有効期限(システム日時 + 12ヶ月)
         entity.setPasswordExpire(
                 DateUtil.addMonth(DateUtil.toLocalDate(DateUtil.getSysDate()), 12));
+        // アプリの権限
+        entity.setAppAuth(AppAuth.COMMON);
+
         dao.insert(entity);
     }
 

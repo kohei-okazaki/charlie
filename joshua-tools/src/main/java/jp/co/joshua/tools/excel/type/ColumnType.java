@@ -3,6 +3,7 @@ package jp.co.joshua.tools.excel.type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import jp.co.joshua.common.type.BaseEnum;
 
@@ -17,8 +18,10 @@ public enum ColumnType implements BaseEnum {
     VARCHAR("VARCHAR", String.class),
     /** DATE */
     DATE("DATE", LocalDate.class),
-    /** TIMESTAMP */
-    TIMESTAMP("TIMESTAMP", LocalDateTime.class),
+    /** TIME */
+    TIME("TIME", LocalTime.class),
+    /** DATETIME */
+    DATETIME("DATETIME", LocalDateTime.class),
     /** DOUBLE */
     DECIMAL("DECIMAL", BigDecimal.class),
     /** INT */

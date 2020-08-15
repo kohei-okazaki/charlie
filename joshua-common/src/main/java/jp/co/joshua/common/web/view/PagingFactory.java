@@ -98,7 +98,13 @@ public class PagingFactory {
         pv.setCurrentPageNum(pageable.getPageNumber());
         pv.setFirstHref(path + "=" + 0);
 
-        int fromRecordNum = pageable.getPageSize() * pageable.getPageNumber() + 1;
+        int fromRecordNum;
+        if (count == 0) {
+            fromRecordNum = 0;
+        } else {
+            fromRecordNum = pageable.getPageSize() * pageable.getPageNumber() + 1;
+        }
+
         pv.setFromRecordNum(fromRecordNum);
         pv.setLastHref(
                 path + "=" + (count / pageable.getPageSize()));

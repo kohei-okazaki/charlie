@@ -10,7 +10,22 @@
 </head>
 <body>
   <div layout:fragment="content">
-
+    <div class="row">
+      <div class="col-lg">
+        <div sec:authorize="hasAuthority('00')">
+            <p>今は<b>00_管理者</b>権限でログインしています。</p>
+        </div>
+        <div sec:authorize="hasAuthority('01')">
+            <p>今は<b>01_経理</b>権限でログインしています。</p>
+        </div>
+        <div sec:authorize="hasAuthority('02')">
+            <p>今は<b>02_一般</b>権限でログインしています。</p>
+        </div>
+        <div sec:authorize="hasAuthority('01') || hasAuthority('02')">
+            <p>今は<b>01_経理</b>、または<b>02_一般</b>権限でログインしています。</p>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>

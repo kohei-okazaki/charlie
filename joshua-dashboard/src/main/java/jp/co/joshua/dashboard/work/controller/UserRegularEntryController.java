@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -87,6 +88,7 @@ public class UserRegularEntryController {
      * @return ユーザ定時情報登録画面View
      */
     @GetMapping("entry")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String entry(Model model,
             @RequestParam(name = "mt_page", required = false) String mtPage,
             @RequestParam(name = "hist_mt_page", required = false) String histMtPage) {
@@ -136,6 +138,7 @@ public class UserRegularEntryController {
      * @return ユーザ定時情報登録画面View
      */
     @PostMapping("entry")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String entry(Model model, @Validated UserRegularEntryForm form,
             BindingResult result, RedirectAttributes redirectAttributes) {
 
@@ -166,7 +169,7 @@ public class UserRegularEntryController {
         histMt.setSeqRegularWorkMtId(detailMt.getSeqRegularWorkMtId());
         histMtCreateService.create(histMt);
 
-        redirectAttributes.addFlashAttribute("entrySuccess", "1");
+        redirectAttributes.addFlashAttribute("entrySuccess", true);
 
         return AppView.WORK_USER_REGULAR_ENTRY_VIEW.toRedirect();
     }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,6 @@ import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
 import jp.co.joshua.business.db.update.DailyWorkEntryDataUpdateService;
 import jp.co.joshua.business.work.component.WorkEntryComponent;
 import jp.co.joshua.common.db.entity.CompositeDailyWorkAuthStatusData;
-import jp.co.joshua.common.db.entity.CompositeWorkAuthTargetData;
 import jp.co.joshua.common.db.entity.DailyWorkEntryData;
 import jp.co.joshua.common.db.type.WorkAuthStatus;
 import jp.co.joshua.common.exception.AppException;
@@ -64,6 +64,7 @@ public class WorkAuthController {
      *             日付変換に失敗した場合
      */
     @GetMapping("userlist")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String userList(Model model,
             @RequestParam(name = "year", required = false) String year,
             @RequestParam(name = "month", required = false) String month,
@@ -101,6 +102,7 @@ public class WorkAuthController {
      *             日付変換に失敗した場合
      */
     @GetMapping("monthly")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String monthly(Model model,
             @RequestParam("seq_login_id") String seqLoginId,
             @RequestParam(name = "year", required = false) String year,
@@ -113,10 +115,8 @@ public class WorkAuthController {
         model.addAttribute("selectedYear", date.getYear());
         model.addAttribute("selectedMonth", date.getMonthValue());
         model.addAttribute("seqLoginId", seqLoginId);
-
-        List<CompositeWorkAuthTargetData> list = dailyWorkEntryDataSearchService
-                .selectAuthTargetDataList(Integer.valueOf(seqLoginId), date);
-        model.addAttribute("authDataList", list);
+        model.addAttribute("authDataList", dailyWorkEntryDataSearchService
+                .selectAuthTargetDataList(Integer.valueOf(seqLoginId), date));
 
         return AppView.WORK_AUTH_MONTHLY.getValue();
     }
@@ -141,6 +141,7 @@ public class WorkAuthController {
      *             日別勤怠登録情報が存在しない場合
      */
     @GetMapping("done/{seqDailyWorkEntryDataId}")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String done(Model model,
             @PathVariable("seqDailyWorkEntryDataId") String seqDailyWorkEntryDataId,
             @RequestParam(name = "seq_login_id") String seqLoginId,
@@ -166,6 +167,8 @@ public class WorkAuthController {
         redirectAttributes.addAttribute("year", year);
         redirectAttributes.addAttribute("month", month);
 
+        redirectAttributes.addFlashAttribute("doneSuccess", true);
+
         return AppView.WORK_AUTH_MONTHLY.toRedirect();
     }
 
@@ -189,6 +192,7 @@ public class WorkAuthController {
      *             日別勤怠登録情報が存在しない場合
      */
     @GetMapping("reject/{seqDailyWorkEntryDataId}")
+    @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String reject(Model model,
             @PathVariable("seqDailyWorkEntryDataId") String seqDailyWorkEntryDataId,
             @RequestParam(name = "seq_login_id") String seqLoginId,
@@ -213,6 +217,8 @@ public class WorkAuthController {
         redirectAttributes.addAttribute("seq_login_id", seqLoginId);
         redirectAttributes.addAttribute("year", year);
         redirectAttributes.addAttribute("month", month);
+
+        redirectAttributes.addFlashAttribute("rejestSuccess", true);
 
         return AppView.WORK_AUTH_MONTHLY.toRedirect();
     }

@@ -19,6 +19,8 @@ public class UserEditDto {
     /** メールアドレス */
     @Mask
     private String mailAddress;
+    /** ユーザ名 */
+    private String userName;
 
     public Integer getSeqLoginId() {
         return seqLoginId;
@@ -50,6 +52,14 @@ public class UserEditDto {
 
     public void setMailAddress(String mailAddress) {
         this.mailAddress = mailAddress;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 }

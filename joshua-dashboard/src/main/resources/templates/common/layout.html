@@ -61,9 +61,9 @@
                   <ul>
                     <li><a th:href="@{/work/month/entry}">勤怠登録</a></li>
                     <li><a href="#">履歴確認</a></li>
-                    <li><a th:href="@{/work/regular/entry}">定時登録</a></li>
-                    <li><a th:href="@{/work/userregular/entry}">ユーザ定時登録</a></li>
-                    <li><a th:href="@{/work/auth/userlist}">勤怠承認</a></li>
+                    <li sec:authorize="hasAuthority('00') || hasAuthority('01')"><a th:href="@{/work/regular/entry}">定時登録</a></li>
+                    <li sec:authorize="hasAuthority('00') || hasAuthority('01')"><a th:href="@{/work/userregular/entry}">ユーザ定時登録</a></li>
+                    <li sec:authorize="hasAuthority('00') || hasAuthority('01')"><a th:href="@{/work/auth/userlist}">勤怠承認</a></li>
                   </ul>
                 </div><!-- /.card-body -->
               </div><!-- /.collapse -->
@@ -125,6 +125,7 @@
                 <div class="card-body">
                   <ul>
                     <li><a th:href="@{/user/edit}">ユーザ変更</a></li>
+                    <li sec:authorize="hasAuthority('00')"><a th:href="@{/user/list}">ユーザ一覧</a></li>
                   </ul>
                 </div><!-- /.card-body -->
               </div><!-- /.collapse -->

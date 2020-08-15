@@ -8,7 +8,9 @@ import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
+import org.seasar.doma.jdbc.SelectOptions;
 
+import jp.co.joshua.common.db.entity.CompositeLoginPrivateData;
 import jp.co.joshua.common.db.entity.LoginUserData;
 
 /**
@@ -34,5 +36,12 @@ public interface LoginUserDataDao extends BaseDao {
 
     @Select
     public List<Integer> selectIdList();
+
+    @Select
+    public List<CompositeLoginPrivateData> selectLoginDataJoinPrivate(
+            SelectOptions option);
+
+    @Select
+    public long count();
 
 }
