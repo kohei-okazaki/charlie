@@ -1,10 +1,12 @@
 package jp.co.joshua.common.db.entity;
 
+import jp.co.joshua.common.db.entity.BaseEntity;
 import org.seasar.doma.Entity;
+import org.seasar.doma.jdbc.entity.NamingType;
+import org.seasar.doma.Id;
 import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
-import org.seasar.doma.Id;
-import org.seasar.doma.jdbc.entity.NamingType;
+import java.lang.Integer;
 
 /**
  * 勤怠ユーザ管理マスタ Entity
@@ -15,8 +17,8 @@ import org.seasar.doma.jdbc.entity.NamingType;
 public class WorkUserMngMt extends BaseEntity {
 
     /** 勤怠ユーザ管理マスタID */
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Integer seqWorkUserMngMtId;
     /** ログインID */
     private Integer seqLoginId;

@@ -20,7 +20,7 @@ public class DateUtilTest {
         System.out.println(DateUtil.toString(ldt, DateFormatType.YYYYMMDDHHMMSS));
 
         LocalTime lt = LocalTime.now();
-        System.out.println(DateUtil.toString(lt, DateFormatType.HHMMSS));
+        System.out.println(DateUtil.toString(lt, DateFormatType.HHMM));
 
     }
 }

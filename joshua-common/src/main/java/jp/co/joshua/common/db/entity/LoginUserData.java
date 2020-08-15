@@ -20,14 +20,14 @@ import jp.co.joshua.common.db.type.AppAuth;
 public class LoginUserData extends BaseEntity {
 
     /** ログインID */
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Integer seqLoginId;
     /** パスワード */
     private String password;
     /** パスワード有効期限 */
     private LocalDate passwordExpire;
-    /** アプリの権限 */
+    /** アプリ権限 */
     private AppAuth appAuth;
 
     public void setSeqLoginId(Integer seqLoginId) {

@@ -26,8 +26,8 @@ public class PrivateData extends BaseEntity {
     /** ログインID */
     private Integer seqLoginId;
     /** メールアドレス */
-    @Crypt
     @Mask
+    @Crypt
     private String mailAddress;
     /** ユーザ名 */
     private String userName;
