@@ -32,7 +32,7 @@ $(function() {
 <body>
   <div layout:fragment="content">
     <br>
-    <div class="container border col-10">
+    <div class="container border col-12">
       <br>
       <h2>当月勤怠登録</h2>
       <div class="row">
@@ -75,6 +75,10 @@ $(function() {
                 <th th:text=#{beginWork}></th>
                 <th th:text=#{endWork}></th>
                 <th th:text=#{regular}></th>
+                <th th:text=#{actualTime}></th>
+                <th th:text=#{overTime}></th>
+                <th th:text=#{lateOverTime}></th>
+                <th th:text=#{holidayWorkTime}></th>
                 <th th:text=#{workStatus}></th>
               </tr><!-- /.form-group zero-margin -->
               <tr th:each="mt, status : ${thisMonthList}" class="form-group zero-margin">
@@ -122,6 +126,10 @@ $(function() {
                     <input type="button" th:id="${'applyRegularMt[' + status.index + ']'}" class="btn btn-outline-info mt-1" value="反映" />
                   </div><!-- /.applyRegularMt -->
                 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td>
                   <div th:if="${mt.workAuthStatus != null && mt.workAuthStatus.value == '10'}" th:text="#{work.auth.status.still}" class="work-status-still"></div>
                   <div th:if="${mt.workAuthStatus != null && mt.workAuthStatus.value == '20'}" th:text="#{work.auth.status.done}" class="work-status-done"></div>

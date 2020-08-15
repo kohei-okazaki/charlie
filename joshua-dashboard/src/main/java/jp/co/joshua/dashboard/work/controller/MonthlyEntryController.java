@@ -2,6 +2,7 @@ package jp.co.joshua.dashboard.work.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -133,19 +134,29 @@ public class MonthlyEntryController {
                     LocalDate date = DateUtil.toLocalDate(e.getDate(),
                             DateFormatType.YYYYMMDD_HYPHEN);
 
+                    // 始業日時
                     LocalDateTime begin = LocalDateTime.of(date.getYear(),
-                            date.getMonthValue(),
-                            date.getDayOfMonth(), e.getWorkBeginHour(),
-                            e.getWorkBeginMinute());
+                            date.getMonthValue(), date.getDayOfMonth(),
+                            e.getWorkBeginHour(), e.getWorkBeginMinute());
 
+                    // 終業日時
                     LocalDateTime end = LocalDateTime.of(date.getYear(),
-                            date.getMonthValue(),
-                            date.getDayOfMonth(), e.getWorkEndHour(),
-                            e.getWorkEndMinute());
+                            date.getMonthValue(), date.getDayOfMonth(),
+                            e.getWorkEndHour(), e.getWorkEndMinute());
+
+                    // 作業時間
+                    LocalTime actualTime = LocalTime.of(e.getActualTimeHour(),
+                            e.getActualTimeMinute());
+
+                    // 休日出勤作業時間
+                    LocalTime holidayWorkTime = LocalTime.of(e.getHolodayWorkTimeHour(),
+                            e.getHolidayWorkTimeMinute());
 
                     DailyWorkEntryDataDto dto = new DailyWorkEntryDataDto();
                     dto.setBegin(begin);
                     dto.setEnd(end);
+                    dto.setActualTime(actualTime);
+                    dto.setHolidayWorkTime(holidayWorkTime);
 
                     return dto;
                 }).collect(Collectors.toList());

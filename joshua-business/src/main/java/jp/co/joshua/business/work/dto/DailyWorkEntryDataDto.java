@@ -1,6 +1,7 @@
 package jp.co.joshua.business.work.dto;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * 日別勤怠登録情報のDtoクラス
@@ -19,6 +20,10 @@ public class DailyWorkEntryDataDto {
     private LocalDateTime begin;
     /** 終業日時 */
     private LocalDateTime end;
+    /** 作業時間 */
+    private LocalTime actualTime;
+    /** 休日出勤作業時間 */
+    private LocalTime holidayWorkTime;
     /** 承認ステータス */
     private String status;
 
@@ -60,6 +65,22 @@ public class DailyWorkEntryDataDto {
 
     public void setEnd(LocalDateTime end) {
         this.end = end;
+    }
+
+    public LocalTime getActualTime() {
+        return actualTime;
+    }
+
+    public void setActualTime(LocalTime actualTime) {
+        this.actualTime = actualTime;
+    }
+
+    public LocalTime getHolidayWorkTime() {
+        return holidayWorkTime;
+    }
+
+    public void setHolidayWorkTime(LocalTime holidayWorkTime) {
+        this.holidayWorkTime = holidayWorkTime;
     }
 
     public String getStatus() {

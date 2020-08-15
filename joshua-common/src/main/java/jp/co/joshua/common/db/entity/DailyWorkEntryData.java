@@ -37,7 +37,7 @@ public class DailyWorkEntryData extends BaseEntity {
     /** 深夜残業時間 */
     private LocalTime lateOverTime;
     /** 休日出勤作業時間 */
-    private LocalTime holodayWorkTime;
+    private LocalTime holidayWorkTime;
     /** 承認ステータス */
     private WorkAuthStatus workAuthStatus;
     /** 備考 */
@@ -99,12 +99,12 @@ public class DailyWorkEntryData extends BaseEntity {
         return lateOverTime;
     }
 
-    public void setHolodayWorkTime(LocalTime holodayWorkTime) {
-        this.holodayWorkTime = holodayWorkTime;
+    public void setHolidayWorkTime(LocalTime holidayWorkTime) {
+        this.holidayWorkTime = holidayWorkTime;
     }
 
-    public LocalTime getHolodayWorkTime() {
-        return holodayWorkTime;
+    public LocalTime getHolidayWorkTime() {
+        return holidayWorkTime;
     }
 
     public void setWorkAuthStatus(WorkAuthStatus workAuthStatus) {

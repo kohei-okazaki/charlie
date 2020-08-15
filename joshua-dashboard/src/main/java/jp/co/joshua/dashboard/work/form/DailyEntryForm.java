@@ -28,6 +28,22 @@ public class DailyEntryForm {
     @Min(value = 0)
     @Max(value = 59)
     private Integer workEndMinute;
+    /** 作業時間(時) */
+    @Min(value = 0)
+    @Max(value = 23)
+    private Integer actualTimeHour;
+    /** 作業時間(分) */
+    @Min(value = 0)
+    @Max(value = 59)
+    private Integer actualTimeMinute;
+    /** 休日出勤作業時間(時) */
+    @Min(value = 0)
+    @Max(value = 23)
+    private Integer holodayWorkTimeHour;
+    /** 休日出勤作業時間(分) */
+    @Min(value = 0)
+    @Max(value = 59)
+    private Integer holidayWorkTimeMinute;
 
     public String getDate() {
         return date;
@@ -67,6 +83,38 @@ public class DailyEntryForm {
 
     public void setWorkEndMinute(Integer workEndMinute) {
         this.workEndMinute = workEndMinute;
+    }
+
+    public Integer getActualTimeHour() {
+        return actualTimeHour;
+    }
+
+    public void setActualTimeHour(Integer actualTimeHour) {
+        this.actualTimeHour = actualTimeHour;
+    }
+
+    public Integer getActualTimeMinute() {
+        return actualTimeMinute;
+    }
+
+    public void setActualTimeMinute(Integer actualTimeMinute) {
+        this.actualTimeMinute = actualTimeMinute;
+    }
+
+    public Integer getHolodayWorkTimeHour() {
+        return holodayWorkTimeHour;
+    }
+
+    public void setHolodayWorkTimeHour(Integer holodayWorkTimeHour) {
+        this.holodayWorkTimeHour = holodayWorkTimeHour;
+    }
+
+    public Integer getHolidayWorkTimeMinute() {
+        return holidayWorkTimeMinute;
+    }
+
+    public void setHolidayWorkTimeMinute(Integer holidayWorkTimeMinute) {
+        this.holidayWorkTimeMinute = holidayWorkTimeMinute;
     }
 
 }

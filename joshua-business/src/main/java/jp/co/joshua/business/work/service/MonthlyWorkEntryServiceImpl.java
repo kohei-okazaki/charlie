@@ -1,6 +1,7 @@
 package jp.co.joshua.business.work.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,12 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
                     // 更新処理
                     entity.setBegin(dailyWorkEntryDataDto.getBegin());
                     entity.setEnd(dailyWorkEntryDataDto.getEnd());
+                    entity.setActualTime(dailyWorkEntryDataDto.getActualTime());
+                    // TODO 残業時間
+                    entity.setOverTime(LocalTime.MIN);
+                    // TODO 深夜残業時間
+                    entity.setLateOverTime(LocalTime.MIN);
+                    entity.setHolidayWorkTime(dailyWorkEntryDataDto.getHolidayWorkTime());
                     entity.setWorkAuthStatus(WorkAuthStatus.STILL);
                     dailyWorkEntryDataUpdateService.update(entity);
                     isInsert = false;
@@ -71,6 +78,12 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
                 entity.setSeqWorkUserMngMtId(mngMt.getSeqWorkUserMngMtId());
                 entity.setBegin(dailyWorkEntryDataDto.getBegin());
                 entity.setEnd(dailyWorkEntryDataDto.getEnd());
+                entity.setActualTime(dailyWorkEntryDataDto.getActualTime());
+                // TODO 残業時間
+                entity.setOverTime(LocalTime.MIN);
+                // TODO 深夜残業時間
+                entity.setLateOverTime(LocalTime.MIN);
+                entity.setHolidayWorkTime(dailyWorkEntryDataDto.getHolidayWorkTime());
                 entity.setWorkAuthStatus(WorkAuthStatus.STILL);
                 dailyWorkEntryDataCreateService.create(entity);
             }
