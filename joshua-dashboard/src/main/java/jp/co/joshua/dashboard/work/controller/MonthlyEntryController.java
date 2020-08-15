@@ -149,12 +149,11 @@ public class MonthlyEntryController {
     private List<DailyWorkEntryDataDto> getDtoList(
             List<DailyEntryForm> dailyEntryFormList) {
         return dailyEntryFormList.stream()
-                .filter(e -> {
-                    return e.getWorkBeginHour() != null
-                            && e.getWorkBeginMinute() != null
-                            && e.getWorkEndHour() != null
-                            && e.getWorkEndMinute() != null;
-                }).map(e -> {
+                .filter(e -> e.getWorkBeginHour() != null)
+                .filter(e -> e.getWorkBeginMinute() != null)
+                .filter(e -> e.getWorkEndHour() != null)
+                .filter(e -> e.getWorkEndMinute() != null)
+                .map(e -> {
                     LocalDate date = DateUtil.toLocalDate(e.getDate(),
                             DateFormatType.YYYYMMDD_HYPHEN);
 
@@ -193,6 +192,10 @@ public class MonthlyEntryController {
                                     e.getHolidayWorkTimeMinute());
                         }
                     }
+
+                    // TODO 残業時間
+
+                    // TODO 深夜残業時間
 
                     DailyWorkEntryDataDto dto = new DailyWorkEntryDataDto();
                     dto.setSeqDailyWorkEntryDataId(e.getSeqDailyWorkEntryDataId());

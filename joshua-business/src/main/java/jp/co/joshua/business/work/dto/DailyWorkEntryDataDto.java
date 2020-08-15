@@ -24,6 +24,10 @@ public class DailyWorkEntryDataDto {
     private LocalDateTime end;
     /** 作業時間 */
     private LocalTime actualTime;
+    /** 残業時間 */
+    private LocalTime overTime;
+    /** 深夜残業時間 */
+    private LocalTime lateOverTime;
     /** 休日出勤作業時間 */
     private LocalTime holidayWorkTime;
     /** 承認ステータス */
@@ -83,6 +87,22 @@ public class DailyWorkEntryDataDto {
 
     public void setActualTime(LocalTime actualTime) {
         this.actualTime = actualTime;
+    }
+
+    public LocalTime getOverTime() {
+        return overTime;
+    }
+
+    public void setOverTime(LocalTime overTime) {
+        this.overTime = overTime;
+    }
+
+    public LocalTime getLateOverTime() {
+        return lateOverTime;
+    }
+
+    public void setLateOverTime(LocalTime lateOverTime) {
+        this.lateOverTime = lateOverTime;
     }
 
     public LocalTime getHolidayWorkTime() {
