@@ -8,6 +8,7 @@ import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
 import java.lang.Integer;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import jp.co.joshua.common.db.type.WorkAuthStatus;
 import java.lang.String;
 
@@ -29,6 +30,14 @@ public class DailyWorkEntryData extends BaseEntity {
     private LocalDateTime begin;
     /** 終業時間 */
     private LocalDateTime end;
+    /** 作業時間 */
+    private LocalTime actualTime;
+    /** 残業時間 */
+    private LocalTime overTime;
+    /** 深夜残業時間 */
+    private LocalTime lateOverTime;
+    /** 休日出勤作業時間 */
+    private LocalTime holodayWorkTime;
     /** 承認ステータス */
     private WorkAuthStatus workAuthStatus;
     /** 備考 */
@@ -64,6 +73,38 @@ public class DailyWorkEntryData extends BaseEntity {
 
     public LocalDateTime getEnd() {
         return end;
+    }
+
+    public void setActualTime(LocalTime actualTime) {
+        this.actualTime = actualTime;
+    }
+
+    public LocalTime getActualTime() {
+        return actualTime;
+    }
+
+    public void setOverTime(LocalTime overTime) {
+        this.overTime = overTime;
+    }
+
+    public LocalTime getOverTime() {
+        return overTime;
+    }
+
+    public void setLateOverTime(LocalTime lateOverTime) {
+        this.lateOverTime = lateOverTime;
+    }
+
+    public LocalTime getLateOverTime() {
+        return lateOverTime;
+    }
+
+    public void setHolodayWorkTime(LocalTime holodayWorkTime) {
+        this.holodayWorkTime = holodayWorkTime;
+    }
+
+    public LocalTime getHolodayWorkTime() {
+        return holodayWorkTime;
     }
 
     public void setWorkAuthStatus(WorkAuthStatus workAuthStatus) {

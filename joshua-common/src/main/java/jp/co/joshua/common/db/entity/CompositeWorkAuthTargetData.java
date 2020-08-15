@@ -2,6 +2,7 @@ package jp.co.joshua.common.db.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import org.seasar.doma.Entity;
 import org.seasar.doma.jdbc.entity.NamingType;
@@ -12,7 +13,6 @@ import jp.co.joshua.common.db.type.WorkAuthStatus;
 
 /**
  * 日別勤怠登録情報を承認する情報を保持するEntity<br>
- * TODO このクラスを使うSQLを追加すること
  * <ul>
  * <li>selectAuthTargetDataList.sql</li>
  * </ul>
@@ -30,6 +30,14 @@ public class CompositeWorkAuthTargetData extends BaseEntity {
     private LocalDateTime begin;
     /** 終業時間 */
     private LocalDateTime end;
+    /** 作業時間 */
+    private LocalTime actualTime;
+    /** 残業時間 */
+    private LocalTime overTime;
+    /** 深夜残業時間 */
+    private LocalTime lateOverTime;
+    /** 休日出勤作業時間 */
+    private LocalTime holodayWorkTime;
     /** 承認ステータス */
     private WorkAuthStatus workAuthStatus;
     /** 日付 */
@@ -69,6 +77,38 @@ public class CompositeWorkAuthTargetData extends BaseEntity {
 
     public void setEnd(LocalDateTime end) {
         this.end = end;
+    }
+
+    public LocalTime getActualTime() {
+        return actualTime;
+    }
+
+    public void setActualTime(LocalTime actualTime) {
+        this.actualTime = actualTime;
+    }
+
+    public LocalTime getOverTime() {
+        return overTime;
+    }
+
+    public void setOverTime(LocalTime overTime) {
+        this.overTime = overTime;
+    }
+
+    public LocalTime getLateOverTime() {
+        return lateOverTime;
+    }
+
+    public void setLateOverTime(LocalTime lateOverTime) {
+        this.lateOverTime = lateOverTime;
+    }
+
+    public LocalTime getHolodayWorkTime() {
+        return holodayWorkTime;
+    }
+
+    public void setHolodayWorkTime(LocalTime holodayWorkTime) {
+        this.holodayWorkTime = holodayWorkTime;
     }
 
     public WorkAuthStatus getWorkAuthStatus() {

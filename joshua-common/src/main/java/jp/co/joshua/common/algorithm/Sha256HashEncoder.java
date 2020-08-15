@@ -36,10 +36,9 @@ public class Sha256HashEncoder {
     public String encode(String str) {
 
         try {
-            char[] passCharArray = str.toCharArray();
-            byte[] hashedSalt = getHashedSalt(component.getHashSalt());
 
-            PBEKeySpec keySpec = new PBEKeySpec(passCharArray, hashedSalt,
+            PBEKeySpec keySpec = new PBEKeySpec(str.toCharArray(),
+                    getHashedSalt(component.getHashSalt()),
                     component.getHashStrechCount(), component.getHashKeyLength());
 
             SecretKeyFactory skf = SecretKeyFactory

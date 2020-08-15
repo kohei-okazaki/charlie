@@ -39,7 +39,7 @@ public class BeanConfig implements WebMvcConfigurer {
     }
 
     /**
-     * ValidatorがAutoConfigurationで作成されたMessageSourceを使うようにする
+     * ValidatorがAutoConfigurationで作成された{@linkplain MessageSource}を使うようにする
      *
      * @param messageSource
      *            MessageSource
