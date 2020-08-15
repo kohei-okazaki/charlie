@@ -81,7 +81,7 @@ body {
 
 /* 時刻入力  */
 .date-input {
-  width:100px;
+  width: 65px;
 }
 
 .work-status-still {
@@ -91,4 +91,3 @@ body {
 .work-status-done {
   color: #0080ff;
 }
-

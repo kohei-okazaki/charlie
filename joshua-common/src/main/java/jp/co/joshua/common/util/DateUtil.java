@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -218,6 +219,41 @@ public class DateUtil {
      */
     public static LocalDate minusYear(LocalDate localDate, int year) {
         return localDate.minusYears(year);
+    }
+
+    /**
+     * end - beginの差をlongで取得<br>
+     *
+     * <pre>
+     * begin = 21:30とend = 23:00 の場合
+     * return = 90
+     * </pre>
+     *
+     * @param begin
+     *            開始時間
+     * @param end
+     *            終了時間
+     * @return 差分
+     * @see #diffLocalTimeByChronoUnit(LocalTime, LocalTime, ChronoUnit)
+     */
+    public static long diffLocalTimeByMinute(LocalTime begin, LocalTime end) {
+        return diffLocalTimeByChronoUnit(begin, end, ChronoUnit.MINUTES);
+    }
+
+    /**
+     * 指定した{@linkplain ChronoUnit}でend - beginの差を取得
+     *
+     * @param begin
+     *            開始時間
+     * @param end
+     *            終了時間
+     * @param unit
+     *            XX単位で取得する差分
+     * @return 差分
+     */
+    public static long diffLocalTimeByChronoUnit(LocalTime begin, LocalTime end,
+            ChronoUnit unit) {
+        return unit.between(begin, end);
     }
 
     /**
