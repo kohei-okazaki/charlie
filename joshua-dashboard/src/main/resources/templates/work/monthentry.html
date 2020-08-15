@@ -165,6 +165,7 @@ $(function() {
                 <td>
                   <div th:if="${mt.workAuthStatus != null && mt.workAuthStatus.value == '10'}" th:text="#{work.auth.status.still}" class="work-status-still"></div>
                   <div th:if="${mt.workAuthStatus != null && mt.workAuthStatus.value == '20'}" th:text="#{work.auth.status.done}" class="work-status-done"></div>
+                  <input type="hidden" th:name="${'dailyEntryFormList[' + status.index + '].workAuthStatus'}" th:value="${mt.workAuthStatus}" />
                 </td>
               </tr>
               <tr>

@@ -26,6 +26,7 @@ import jp.co.joshua.business.work.dto.DailyWorkEntryDataDto;
 import jp.co.joshua.business.work.service.MonthlyWorkEntryService;
 import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
 import jp.co.joshua.common.db.type.BusinessFlg;
+import jp.co.joshua.common.db.type.WorkAuthStatus;
 import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.util.DateUtil;
 import jp.co.joshua.common.util.DateUtil.DateFormatType;
@@ -208,6 +209,7 @@ public class MonthlyEntryController {
      * 日別勤怠登録情報の削除対象のIDをリストで返す
      * <ul>
      * <li>日別勤怠登録情報のID <> NULL</li>
+     * <li>勤怠承認ステータス == 10:未承認</li>
      * <li>form.始業時間(時) == null</li>
      * <li>form.始業時間(分) == null</li>
      * <li>form.終業時間(時) == null</li>
@@ -222,6 +224,7 @@ public class MonthlyEntryController {
             List<DailyEntryForm> dailyEntryFormList) {
         return dailyEntryFormList.stream()
                 .filter(e -> e.getSeqDailyWorkEntryDataId() != null)
+                .filter(e -> WorkAuthStatus.STILL == e.getWorkAuthStatus())
                 .filter(e -> e.getWorkBeginHour() == null)
                 .filter(e -> e.getWorkBeginMinute() == null)
                 .filter(e -> e.getWorkEndHour() == null)

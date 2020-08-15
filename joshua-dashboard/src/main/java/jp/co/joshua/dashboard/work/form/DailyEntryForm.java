@@ -4,6 +4,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 import jp.co.joshua.common.db.type.BusinessFlg;
+import jp.co.joshua.common.db.type.WorkAuthStatus;
 
 /**
  * 1日あたりの勤怠データ
@@ -50,6 +51,8 @@ public class DailyEntryForm {
     @Min(value = 0)
     @Max(value = 59)
     private Integer holidayWorkTimeMinute;
+    /** 承認ステータス */
+    private WorkAuthStatus workAuthStatus;
 
     public Integer getSeqDailyWorkEntryDataId() {
         return seqDailyWorkEntryDataId;
@@ -137,6 +140,14 @@ public class DailyEntryForm {
 
     public void setHolidayWorkTimeMinute(Integer holidayWorkTimeMinute) {
         this.holidayWorkTimeMinute = holidayWorkTimeMinute;
+    }
+
+    public WorkAuthStatus getWorkAuthStatus() {
+        return workAuthStatus;
+    }
+
+    public void setWorkAuthStatus(WorkAuthStatus workAuthStatus) {
+        this.workAuthStatus = workAuthStatus;
     }
 
 }
