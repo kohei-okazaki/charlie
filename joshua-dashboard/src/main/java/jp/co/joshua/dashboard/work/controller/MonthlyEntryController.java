@@ -6,8 +6,6 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +29,7 @@ import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.util.DateUtil;
 import jp.co.joshua.common.util.DateUtil.DateFormatType;
 import jp.co.joshua.common.web.auth.login.LoginAuthDto;
+import jp.co.joshua.common.web.auth.login.SecurityContextWrapper;
 import jp.co.joshua.common.web.view.AppView;
 import jp.co.joshua.dashboard.work.form.DailyEntryForm;
 import jp.co.joshua.dashboard.work.form.MonthEntryForm;
@@ -44,8 +43,6 @@ import jp.co.joshua.dashboard.work.form.MonthEntryForm;
 @RequestMapping("/work/month")
 public class MonthlyEntryController {
 
-    @Autowired
-    private HttpSession session;
     /** 勤怠関連Component */
     @Autowired
     private WorkEntryComponent workEntryComponent;
@@ -55,6 +52,9 @@ public class MonthlyEntryController {
     /** 日別勤怠登録情報検索サービス */
     @Autowired
     private DailyWorkEntryDataSearchService dailyWorkEntryDataSearchService;
+    /** {@linkplain SecurityContextWrapper} */
+    @Autowired
+    private SecurityContextWrapper wrapper;
 
     @ModelAttribute
     public MonthEntryForm monthEntryForm() {
@@ -80,9 +80,9 @@ public class MonthlyEntryController {
             @RequestParam(name = "month", required = false) String month)
             throws AppException {
 
-        // ログイン中のユーザに適用される最新の定時情報マスタを取得
-        LoginAuthDto loginAuthDto = (LoginAuthDto) session
-                .getAttribute("loginAuthDto");
+        // ログインユーザに適用される最新の定時情報マスタを取得
+        LoginAuthDto loginAuthDto = wrapper.getLoginAuthDto()
+                .orElseThrow(() -> new AppException("認証情報が設定されていません"));
         CompositeWorkUserMt regularMt = workEntryComponent
                 .getActiveRegularMtBySeqLoginId(loginAuthDto.getSeqLoginId());
         model.addAttribute("regularMt", regularMt);
@@ -129,8 +129,8 @@ public class MonthlyEntryController {
         redirectAttributes.addAttribute("year", targetDate.getYear());
         redirectAttributes.addAttribute("month", targetDate.getMonthValue());
 
-        LoginAuthDto loginAuthDto = (LoginAuthDto) session
-                .getAttribute("loginAuthDto");
+        LoginAuthDto loginAuthDto = wrapper.getLoginAuthDto()
+                .orElseThrow(() -> new AppException("認証情報が設定されていません"));
 
         List<DailyWorkEntryDataDto> dtoList = getDtoList(form.getDailyEntryFormList(),
                 loginAuthDto.getSeqLoginId());
