@@ -21,7 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
 import jp.co.joshua.business.work.component.WorkEntryComponent;
 import jp.co.joshua.business.work.dto.DailyWorkEntryDataDto;
+import jp.co.joshua.business.work.dto.MonthlySummaryDto;
 import jp.co.joshua.business.work.service.MonthlyWorkEntryService;
+import jp.co.joshua.common.db.entity.CompositeDailyWorkEntryData;
 import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
 import jp.co.joshua.common.db.type.BusinessFlg;
 import jp.co.joshua.common.db.type.WorkAuthStatus;
@@ -93,9 +95,13 @@ public class MonthlyEntryController {
         model.addAttribute("monthList", workEntryComponent.getMonthList());
         model.addAttribute("selectedYear", targetDate.getYear());
         model.addAttribute("selectedMonth", targetDate.getMonthValue());
-        model.addAttribute("thisMonthList", dailyWorkEntryDataSearchService
+
+        List<CompositeDailyWorkEntryData> list = dailyWorkEntryDataSearchService
                 .selectDailyMtAndCalendarMtByDate(targetDate,
-                        regularMt.getSeqWorkUserMngMtId()));
+                        regularMt.getSeqWorkUserMngMtId());
+        MonthlySummaryDto summary = workEntryComponent.getMonthlySummaryDto(list);
+        model.addAttribute("thisMonthList", list);
+        model.addAttribute("summary", summary);
 
         return AppView.WORK_MONTH_ENTRY_VIEW.getValue();
     }

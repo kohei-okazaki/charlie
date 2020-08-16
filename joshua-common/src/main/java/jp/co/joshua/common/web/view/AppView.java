@@ -32,7 +32,7 @@ public enum AppView implements BaseEnum {
     USER_LIST_VIEW("/user/list", "/user/list"),
     /** ユーザ権限付与画面View:/user/role */
     USER_ROLE_VIEW("/user/role", "/user/role"),
-    /** 当月勤怠登録View:/work/daily/entry */
+    /** 当月勤怠登録View:/work/month/entry */
     WORK_MONTH_ENTRY_VIEW("/work/monthentry", "/work/month/entry"),
     /** 定時情報登録画面View:/work/regularentry */
     WORK_REGULAR_ENTRY_VIEW("/work/regularentry", "/work/regular/entry"),

@@ -56,14 +56,27 @@ $(function() {
           </form><!-- /.form-inline -->
 
           <div class="row">
-            <div class="col">
-              <table class="table">
+            <div class="col-4">
+              <table class="table table-sm">
                 <tr>
-                  <td></td>
+                  <td th:text=#{actualTime}></td>
+                  <td th:text=${summary.actualTime}></td>
                 </tr>
-              </table>
-            </div>
-          </div>
+                <tr>
+                  <td th:text=#{overTime}></td>
+                  <td th:text=${summary.overTime}></td>
+                </tr>
+                <tr>
+                  <td th:text=#{lateOverTime}></td>
+                  <td th:text=${summary.lateOverTime}></td>
+                </tr>
+                <tr>
+                  <td th:text=#{holidayWorkTime}></td>
+                  <td th:text=${summary.holidayWorkTime}></td>
+                </tr>
+              </table><!-- /.table -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
 
           <div class="row">
             <div class="col">

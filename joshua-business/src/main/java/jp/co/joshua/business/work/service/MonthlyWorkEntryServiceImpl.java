@@ -34,10 +34,10 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
     private static final Logger LOG = LoggerFactory
             .getLogger(MonthlyWorkEntryServiceImpl.class);
 
-    /** トランザクション管理クラス */
+    /** {@linkplain PlatformTransactionManager} */
     @Autowired
     private PlatformTransactionManager transactionManager;
-    /** トランザクションクラス */
+    /** {@linkplain DefaultTransactionDefinition} */
     @Autowired
     private DefaultTransactionDefinition defaultTransactionDefinition;
     /** 勤怠関連Component */
@@ -60,12 +60,12 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
     public void executeEntry(LocalDate targetDate, Integer seqLoginId,
             List<DailyWorkEntryDataDto> dtoList, List<Integer> deleteIdList) {
 
-        WorkUserMngMt mngMt = workEntryComponent
-                .getActiveWorkUserMtBySeqLoginId(seqLoginId);
-
         // トランザクション開始
         TransactionStatus status = transactionManager
                 .getTransaction(defaultTransactionDefinition);
+
+        WorkUserMngMt mngMt = workEntryComponent
+                .getWorkUserMngMtBySeqLoginId(seqLoginId);
 
         // 既に登録された日別勤怠登録情報を検索
         List<DailyWorkEntryData> dailyWorkEntryDataList = dailyWorkEntryDataSearchService

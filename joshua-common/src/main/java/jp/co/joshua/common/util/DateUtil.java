@@ -1,5 +1,6 @@
 package jp.co.joshua.common.util;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -564,6 +565,20 @@ public class DateUtil {
     public static LocalDate toLocalDate(LocalDateTime localDateTime) {
         return LocalDate.of(localDateTime.getYear(), localDateTime.getMonth(),
                 localDateTime.getDayOfMonth());
+    }
+
+    /**
+     * 指定した{@linkplain LocalTime}型の時刻を10進数の小数値に変換する<br>
+     * 例<br>
+     * 0:15→0.25
+     *
+     * @param localTime
+     *            時間(HH:MI)
+     * @return 小数
+     */
+    public static BigDecimal toBigDecimal(LocalTime localTime) {
+        return new BigDecimal(localTime.getHour() + "."
+                + (localTime.getMinute() * 100 / 60));
     }
 
     /**
