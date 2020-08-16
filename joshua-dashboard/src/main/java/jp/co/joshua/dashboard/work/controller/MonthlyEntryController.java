@@ -65,7 +65,7 @@ public class MonthlyEntryController {
      * 当月勤怠登録画面表示
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param year
      *            指定年
      * @param month
@@ -104,21 +104,20 @@ public class MonthlyEntryController {
      * 当月勤怠登録処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param form
-     *            当月勤怠登録Form
+     *            {@linkplain MonthEntryForm}
      * @param result
-     *            validation結果
+     *            {@linkplain BindingResult}
      * @param redirectAttributes
-     *            リダイレクトパラメータ
+     *            {@linkplain RedirectAttributes}
      * @return 当月勤怠登録View
      * @throws AppException
      *             アプリ例外
      */
     @PostMapping("/entry")
-    public String entry(Model model, @Validated MonthEntryForm form,
-            BindingResult result, RedirectAttributes redirectAttributes)
-            throws AppException {
+    public String entry(Model model, @Validated MonthEntryForm form, BindingResult result,
+            RedirectAttributes redirectAttributes) throws AppException {
 
         if (result.hasErrors()) {
             return AppView.WORK_MONTH_ENTRY_VIEW.getValue();

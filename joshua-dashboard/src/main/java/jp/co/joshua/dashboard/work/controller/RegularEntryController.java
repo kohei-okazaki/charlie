@@ -1,6 +1,5 @@
 package jp.co.joshua.dashboard.work.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -64,9 +63,9 @@ public class RegularEntryController {
      * 定時時刻登録画面表示処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param pageable
-     *            Pageable
+     *            {@linkplain Pageable}
      * @return 定時時刻登録画面View
      */
     @GetMapping("/entry")
@@ -76,9 +75,7 @@ public class RegularEntryController {
 
         model.addAttribute("paging", PagingFactory.getPageView(pageable,
                 "/work/regular/entry?page", regularWorkMtSearchService.count()));
-
-        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll(pageable);
-        model.addAttribute("mtList", mtList);
+        model.addAttribute("mtList", regularWorkMtSearchService.selectAll(pageable));
         model.addAttribute("mode", "entry");
 
         return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
@@ -88,13 +85,13 @@ public class RegularEntryController {
      * 定時時刻登録処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param form
-     *            定時時刻登録画面Form
+     *            {@linkplain RegularEntryForm}
      * @param result
-     *            validationチェック結果
+     *            {@linkplain BindingResult}
      * @param redirectAttributes
-     *            RedirectAttributes
+     *            {@linkplain RedirectAttributes}
      * @return 定時時刻登録画面View
      */
     @PostMapping("/entry")
@@ -119,11 +116,11 @@ public class RegularEntryController {
      * 定時情報更新画面表示処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param seqRegularWorkMtId
      *            定時情報マスタID
      * @param pageable
-     *            Pageable
+     *            {@linkplain Pageable}
      * @return 更新画面View
      */
     @GetMapping("edit/{seqRegularWorkMtId}")
@@ -152,13 +149,13 @@ public class RegularEntryController {
      * 定時情報更新処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param form
-     *            定時時刻更新Form
+     *            {@linkplain RegularEditForm}
      * @param result
-     *            validationチェック結果
+     *            {@linkplain BindingResult}
      * @param redirectAttributes
-     *            RedirectAttributes
+     *            {@linkplain RedirectAttributes}
      * @return 更新画面View
      */
     @PostMapping("edit")

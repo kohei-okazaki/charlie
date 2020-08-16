@@ -29,7 +29,9 @@ public enum AppView implements BaseEnum {
     /** ログインユーザ設定変更完了View:/user/editprocess */
     USER_EDIT_PROCESS_VIEW("/user/editprocess", "editprocess"),
     /** ユーザ一覧画面View:/user/list */
-    USER_LIST_VIEW("/user/list", "user/list"),
+    USER_LIST_VIEW("/user/list", "/user/list"),
+    /** ユーザ権限付与画面View:/user/role */
+    USER_ROLE_VIEW("/user/role", "/user/role"),
     /** 当月勤怠登録View:/work/daily/entry */
     WORK_MONTH_ENTRY_VIEW("/work/monthentry", "/work/month/entry"),
     /** 定時情報登録画面View:/work/regularentry */

@@ -17,6 +17,7 @@
       <br>
       <div class="row">
         <div class="col-lg">
+          <div class="alert alert-danger" role="alert" th:if="${errMsg != null}" th:text="${errMsg}"></div>
           <table class="table">
             <tr>
               <th></th>

@@ -1,6 +1,7 @@
 package jp.co.joshua.business.db.update;
 
 import jp.co.joshua.common.db.entity.LoginUserData;
+import jp.co.joshua.common.db.type.AppAuth;
 
 /**
  * ログインユーザ情報更新サービスインターフェース
@@ -10,5 +11,7 @@ import jp.co.joshua.common.db.entity.LoginUserData;
 public interface LoginUserDataUpdateService {
 
     void update(LoginUserData entity);
+
+    void updateAppAuthBySeqLoginId(Integer seqLoginId, AppAuth appAuth);
 
 }

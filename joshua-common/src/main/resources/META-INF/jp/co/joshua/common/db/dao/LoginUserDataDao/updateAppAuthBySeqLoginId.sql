@@ -1,0 +1,7 @@
+UPDATE LOGIN_USER_DATA
+SET
+  APP_AUTH = /* appAuth */00
+  , VERSION = VERSION + 1
+  , UPDATE_DATE = NOW()
+WHERE
+  SEQ_LOGIN_ID = /* seqLoginId */1;

@@ -58,11 +58,11 @@ public class LoginUserRegistController {
      * 登録情報入力確認画面
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param loginUserRegistForm
-     *            ログインユーザ情報登録Form
+     *            {@linkplain LoginUserRegistForm}
      * @param result
-     *            validation結果
+     *            {@linkplain BindingResult}
      * @return ログインユーザ登録確認View
      */
     @PostMapping("/registconfirm")
@@ -82,7 +82,7 @@ public class LoginUserRegistController {
      * 登録完了画面
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @return ログインユーザ登録完了View
      */
     @PostMapping("/registprocess")

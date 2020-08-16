@@ -67,11 +67,11 @@ public class UserEditController {
      * ユーザ情報設定変更確認画面
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param userEditForm
-     *            ログインユーザ情報変更Form
+     *            {@linkplain UserEditForm}
      * @param result
-     *            validation結果
+     *            {@linkplain BindingResult}
      * @return ユーザ情報設定変更確認View
      */
     @PostMapping("/editconfirm")
@@ -93,7 +93,7 @@ public class UserEditController {
      * ユーザ情報設定完了画面
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @return ユーザ情報設定完了View
      */
     @PostMapping("/editprocess")
