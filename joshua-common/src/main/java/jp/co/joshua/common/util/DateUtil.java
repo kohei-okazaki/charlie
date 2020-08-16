@@ -325,6 +325,40 @@ public class DateUtil {
     }
 
     /**
+     * 検査時間(<code>localTime</code>)が比較時間(<code>when</code>)より未来かどうか判定する<br>
+     * <ul>
+     * <li><code>isEquals = true</code>の場合</li>
+     * <ul>
+     * <li>比較時間 <= 検査時間の場合、true</li>
+     * <li>検査時間 < 比較時間の場合、false</li>
+     * </ul>
+     * <li><code>isEquals = false</code>の場合</li>
+     * <ul>
+     * <li>比較時間 < 検査時間の場合、true</li>
+     * <li>検査時間 <= 比較時間の場合、false</li>
+     * </ul>
+     * </ul>
+     *
+     * @param localTime
+     *            検査時間
+     * @param when
+     *            比較時間
+     * @param isEquals
+     *            同時刻を超過したに含むかどうか
+     * @return 判定結果
+     */
+    public static boolean isAfter(LocalTime localTime,
+            LocalTime when, boolean isEquals) {
+        if (isEquals) {
+            if (localTime.equals(when)) {
+                return true;
+            }
+            return localTime.isAfter(when);
+        }
+        return localTime.isAfter(when);
+    }
+
+    /**
      * 検査日時(<code>localDateTime</code>)が比較日時(<code>when</code>)より過去どうか判定する<br>
      * <ul>
      * <li><code>isEquals = true</code>の場合</li>

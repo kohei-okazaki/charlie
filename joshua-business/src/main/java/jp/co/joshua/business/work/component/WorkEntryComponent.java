@@ -99,11 +99,38 @@ public class WorkEntryComponent {
      * @param end
      *            終了時間
      * @return 実作業時間
+     * @see #getWorkTime(LocalTime, LocalTime)
      */
     public LocalTime getWorkTime(LocalDateTime begin, LocalDateTime end) {
-        long diff = DateUtil.diffLocalTimeByMinute(begin.toLocalTime(),
-                end.toLocalTime());
+        return getWorkTime(begin.toLocalTime(), end.toLocalTime());
+    }
+
+    /**
+     * 指定した開始時間と終了時間から実作業時間を返す
+     *
+     * @param begin
+     *            開始時間
+     * @param end
+     *            終了時間
+     * @return 実作業時間
+     */
+    public LocalTime getWorkTime(LocalTime begin, LocalTime end) {
+        long diff = DateUtil.diffLocalTimeByMinute(begin, end);
         return LocalTime.of((int) diff / 60, (int) diff % 60);
+    }
+
+    /**
+     * 検査対象時間targetがwhenより未来かどうかを返す<br>
+     * target > when
+     *
+     * @param target
+     *            検査対象時間
+     * @param when
+     *            比較時間
+     * @return 未来の場合True、それ以外の場合False
+     */
+    public boolean isFuture(LocalTime target, LocalTime when) {
+        return target.isAfter(when);
     }
 
 }

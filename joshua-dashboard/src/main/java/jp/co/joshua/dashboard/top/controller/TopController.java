@@ -1,4 +1,4 @@
-package jp.co.joshua.dashboard.top;
+package jp.co.joshua.dashboard.top.controller;
 
 import javax.servlet.http.HttpSession;
 

@@ -112,10 +112,13 @@ public class MonthlyEntryController {
      * @param redirectAttributes
      *            リダイレクトパラメータ
      * @return 当月勤怠登録View
+     * @throws AppException
+     *             アプリ例外
      */
     @PostMapping("/entry")
     public String entry(Model model, @Validated MonthEntryForm form,
-            BindingResult result, RedirectAttributes redirectAttributes) {
+            BindingResult result, RedirectAttributes redirectAttributes)
+            throws AppException {
 
         if (result.hasErrors()) {
             return AppView.WORK_MONTH_ENTRY_VIEW.getValue();
@@ -127,10 +130,13 @@ public class MonthlyEntryController {
         redirectAttributes.addAttribute("year", targetDate.getYear());
         redirectAttributes.addAttribute("month", targetDate.getMonthValue());
 
-        List<DailyWorkEntryDataDto> dtoList = getDtoList(form.getDailyEntryFormList());
-        List<Integer> deleteIdList = getDeleteIdList(form.getDailyEntryFormList());
         LoginAuthDto loginAuthDto = (LoginAuthDto) session
                 .getAttribute("loginAuthDto");
+
+        List<DailyWorkEntryDataDto> dtoList = getDtoList(form.getDailyEntryFormList(),
+                loginAuthDto.getSeqLoginId());
+        List<Integer> deleteIdList = getDeleteIdList(form.getDailyEntryFormList());
+
         monthlyWorkEntryService.executeEntry(targetDate, loginAuthDto.getSeqLoginId(),
                 dtoList, deleteIdList);
 
@@ -144,10 +150,23 @@ public class MonthlyEntryController {
      *
      * @param dailyEntryFormList
      *            1日あたりの勤怠情報リスト
+     * @param seqLoginId
+     *            ログインID
      * @return 日別勤怠登録情報Dtoのリスト
+     * @throws AppException
+     *             アプリ例外
      */
     private List<DailyWorkEntryDataDto> getDtoList(
-            List<DailyEntryForm> dailyEntryFormList) {
+            List<DailyEntryForm> dailyEntryFormList, Integer seqLoginId)
+            throws AppException {
+
+        // ユーザに適用されている定時情報を取得
+        CompositeWorkUserMt regularMt = workEntryComponent
+                .getActiveRegularMtBySeqLoginId(seqLoginId);
+
+        LocalTime reguarEnd = LocalTime.of(regularMt.getEndHour(),
+                regularMt.getEndMinute());
+
         return dailyEntryFormList.stream()
                 .filter(e -> e.getWorkBeginHour() != null)
                 .filter(e -> e.getWorkBeginMinute() != null)
@@ -193,15 +212,25 @@ public class MonthlyEntryController {
                         }
                     }
 
-                    // TODO 残業時間
+                    // 残業時間
+                    LocalTime overTime = workEntryComponent.getWorkTime(reguarEnd,
+                            end.toLocalTime());
 
-                    // TODO 深夜残業時間
+                    // 深夜残業時間
+                    LocalTime lateOverTime = LocalTime.MIN;
+                    if (workEntryComponent.isFuture(end.toLocalTime(),
+                            LocalTime.of(22, 0))) {
+                        lateOverTime = workEntryComponent.getWorkTime(LocalTime.of(22, 0),
+                                end.toLocalTime());
+                    }
 
                     DailyWorkEntryDataDto dto = new DailyWorkEntryDataDto();
                     dto.setSeqDailyWorkEntryDataId(e.getSeqDailyWorkEntryDataId());
                     dto.setBegin(begin);
                     dto.setEnd(end);
                     dto.setActualTime(actualTime);
+                    dto.setOverTime(overTime);
+                    dto.setLateOverTime(lateOverTime);
                     dto.setHolidayWorkTime(holidayWorkTime);
 
                     return dto;

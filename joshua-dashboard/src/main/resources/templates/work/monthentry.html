@@ -144,9 +144,11 @@ $(function() {
                 </td>
                 <td>
                   <!-- 残業時間 -->
+                  <div th:text="${#temporals.format(mt.overTime, 'HH:mm')}"></div>
                 </td>
                 <td>
                   <!-- 深夜残業時間 -->
+                  <div th:text="${#temporals.format(mt.lateOverTime, 'HH:mm')}"></div>
                 </td>
                 <td>
                   <!-- 休日出勤作業時間 -->
