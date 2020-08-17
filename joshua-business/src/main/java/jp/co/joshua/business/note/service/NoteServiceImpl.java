@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import jp.co.joshua.business.db.create.NoteUserDataCreateService;
 import jp.co.joshua.business.db.select.NoteUserDataSearchService;
+import jp.co.joshua.business.db.update.NoteUserDataUpdateService;
 import jp.co.joshua.business.note.dto.NoteDto;
 import jp.co.joshua.common.aws.AwsS3Wrapper;
 import jp.co.joshua.common.db.entity.NoteUserData;
@@ -33,7 +34,7 @@ import jp.co.joshua.common.web.auth.login.SecurityContextWrapper;
 @Service
 public class NoteServiceImpl implements NoteService {
 
-    /** 認証情報ラッパー */
+    /** {@linkplain SecurityContextWrapper} */
     @Autowired
     private SecurityContextWrapper securityWrapper;
     /** {@linkplain ModelMapper} */
@@ -48,6 +49,9 @@ public class NoteServiceImpl implements NoteService {
     /** メモユーザ情報作成サービス */
     @Autowired
     private NoteUserDataCreateService noteUserDataCreateService;
+    /** メモユーザ情報更新サービス */
+    @Autowired
+    private NoteUserDataUpdateService noteUserDataUpdateService;
 
     @Override
     public List<NoteDto> getNoteDtoList(String title, Pageable pageable)

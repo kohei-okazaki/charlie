@@ -35,7 +35,7 @@ import jp.co.joshua.dashboard.note.form.NoteEntryForm;
 @RequestMapping("/note")
 public class NoteListController {
 
-    /** 認証情報ラッパー */
+    /** {@linkplain SecurityContextWrapper} */
     @Autowired
     private SecurityContextWrapper securityWrapper;
     /** {@linkplain ModelMapper} */
