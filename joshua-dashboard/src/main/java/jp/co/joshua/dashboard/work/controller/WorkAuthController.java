@@ -52,13 +52,13 @@ public class WorkAuthController {
      * ユーザ一覧表示処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param year
      *            処理対象年
      * @param month
      *            処理対象月
      * @param pageable
-     *            Pageable
+     *            {@linkplain Pageable}
      * @return ユーザ一覧表示画面
      * @throws AppException
      *             日付変換に失敗した場合
@@ -90,7 +90,7 @@ public class WorkAuthController {
      * 月別勤怠一覧画面表示処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param seqLoginId
      *            ログインID
      * @param year
@@ -125,7 +125,7 @@ public class WorkAuthController {
      * 承認処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param seqDailyWorkEntryDataId
      *            日別勤怠登録情報ID
      * @param seqLoginId
@@ -135,7 +135,7 @@ public class WorkAuthController {
      * @param month
      *            指定月
      * @param redirectAttributes
-     *            RedirectAttributes
+     *            {@linkplain RedirectAttributes}
      * @return 勤怠承認画面-月別勤怠一覧
      * @throws AppException
      *             日別勤怠登録情報が存在しない場合
@@ -144,7 +144,7 @@ public class WorkAuthController {
     @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String done(Model model,
             @PathVariable("seqDailyWorkEntryDataId") String seqDailyWorkEntryDataId,
-            @RequestParam(name = "seq_login_id") String seqLoginId,
+            @RequestParam("seq_login_id") String seqLoginId,
             @RequestParam(name = "year", required = false) String year,
             @RequestParam(name = "month", required = false) String month,
             RedirectAttributes redirectAttributes) throws AppException {
@@ -176,7 +176,7 @@ public class WorkAuthController {
      * 承認却下処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param seqDailyWorkEntryDataId
      *            日別勤怠登録情報ID
      * @param seqLoginId
@@ -186,7 +186,7 @@ public class WorkAuthController {
      * @param month
      *            指定月
      * @param redirectAttributes
-     *            RedirectAttributes
+     *            {@linkplain RedirectAttributes}
      * @return 勤怠承認画面-月別勤怠一覧
      * @throws AppException
      *             日別勤怠登録情報が存在しない場合
@@ -195,7 +195,7 @@ public class WorkAuthController {
     @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String reject(Model model,
             @PathVariable("seqDailyWorkEntryDataId") String seqDailyWorkEntryDataId,
-            @RequestParam(name = "seq_login_id") String seqLoginId,
+            @RequestParam("seq_login_id") String seqLoginId,
             @RequestParam(name = "year", required = false) String year,
             @RequestParam(name = "month", required = false) String month,
             RedirectAttributes redirectAttributes) throws AppException {

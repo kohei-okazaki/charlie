@@ -1,7 +1,6 @@
 package jp.co.joshua.business.work.service;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +34,10 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
     private static final Logger LOG = LoggerFactory
             .getLogger(MonthlyWorkEntryServiceImpl.class);
 
-    /** トランザクション管理クラス */
+    /** {@linkplain PlatformTransactionManager} */
     @Autowired
     private PlatformTransactionManager transactionManager;
-    /** トランザクションクラス */
+    /** {@linkplain DefaultTransactionDefinition} */
     @Autowired
     private DefaultTransactionDefinition defaultTransactionDefinition;
     /** 勤怠関連Component */
@@ -61,12 +60,12 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
     public void executeEntry(LocalDate targetDate, Integer seqLoginId,
             List<DailyWorkEntryDataDto> dtoList, List<Integer> deleteIdList) {
 
-        WorkUserMngMt mngMt = workEntryComponent
-                .getActiveWorkUserMtBySeqLoginId(seqLoginId);
-
         // トランザクション開始
         TransactionStatus status = transactionManager
                 .getTransaction(defaultTransactionDefinition);
+
+        WorkUserMngMt mngMt = workEntryComponent
+                .getWorkUserMngMtBySeqLoginId(seqLoginId);
 
         // 既に登録された日別勤怠登録情報を検索
         List<DailyWorkEntryData> dailyWorkEntryDataList = dailyWorkEntryDataSearchService
@@ -81,17 +80,7 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
 
                     if (DateUtil.toLocalDate(entity.getBegin()).equals(date)) {
                         // 更新処理
-                        entity.setBegin(dailyWorkEntryDataDto.getBegin());
-                        entity.setEnd(dailyWorkEntryDataDto.getEnd());
-                        entity.setActualTime(dailyWorkEntryDataDto.getActualTime());
-                        // TODO 残業時間
-                        entity.setOverTime(LocalTime.MIN);
-                        // TODO 深夜残業時間
-                        entity.setLateOverTime(LocalTime.MIN);
-                        entity.setHolidayWorkTime(
-                                dailyWorkEntryDataDto.getHolidayWorkTime());
-                        entity.setWorkAuthStatus(WorkAuthStatus.STILL);
-                        dailyWorkEntryDataUpdateService.update(entity);
+                        updateDailyWorkEntryData(entity, dailyWorkEntryDataDto);
                         isInsert = false;
                         break;
                     }
@@ -99,18 +88,8 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
 
                 if (isInsert) {
                     // 登録処理
-                    DailyWorkEntryData entity = new DailyWorkEntryData();
-                    entity.setSeqWorkUserMngMtId(mngMt.getSeqWorkUserMngMtId());
-                    entity.setBegin(dailyWorkEntryDataDto.getBegin());
-                    entity.setEnd(dailyWorkEntryDataDto.getEnd());
-                    entity.setActualTime(dailyWorkEntryDataDto.getActualTime());
-                    // TODO 残業時間
-                    entity.setOverTime(LocalTime.MIN);
-                    // TODO 深夜残業時間
-                    entity.setLateOverTime(LocalTime.MIN);
-                    entity.setHolidayWorkTime(dailyWorkEntryDataDto.getHolidayWorkTime());
-                    entity.setWorkAuthStatus(WorkAuthStatus.STILL);
-                    dailyWorkEntryDataCreateService.create(entity);
+                    createDailyWorkEntryData(mngMt.getSeqWorkUserMngMtId(),
+                            dailyWorkEntryDataDto);
                 }
             }
 
@@ -121,6 +100,52 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
             LOG.error("日次勤怠登録情報の登録処理をrollbackしました", e);
             throw e;
         }
+    }
+
+    /**
+     * 日別勤怠登録情報を更新する
+     *
+     * @param entity
+     *            日別勤怠登録情報
+     * @param dto
+     *            日別勤怠登録情報Dto
+     */
+    private void updateDailyWorkEntryData(DailyWorkEntryData entity,
+            DailyWorkEntryDataDto dto) {
+
+        entity.setBegin(dto.getBegin());
+        entity.setEnd(dto.getEnd());
+        entity.setActualTime(dto.getActualTime());
+        entity.setOverTime(dto.getOverTime());
+        entity.setLateOverTime(dto.getLateOverTime());
+        entity.setHolidayWorkTime(dto.getHolidayWorkTime());
+        entity.setWorkAuthStatus(WorkAuthStatus.STILL);
+
+        dailyWorkEntryDataUpdateService.update(entity);
+    }
+
+    /**
+     * 日別勤怠登録情報を新規登録する
+     *
+     * @param seqWorkUserMngMtId
+     *            勤怠ユーザ管理マスタID
+     * @param dto
+     *            日別勤怠登録情報Dto
+     */
+    private void createDailyWorkEntryData(Integer seqWorkUserMngMtId,
+            DailyWorkEntryDataDto dto) {
+
+        DailyWorkEntryData entity = new DailyWorkEntryData();
+        entity.setSeqWorkUserMngMtId(seqWorkUserMngMtId);
+        entity.setBegin(dto.getBegin());
+        entity.setEnd(dto.getEnd());
+        entity.setActualTime(dto.getActualTime());
+        entity.setOverTime(dto.getOverTime());
+        entity.setLateOverTime(dto.getLateOverTime());
+        entity.setHolidayWorkTime(dto.getHolidayWorkTime());
+        entity.setWorkAuthStatus(WorkAuthStatus.STILL);
+
+        dailyWorkEntryDataCreateService.create(entity);
     }
 
 }

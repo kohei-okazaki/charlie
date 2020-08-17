@@ -1,5 +1,6 @@
 package jp.co.joshua.common.util;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -325,6 +326,40 @@ public class DateUtil {
     }
 
     /**
+     * 検査時間(<code>localTime</code>)が比較時間(<code>when</code>)より未来かどうか判定する<br>
+     * <ul>
+     * <li><code>isEquals = true</code>の場合</li>
+     * <ul>
+     * <li>比較時間 <= 検査時間の場合、true</li>
+     * <li>検査時間 < 比較時間の場合、false</li>
+     * </ul>
+     * <li><code>isEquals = false</code>の場合</li>
+     * <ul>
+     * <li>比較時間 < 検査時間の場合、true</li>
+     * <li>検査時間 <= 比較時間の場合、false</li>
+     * </ul>
+     * </ul>
+     *
+     * @param localTime
+     *            検査時間
+     * @param when
+     *            比較時間
+     * @param isEquals
+     *            同時刻を超過したに含むかどうか
+     * @return 判定結果
+     */
+    public static boolean isAfter(LocalTime localTime,
+            LocalTime when, boolean isEquals) {
+        if (isEquals) {
+            if (localTime.equals(when)) {
+                return true;
+            }
+            return localTime.isAfter(when);
+        }
+        return localTime.isAfter(when);
+    }
+
+    /**
      * 検査日時(<code>localDateTime</code>)が比較日時(<code>when</code>)より過去どうか判定する<br>
      * <ul>
      * <li><code>isEquals = true</code>の場合</li>
@@ -530,6 +565,20 @@ public class DateUtil {
     public static LocalDate toLocalDate(LocalDateTime localDateTime) {
         return LocalDate.of(localDateTime.getYear(), localDateTime.getMonth(),
                 localDateTime.getDayOfMonth());
+    }
+
+    /**
+     * 指定した{@linkplain LocalTime}型の時刻を10進数の小数値に変換する<br>
+     * 例<br>
+     * 0:15→0.25
+     *
+     * @param localTime
+     *            時間(HH:MI)
+     * @return 小数
+     */
+    public static BigDecimal toBigDecimal(LocalTime localTime) {
+        return new BigDecimal(localTime.getHour() + "."
+                + (localTime.getMinute() * 100 / 60));
     }
 
     /**

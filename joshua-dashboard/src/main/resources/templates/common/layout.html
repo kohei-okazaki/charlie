@@ -109,7 +109,7 @@
               <div id="collapse4" class="collapse" role="tabpanel" aria-labelledby="heading4" data-parent="#accordion">
                 <div class="card-body">
                   <ul>
-                    <li><a href="#">メモ一覧</a></li>
+                    <li><a th:href="@{/note/list}">メモ一覧</a></li>
                   </ul>
                 </div><!-- /.card-body -->
               </div><!-- /.collapse -->
@@ -126,6 +126,21 @@
                   <ul>
                     <li><a th:href="@{/user/edit}">ユーザ変更</a></li>
                     <li sec:authorize="hasAuthority('00')"><a th:href="@{/user/list}">ユーザ一覧</a></li>
+                  </ul>
+                </div><!-- /.card-body -->
+              </div><!-- /.collapse -->
+            </div><!-- /.card -->
+
+            <div class="card">
+              <div class="card-header" role="tab" id="heading6">
+                <h4 class="mb-0">
+                  <a class="text-body d-block p-3 m-n3" data-toggle="collapse" href="#collapse6" role="button" aria-expanded="true" aria-controls="collapse6">その他</a>
+                </h4><!-- /.mb-0 -->
+              </div><!-- /.card-header -->
+              <div id="collapse6" class="collapse" role="tabpanel" aria-labelledby="heading6" data-parent="#accordion">
+                <div class="card-body">
+                  <ul>
+                    <li><a href="#">お知らせ一覧</a></li>
                   </ul>
                 </div><!-- /.card-body -->
               </div><!-- /.collapse -->

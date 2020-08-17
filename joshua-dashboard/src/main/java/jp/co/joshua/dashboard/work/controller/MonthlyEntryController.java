@@ -6,8 +6,6 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
 import jp.co.joshua.business.work.component.WorkEntryComponent;
 import jp.co.joshua.business.work.dto.DailyWorkEntryDataDto;
+import jp.co.joshua.business.work.dto.MonthlySummaryDto;
 import jp.co.joshua.business.work.service.MonthlyWorkEntryService;
+import jp.co.joshua.common.db.entity.CompositeDailyWorkEntryData;
 import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
 import jp.co.joshua.common.db.type.BusinessFlg;
 import jp.co.joshua.common.db.type.WorkAuthStatus;
@@ -31,6 +31,7 @@ import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.util.DateUtil;
 import jp.co.joshua.common.util.DateUtil.DateFormatType;
 import jp.co.joshua.common.web.auth.login.LoginAuthDto;
+import jp.co.joshua.common.web.auth.login.SecurityContextWrapper;
 import jp.co.joshua.common.web.view.AppView;
 import jp.co.joshua.dashboard.work.form.DailyEntryForm;
 import jp.co.joshua.dashboard.work.form.MonthEntryForm;
@@ -44,8 +45,6 @@ import jp.co.joshua.dashboard.work.form.MonthEntryForm;
 @RequestMapping("/work/month")
 public class MonthlyEntryController {
 
-    @Autowired
-    private HttpSession session;
     /** 勤怠関連Component */
     @Autowired
     private WorkEntryComponent workEntryComponent;
@@ -55,6 +54,9 @@ public class MonthlyEntryController {
     /** 日別勤怠登録情報検索サービス */
     @Autowired
     private DailyWorkEntryDataSearchService dailyWorkEntryDataSearchService;
+    /** {@linkplain SecurityContextWrapper} */
+    @Autowired
+    private SecurityContextWrapper wrapper;
 
     @ModelAttribute
     public MonthEntryForm monthEntryForm() {
@@ -65,7 +67,7 @@ public class MonthlyEntryController {
      * 当月勤怠登録画面表示
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param year
      *            指定年
      * @param month
@@ -80,9 +82,9 @@ public class MonthlyEntryController {
             @RequestParam(name = "month", required = false) String month)
             throws AppException {
 
-        // ログイン中のユーザに適用される最新の定時情報マスタを取得
-        LoginAuthDto loginAuthDto = (LoginAuthDto) session
-                .getAttribute("loginAuthDto");
+        // ログインユーザに適用される最新の定時情報マスタを取得
+        LoginAuthDto loginAuthDto = wrapper.getLoginAuthDto()
+                .orElseThrow(() -> new AppException("認証情報が設定されていません"));
         CompositeWorkUserMt regularMt = workEntryComponent
                 .getActiveRegularMtBySeqLoginId(loginAuthDto.getSeqLoginId());
         model.addAttribute("regularMt", regularMt);
@@ -93,9 +95,13 @@ public class MonthlyEntryController {
         model.addAttribute("monthList", workEntryComponent.getMonthList());
         model.addAttribute("selectedYear", targetDate.getYear());
         model.addAttribute("selectedMonth", targetDate.getMonthValue());
-        model.addAttribute("thisMonthList", dailyWorkEntryDataSearchService
+
+        List<CompositeDailyWorkEntryData> list = dailyWorkEntryDataSearchService
                 .selectDailyMtAndCalendarMtByDate(targetDate,
-                        regularMt.getSeqWorkUserMngMtId()));
+                        regularMt.getSeqWorkUserMngMtId());
+        MonthlySummaryDto summary = workEntryComponent.getMonthlySummaryDto(list);
+        model.addAttribute("thisMonthList", list);
+        model.addAttribute("summary", summary);
 
         return AppView.WORK_MONTH_ENTRY_VIEW.getValue();
     }
@@ -104,18 +110,20 @@ public class MonthlyEntryController {
      * 当月勤怠登録処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param form
-     *            当月勤怠登録Form
+     *            {@linkplain MonthEntryForm}
      * @param result
-     *            validation結果
+     *            {@linkplain BindingResult}
      * @param redirectAttributes
-     *            リダイレクトパラメータ
+     *            {@linkplain RedirectAttributes}
      * @return 当月勤怠登録View
+     * @throws AppException
+     *             アプリ例外
      */
     @PostMapping("/entry")
-    public String entry(Model model, @Validated MonthEntryForm form,
-            BindingResult result, RedirectAttributes redirectAttributes) {
+    public String entry(Model model, @Validated MonthEntryForm form, BindingResult result,
+            RedirectAttributes redirectAttributes) throws AppException {
 
         if (result.hasErrors()) {
             return AppView.WORK_MONTH_ENTRY_VIEW.getValue();
@@ -127,10 +135,13 @@ public class MonthlyEntryController {
         redirectAttributes.addAttribute("year", targetDate.getYear());
         redirectAttributes.addAttribute("month", targetDate.getMonthValue());
 
-        List<DailyWorkEntryDataDto> dtoList = getDtoList(form.getDailyEntryFormList());
+        LoginAuthDto loginAuthDto = wrapper.getLoginAuthDto()
+                .orElseThrow(() -> new AppException("認証情報が設定されていません"));
+
+        List<DailyWorkEntryDataDto> dtoList = getDtoList(form.getDailyEntryFormList(),
+                loginAuthDto.getSeqLoginId());
         List<Integer> deleteIdList = getDeleteIdList(form.getDailyEntryFormList());
-        LoginAuthDto loginAuthDto = (LoginAuthDto) session
-                .getAttribute("loginAuthDto");
+
         monthlyWorkEntryService.executeEntry(targetDate, loginAuthDto.getSeqLoginId(),
                 dtoList, deleteIdList);
 
@@ -144,17 +155,29 @@ public class MonthlyEntryController {
      *
      * @param dailyEntryFormList
      *            1日あたりの勤怠情報リスト
+     * @param seqLoginId
+     *            ログインID
      * @return 日別勤怠登録情報Dtoのリスト
+     * @throws AppException
+     *             アプリ例外
      */
     private List<DailyWorkEntryDataDto> getDtoList(
-            List<DailyEntryForm> dailyEntryFormList) {
+            List<DailyEntryForm> dailyEntryFormList, Integer seqLoginId)
+            throws AppException {
+
+        // ユーザに適用されている定時情報を取得
+        CompositeWorkUserMt regularMt = workEntryComponent
+                .getActiveRegularMtBySeqLoginId(seqLoginId);
+
+        LocalTime reguarEnd = LocalTime.of(regularMt.getEndHour(),
+                regularMt.getEndMinute());
+
         return dailyEntryFormList.stream()
-                .filter(e -> {
-                    return e.getWorkBeginHour() != null
-                            && e.getWorkBeginMinute() != null
-                            && e.getWorkEndHour() != null
-                            && e.getWorkEndMinute() != null;
-                }).map(e -> {
+                .filter(e -> e.getWorkBeginHour() != null)
+                .filter(e -> e.getWorkBeginMinute() != null)
+                .filter(e -> e.getWorkEndHour() != null)
+                .filter(e -> e.getWorkEndMinute() != null)
+                .map(e -> {
                     LocalDate date = DateUtil.toLocalDate(e.getDate(),
                             DateFormatType.YYYYMMDD_HYPHEN);
 
@@ -194,11 +217,25 @@ public class MonthlyEntryController {
                         }
                     }
 
+                    // 残業時間
+                    LocalTime overTime = workEntryComponent.getWorkTime(reguarEnd,
+                            end.toLocalTime());
+
+                    // 深夜残業時間
+                    LocalTime lateOverTime = LocalTime.MIN;
+                    if (workEntryComponent.isFuture(end.toLocalTime(),
+                            LocalTime.of(22, 0))) {
+                        lateOverTime = workEntryComponent.getWorkTime(LocalTime.of(22, 0),
+                                end.toLocalTime());
+                    }
+
                     DailyWorkEntryDataDto dto = new DailyWorkEntryDataDto();
                     dto.setSeqDailyWorkEntryDataId(e.getSeqDailyWorkEntryDataId());
                     dto.setBegin(begin);
                     dto.setEnd(end);
                     dto.setActualTime(actualTime);
+                    dto.setOverTime(overTime);
+                    dto.setLateOverTime(lateOverTime);
                     dto.setHolidayWorkTime(holidayWorkTime);
 
                     return dto;

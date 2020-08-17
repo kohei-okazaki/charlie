@@ -120,6 +120,7 @@ $(function() {
               <th th:text="#{beginWork}"></th>
               <th th:text="#{endWork}"></th>
               <th th:text="#{regDate}"></th>
+              <th th:text="#{updateDate}"></th>
             </tr>
             <tr th:each="mt : ${mtList}">
               <td><a class="link" th:href="@{'/work/regular/edit/' + ${mt.seqRegularWorkMtId}}">編集</a></td>
@@ -127,6 +128,7 @@ $(function() {
               <td th:text="${#numbers.formatInteger(mt.beginHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.beginMinute, 2, 'COMMA')}"></td>
               <td th:text="${#numbers.formatInteger(mt.endHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.endMinute, 2, 'COMMA')}"></td>
               <td th:text="${#temporals.format(mt.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+              <td th:text="${#temporals.format(mt.updateDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
             </tr>
           </table><!-- /.table -->
           <div>

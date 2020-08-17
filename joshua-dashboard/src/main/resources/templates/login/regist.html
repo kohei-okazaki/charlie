@@ -15,7 +15,7 @@
 
   <header class="sticky-top header-contents">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-      <h1 class="text-muted zero-margin" th:text="#{appName}">管理アプリ</h1>
+      <h1 class="text-muted zero-margin" th:text="#{appName}"></h1>
     </nav>
   </header>
   <br>
@@ -76,7 +76,7 @@
   </div><!-- /.modal fade -->
 
   <footer class="fixed-bottom footer-contents">
-    <p class="zero-margin" align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;NOK'"></p>
+    <p class="zero-margin" align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;かんりあぷり'"></p>
   </footer>
 
   <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>

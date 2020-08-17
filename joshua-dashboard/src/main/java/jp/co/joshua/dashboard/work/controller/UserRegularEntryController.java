@@ -80,7 +80,7 @@ public class UserRegularEntryController {
      * ユーザ定時情報登録画面表示処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param mtPage
      *            定時情報マスタのリクエストページ数
      * @param histMtPage
@@ -128,13 +128,13 @@ public class UserRegularEntryController {
      * ユーザ定時情報登録処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param form
-     *            ユーザ定時情報登録画面Form
+     *            {@linkplain UserRegularEntryForm}
      * @param result
-     *            validation結果
+     *            {@linkplain BindingResult}
      * @param redirectAttributes
-     *            RedirectAttributes
+     *            {@linkplain RedirectAttributes}
      * @return ユーザ定時情報登録画面View
      */
     @PostMapping("entry")

@@ -29,8 +29,10 @@ public enum AppView implements BaseEnum {
     /** ログインユーザ設定変更完了View:/user/editprocess */
     USER_EDIT_PROCESS_VIEW("/user/editprocess", "editprocess"),
     /** ユーザ一覧画面View:/user/list */
-    USER_LIST_VIEW("/user/list", "user/list"),
-    /** 当月勤怠登録View:/work/daily/entry */
+    USER_LIST_VIEW("/user/list", "/user/list"),
+    /** ユーザ権限付与画面View:/user/role */
+    USER_ROLE_VIEW("/user/role", "/user/role"),
+    /** 当月勤怠登録View:/work/month/entry */
     WORK_MONTH_ENTRY_VIEW("/work/monthentry", "/work/month/entry"),
     /** 定時情報登録画面View:/work/regularentry */
     WORK_REGULAR_ENTRY_VIEW("/work/regularentry", "/work/regular/entry"),
@@ -42,7 +44,10 @@ public enum AppView implements BaseEnum {
     WORK_AUTH_USER_LIST("/work/authuserlist", "/work/auth/userlist"),
     /** 勤怠承認画面-月別勤怠一覧View:/work/authmonthly */
     WORK_AUTH_MONTHLY("/work/authmonthly", "/work/auth/monthly"),
-    ;
+    /** メモ一覧画面View:/note/list */
+    NOTE_LIST_VIEW("/note/list", "/note/list"),
+    /** メモ編集画面View:/note/edit */
+    NOTE_EDIT_VIEW("/note/edit", "/note/edit"),;
 
     /** パス */
     private String value;

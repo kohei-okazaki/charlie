@@ -3,6 +3,10 @@ package jp.co.joshua.common.bean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.amazonaws.regions.Regions;
+
+import jp.co.joshua.common.type.Environment;
+
 /**
  * <ul>
  * <li>application.yml</li>
@@ -15,6 +19,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApplicationComponent {
 
+    @Value("${spring.profiles}")
+    private Environment environment;
     @Value("${logging.pattern.level}")
     private String level;
     @Value("${logging.level.org.springframework}")
@@ -37,6 +43,20 @@ public class ApplicationComponent {
     private int hashKeyLength;
     @Value("${joshua.hash.salt}")
     private String hashSalt;
+    @Value("${joshua.aws.regions}")
+    private Regions regions;
+    @Value("${joshua.aws.s3.backet}")
+    private String backet;
+    @Value("${joshua.aws.s3.timeout}")
+    private int s3Timeout;
+
+    public Environment getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(String environment) {
+        this.environment = Environment.of(environment);
+    }
 
     public String getLevel() {
         return level;
@@ -124,6 +144,30 @@ public class ApplicationComponent {
 
     public void setHashSalt(String hashSalt) {
         this.hashSalt = hashSalt;
+    }
+
+    public Regions getRegions() {
+        return regions;
+    }
+
+    public void setRegions(String regions) {
+        this.regions = Regions.fromName(regions);
+    }
+
+    public String getBacket() {
+        return backet;
+    }
+
+    public void setBacket(String backet) {
+        this.backet = backet;
+    }
+
+    public int getS3Timeout() {
+        return s3Timeout;
+    }
+
+    public void setS3Timeout(int s3Timeout) {
+        this.s3Timeout = s3Timeout;
     }
 
 }

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.joshua.business.user.dto.UserEditDto;
 import jp.co.joshua.business.user.service.UserEditService;
+import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.log.Logger;
 import jp.co.joshua.common.log.LoggerFactory;
 import jp.co.joshua.common.web.auth.login.LoginAuthDto;
+import jp.co.joshua.common.web.auth.login.SecurityContextWrapper;
 import jp.co.joshua.common.web.view.AppView;
 import jp.co.joshua.dashboard.user.form.UserEditForm;
 
@@ -33,17 +35,23 @@ public class UserEditController {
     /** LOG */
     private static final Logger LOG = LoggerFactory
             .getLogger(UserEditController.class);
+
+    /** {@linkplain HttpSession} */
     @Autowired
     private HttpSession session;
+    /** {@linkplain SecurityContextWrapper} */
+    @Autowired
+    private SecurityContextWrapper wrapper;
     @Autowired
     private UserEditService userEditService;
     @Autowired
     private ModelMapper modelMapper;
 
     @ModelAttribute
-    public UserEditForm userEditForm() {
+    public UserEditForm userEditForm() throws AppException {
 
-        LoginAuthDto loginAuthDto = (LoginAuthDto) session.getAttribute("loginAuthDto");
+        LoginAuthDto loginAuthDto = wrapper.getLoginAuthDto()
+                .orElseThrow(() -> new AppException("認証情報が設定されていません"));
         UserEditDto dto = userEditService
                 .getUserEditDto(loginAuthDto.getSeqLoginId());
 
@@ -67,11 +75,11 @@ public class UserEditController {
      * ユーザ情報設定変更確認画面
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param userEditForm
-     *            ログインユーザ情報変更Form
+     *            {@linkplain UserEditForm}
      * @param result
-     *            validation結果
+     *            {@linkplain BindingResult}
      * @return ユーザ情報設定変更確認View
      */
     @PostMapping("/editconfirm")
@@ -93,15 +101,17 @@ public class UserEditController {
      * ユーザ情報設定完了画面
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @return ユーザ情報設定完了View
+     * @throws AppException
      */
     @PostMapping("/editprocess")
-    public String editProcess(Model model) {
+    public String editProcess(Model model) throws AppException {
 
         UserEditForm form = (UserEditForm) session
                 .getAttribute("userEditForm");
-        LoginAuthDto loginAuthDto = (LoginAuthDto) session.getAttribute("loginAuthDto");
+        LoginAuthDto loginAuthDto = wrapper.getLoginAuthDto()
+                .orElseThrow(() -> new AppException("認証情報が設定されていません"));
 
         UserEditDto dto = modelMapper.map(form, UserEditDto.class);
         dto.setSeqLoginId(loginAuthDto.getSeqLoginId());

@@ -56,6 +56,29 @@ $(function() {
           </form><!-- /.form-inline -->
 
           <div class="row">
+            <div class="col-4">
+              <table class="table table-sm">
+                <tr>
+                  <td th:text=#{actualTime}></td>
+                  <td th:text=${summary.actualTime}></td>
+                </tr>
+                <tr>
+                  <td th:text=#{overTime}></td>
+                  <td th:text=${summary.overTime}></td>
+                </tr>
+                <tr>
+                  <td th:text=#{lateOverTime}></td>
+                  <td th:text=${summary.lateOverTime}></td>
+                </tr>
+                <tr>
+                  <td th:text=#{holidayWorkTime}></td>
+                  <td th:text=${summary.holidayWorkTime}></td>
+                </tr>
+              </table><!-- /.table -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+
+          <div class="row">
             <div class="col">
               <br>
               <div th:if="${entrySuccess}" class="alert alert-success" role="alert">登録完了しました</div>
@@ -144,9 +167,11 @@ $(function() {
                 </td>
                 <td>
                   <!-- 残業時間 -->
+                  <div th:text="${#temporals.format(mt.overTime, 'HH:mm')}"></div>
                 </td>
                 <td>
                   <!-- 深夜残業時間 -->
+                  <div th:text="${#temporals.format(mt.lateOverTime, 'HH:mm')}"></div>
                 </td>
                 <td>
                   <!-- 休日出勤作業時間 -->

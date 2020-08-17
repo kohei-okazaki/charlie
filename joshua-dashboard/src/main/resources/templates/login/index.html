@@ -15,7 +15,7 @@
 <body>
   <div class="sidenav">
     <div class="login-main-text">
-      <h2 th:text="#{appName}">管理アプリ</h2>
+      <h2 th:text="#{appName}"></h2>
       <br><br>
       <p>アカウントを持っている場合、情報を入力しログインボタンを押してください</p>
       <p>持っていない場合、登録ボタンを押してください</p>
@@ -28,15 +28,15 @@
         <div class="alert alert-info" role="alert" th:if="${isLogout}" th:text="${infoMessage}"></div>
         <form th:action="@{/login/processLogin}" method="post" class="needs-validation" novalidate>
           <div class="form-group">
-            <label class="control-label" for="validationCustom01">ログインID</label>
+            <label class="control-label" for="validationCustom01" th:text="#{seqLoginId}"></label>
             <input type="text" id="validationCustom01" class="form-control" name="loginId" placeholder="12345" required />
-            <div class="valid-feedback">入力済</div>
+            <div class="valid-feedback" th:text="#{inputDone}"></div>
             <div class="invalid-feedback">ログインIDは必須です</div>
           </div><!-- /.form-group -->
           <div class="form-group">
-            <label class="control-label" for="validationCustom02">パスワード</label>
+            <label class="control-label" for="validationCustom02" th:text="#{password}"></label>
             <input type="password" id="validationCustom02" class="form-control" name="password" placeholder="password1234" required />
-            <div class="valid-feedback">入力済</div>
+            <div class="valid-feedback" th:text="#{inputDone}"></div>
             <div class="invalid-feedback">パスワードは必須です</div>
           </div><!-- /.form-group -->
           <input type="submit" class="btn btn-outline-dark" value="ログイン" />

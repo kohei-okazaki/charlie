@@ -1,7 +1,5 @@
 package jp.co.joshua.dashboard.user.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.joshua.business.db.select.LoginUserDataSearchService;
-import jp.co.joshua.common.db.entity.CompositeLoginPrivateData;
 import jp.co.joshua.common.web.view.AppView;
 import jp.co.joshua.common.web.view.PagingFactory;
 
@@ -25,6 +22,7 @@ import jp.co.joshua.common.web.view.PagingFactory;
 @RequestMapping("/user")
 public class UserListController {
 
+    /** ログインユーザ情報検索サービス */
     @Autowired
     private LoginUserDataSearchService loginUserDataSearchService;
 
@@ -32,9 +30,9 @@ public class UserListController {
      * ユーザ一覧画面表示処理
      *
      * @param model
-     *            Model
+     *            {@linkplain Model}
      * @param pageable
-     *            Pageable
+     *            {@linkplain Pageable}
      * @return ユーザ一覧画面
      */
     @GetMapping("list")
@@ -44,10 +42,8 @@ public class UserListController {
 
         model.addAttribute("paging", PagingFactory.getPageView(pageable,
                 "/user/list?page", loginUserDataSearchService.count()));
-
-        List<CompositeLoginPrivateData> loginPrivateDataList = loginUserDataSearchService
-                .selectLoginDataJoinPrivate(pageable);
-        model.addAttribute("userList", loginPrivateDataList);
+        model.addAttribute("userList", loginUserDataSearchService
+                .selectLoginDataJoinPrivate(pageable));
 
         return AppView.USER_LIST_VIEW.getValue();
     }

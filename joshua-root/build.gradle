@@ -39,7 +39,7 @@ project(':joshua-common') {
         // MySQL
         implementation 'mysql:mysql-connector-java:8.0.21'
         // flyway
-        implementation 'org.flywaydb:flyway-core:6.5.3'
+        implementation 'org.flywaydb:flyway-core:6.5.4'
         // Doma
         annotationProcessor 'org.seasar.doma.boot:doma-spring-boot-starter:1.2.1'
         implementation ('org.seasar.doma.boot:doma-spring-boot-starter:1.2.1') {
@@ -52,12 +52,15 @@ project(':joshua-common') {
         }
 
         // その他ライブラリ
-        implementation 'org.apache.commons:commons-lang3:3.10'
+        implementation 'org.apache.commons:commons-lang3:3.11'
         implementation 'org.modelmapper:modelmapper:2.3.8'
         implementation 'org.modelmapper.extensions:modelmapper-spring:2.3.8'
         implementation 'org.apache.poi:poi:4.1.2'
         implementation 'org.apache.poi:poi-ooxml:4.1.2'
         implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1'
+
+        // AWS関連のライブラリ
+        implementation 'com.amazonaws:aws-java-sdk:1.11.842'
 
         // フロントライブラリを定義
         implementation 'org.webjars:jquery:3.4.1'

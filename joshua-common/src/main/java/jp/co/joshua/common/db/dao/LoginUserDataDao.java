@@ -12,6 +12,7 @@ import org.seasar.doma.jdbc.SelectOptions;
 
 import jp.co.joshua.common.db.entity.CompositeLoginPrivateData;
 import jp.co.joshua.common.db.entity.LoginUserData;
+import jp.co.joshua.common.db.type.AppAuth;
 
 /**
  * ログインユーザ情報 Dao
@@ -43,5 +44,8 @@ public interface LoginUserDataDao extends BaseDao {
 
     @Select
     public long count();
+
+    @Update(sqlFile = true)
+    public int updateAppAuthBySeqLoginId(Integer seqLoginId, AppAuth appAuth);
 
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import jp.co.joshua.common.algorithm.Sha256HashEncoder;
 import jp.co.joshua.common.db.dao.LoginUserDataDao;
 import jp.co.joshua.common.db.entity.LoginUserData;
+import jp.co.joshua.common.db.type.AppAuth;
 import jp.co.joshua.common.util.DateUtil;
 
 /**
@@ -30,5 +31,10 @@ public class LoginUserDataUpdateServiceImpl implements LoginUserDataUpdateServic
         entity.setPasswordExpire(
                 DateUtil.addMonth(DateUtil.toLocalDate(DateUtil.getSysDate()), 12));
         dao.update(entity);
+    }
+
+    @Override
+    public void updateAppAuthBySeqLoginId(Integer seqLoginId, AppAuth appAuth) {
+        dao.updateAppAuthBySeqLoginId(seqLoginId, appAuth);
     }
 }
