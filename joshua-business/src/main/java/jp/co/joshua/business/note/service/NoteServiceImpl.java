@@ -101,10 +101,16 @@ public class NoteServiceImpl implements NoteService {
 
         NoteUserData entity = noteUserDataSearchService
                 .selectById(dto.getSeqNoteUserDataId());
+
+        // 更新前のS3キーを退避
+        String befS3Key = entity.getS3Key();
+
         entity.setS3Key(s3Key);
         entity.setTitle(dto.getTitle());
 
         noteUserDataUpdateService.update(entity);
+
+        s3Wrapper.deleteS3Object(befS3Key);
     }
 
     /**

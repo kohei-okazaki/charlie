@@ -19,6 +19,7 @@ import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -95,40 +96,6 @@ public class AwsS3Wrapper {
     }
 
     /**
-     * S3の指定したキーにInputStreamのデータをファイルとしてアップロードする
-     *
-     * @param key
-     *            バケット内のキー(ファイル名込)
-     * @param length
-     *            ファイルサイズ
-     * @param is
-     *            InputStream
-     * @throws AppException
-     *             S3へのファイルアップロードに失敗した場合
-     */
-    private void putFile(String key, long length, InputStream is) throws AppException {
-
-        try {
-
-            ObjectMetadata om = new ObjectMetadata();
-            om.setContentLength(length);
-            PutObjectRequest putRequest = new PutObjectRequest(
-                    applicationComponent.getBacket(), key, is, om);
-            // 権限の設定
-            putRequest.setCannedAcl(CannedAccessControlList.PublicReadWrite);
-            // アップロード
-            getAmazonS3().putObject(putRequest);
-
-        } catch (AmazonServiceException e) {
-            throw new AppException("リクエストの処理中にAmazon S3でエラーが発生し、S3へのファイルアップロードに失敗。backet="
-                    + applicationComponent.getBacket() + ", key=" + key, e);
-        } catch (SdkClientException e) {
-            throw new AppException("リクエストの作成中またはレスポンスの処理中にクライアントでエラーが発生。backet="
-                    + applicationComponent.getBacket() + ", key=" + key, e);
-        }
-    }
-
-    /**
      * 指定されたキーからファイルの入力Streamを返す
      *
      * @param key
@@ -190,6 +157,32 @@ public class AwsS3Wrapper {
     }
 
     /**
+     * 指定したS3キーを削除する
+     *
+     * @param key
+     *            キー
+     * @throws AppException
+     */
+    public void deleteS3Object(String key) throws AppException {
+
+        try {
+
+            LOG.debug("Amazon S3 region=" + applicationComponent.getRegions().getName()
+                    + ",backet=" + applicationComponent.getBacket());
+
+            getAmazonS3().deleteObject(
+                    new DeleteObjectRequest(applicationComponent.getBacket(), key));
+
+        } catch (AmazonServiceException e) {
+            throw new AppException("リクエストの処理中にAmazon S3でエラーが発生。backet="
+                    + applicationComponent.getBacket(), e);
+        } catch (SdkClientException e) {
+            throw new AppException("リクエストの作成中またはレスポンスの処理中にクライアントでエラーが発生。backet="
+                    + applicationComponent.getBacket(), e);
+        }
+    }
+
+    /**
      * {@linkplain AmazonS3}を返す
      *
      * @return AmazonS3
@@ -204,6 +197,40 @@ public class AwsS3Wrapper {
                 .withClientConfiguration(getClientConfiguration())
                 .withRegion(applicationComponent.getRegions())
                 .build();
+    }
+
+    /**
+     * S3の指定したキーにInputStreamのデータをファイルとしてアップロードする
+     *
+     * @param key
+     *            バケット内のキー(ファイル名込)
+     * @param length
+     *            ファイルサイズ
+     * @param is
+     *            InputStream
+     * @throws AppException
+     *             S3へのファイルアップロードに失敗した場合
+     */
+    private void putFile(String key, long length, InputStream is) throws AppException {
+
+        try {
+
+            ObjectMetadata om = new ObjectMetadata();
+            om.setContentLength(length);
+            PutObjectRequest putRequest = new PutObjectRequest(
+                    applicationComponent.getBacket(), key, is, om);
+            // 権限の設定
+            putRequest.setCannedAcl(CannedAccessControlList.PublicReadWrite);
+            // アップロード
+            getAmazonS3().putObject(putRequest);
+
+        } catch (AmazonServiceException e) {
+            throw new AppException("リクエストの処理中にAmazon S3でエラーが発生し、S3へのファイルアップロードに失敗。backet="
+                    + applicationComponent.getBacket() + ", key=" + key, e);
+        } catch (SdkClientException e) {
+            throw new AppException("リクエストの作成中またはレスポンスの処理中にクライアントでエラーが発生。backet="
+                    + applicationComponent.getBacket() + ", key=" + key, e);
+        }
     }
 
     /**

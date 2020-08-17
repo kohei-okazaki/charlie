@@ -67,6 +67,7 @@ public class NoteEditController {
 
         if (!seqNoteUserDataId.isPresent()) {
             redirectAttributes.addFlashAttribute("errMsg", "リクエスト情報が不正です");
+            redirectAttributes.addFlashAttribute("pageable", pageable);
             return AppView.NOTE_LIST_VIEW.toRedirect();
         }
 
