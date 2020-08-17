@@ -63,25 +63,8 @@ public class NoteServiceImpl implements NoteService {
 
         List<NoteDto> noteDtoList = new ArrayList<>();
         for (NoteUserData note : noteList) {
-            try (InputStream is = s3Wrapper.getS3ObjectByKey(note.getS3Key());
-                    Reader r = new InputStreamReader(is);
-                    BufferedReader br = new BufferedReader(r);) {
-
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line);
-                }
-
-                NoteDto noteDto = modelMapper.map(note, NoteDto.class);
-                String detail = sb.toString();
-                noteDto.setDetail(
-                        detail.length() > 30 ? detail.substring(0, 30) + "..." : detail);
-                noteDtoList.add(noteDto);
-
-            } catch (IOException e) {
-                throw new AppException(e);
-            }
+            NoteDto dto = toNoteDto(note, false);
+            noteDtoList.add(dto);
         }
 
         return noteDtoList;
@@ -102,14 +85,12 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public NoteDto getNote(Integer seqNoteUserDataId) {
+    public NoteDto getNote(Integer seqNoteUserDataId) throws AppException {
         NoteUserData note = noteUserDataSearchService.selectById(seqNoteUserDataId);
         if (note == null) {
             return null;
         }
-        NoteDto dto = modelMapper.map(note, NoteDto.class);
-
-        return dto;
+        return toNoteDto(note, true);
     }
 
     @Override
@@ -136,12 +117,24 @@ public class NoteServiceImpl implements NoteService {
                 .add("note")
                 .add(securityWrapper.getLoginAuthDto().get().getSeqLoginId().toString())
                 .add(DateUtil.toString(DateUtil.getSysDate(),
-                        DateFormatType.YYYYMMDDHHMMSS_NOSEP))
-                .add(FileExtension.TEXT.getValue())
+                        DateFormatType.YYYYMMDDHHMMSS_NOSEP)
+                        + FileExtension.TEXT.getValue())
                 .toString();
     }
 
-    private NoteDto toNoteDto(NoteUserData note, boolean isDisp) {
+    /**
+     * {@linkplain NoteDto}に変換する
+     *
+     * @param note
+     *            メモユーザ情報
+     * @param isDisp
+     *            詳細を全表示する場合True、それ以外False
+     * @return NoteDto
+     * @throws AppException
+     *             S3からファイル取得に失敗した場合
+     */
+    private NoteDto toNoteDto(NoteUserData note, boolean isDisp) throws AppException {
+
         try (InputStream is = s3Wrapper.getS3ObjectByKey(note.getS3Key());
                 Reader r = new InputStreamReader(is);
                 BufferedReader br = new BufferedReader(r);) {
@@ -160,8 +153,8 @@ public class NoteServiceImpl implements NoteService {
                 noteDto.setDetail(detail.substring(0, 30) + "...");
             } else {
                 noteDto.setDetail(detail);
-
             }
+            return noteDto;
 
         } catch (IOException e) {
             throw new AppException(e);

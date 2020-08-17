@@ -45,7 +45,7 @@ public class NoteEditController {
     }
 
     /**
-     * メモ更新画面表示処理
+     * メモ編集画面表示処理
      *
      * @param model
      *            {@linkplain Model}
@@ -55,13 +55,15 @@ public class NoteEditController {
      *            {@linkplain Pageable}
      * @param redirectAttributes
      *            {@linkplain RedirectAttributes}
-     * @return メモ更新画面
+     * @return メモ編集画面
+     * @throws AppException
+     *             S3からファイルの取得に失敗した場合
      */
     @GetMapping("/{seqNoteUserDataId}")
     public String edit(Model model,
             @PathVariable("seqNoteUserDataId") Optional<Integer> seqNoteUserDataId,
             @PageableDefault(size = 3, page = 0) Pageable pageable,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes) throws AppException {
 
         if (!seqNoteUserDataId.isPresent()) {
             redirectAttributes.addFlashAttribute("errMsg", "リクエスト情報が不正です");
@@ -82,31 +84,39 @@ public class NoteEditController {
     /**
      * メモ更新処理
      *
+     * @param model
+     *            {@linkplain Model}
      * @param form
      *            メモ編集Form
      * @param result
      *            {@linkplain BindingResult}
      * @param redirectAttributes
      *            {@linkplain RedirectAttributes}
-     * @return メモ更新画面へリダイレクト
+     * @return メモ編集画面へリダイレクト
      * @throws AppException
      *             S3ファイルのアップロードに失敗しました
      */
     @PostMapping
-    public String edit(@Validated NoteEditForm form, BindingResult result,
+    public String edit(Model model, @Validated NoteEditForm form, BindingResult result,
             RedirectAttributes redirectAttributes) throws AppException {
 
         if (result.hasErrors()) {
-            return AppView.NOTE_EDIT_VIEW.getValue();
+            redirectAttributes.addFlashAttribute("errMsg", "リクエスト情報が不正です");
+            redirectAttributes.addAttribute("seqNoteUserDataId",
+                    form.getSeqNoteUserDataId());
+            redirectAttributes.addFlashAttribute("note", form);
+
+            return AppView.NOTE_EDIT_VIEW.toRedirect() + "/{seqNoteUserDataId}";
         }
 
         NoteDto dto = modelMapper.map(form, NoteDto.class);
         noteService.editNote(dto);
 
+        redirectAttributes.addAttribute("seqNoteUserDataId", dto.getSeqNoteUserDataId());
         redirectAttributes.addFlashAttribute("editSuccess", true);
         redirectAttributes.addFlashAttribute("note", dto);
 
-        return AppView.NOTE_EDIT_VIEW.toRedirect();
+        return AppView.NOTE_EDIT_VIEW.toRedirect() + "/{seqNoteUserDataId}";
     }
 
 }

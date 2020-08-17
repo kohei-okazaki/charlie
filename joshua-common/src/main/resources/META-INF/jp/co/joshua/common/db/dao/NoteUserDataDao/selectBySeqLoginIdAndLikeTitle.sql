@@ -8,4 +8,4 @@ WHERE
   AND TITLE LIKE /* @infix(title) */'test'
   /*%end*/
 ORDER BY
-  UPDATE_DATE;
+  UPDATE_DATE DESC;

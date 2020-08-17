@@ -36,7 +36,9 @@ $(function() {
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}"></div>
 
             <div th:if="${editSuccess}" class="alert alert-success" role="alert">編集完了しました</div>
-            <div th:if="${errMsg != null}" class="alert alert-warning" role="alert" th:text="${errMsg}"></div>
+            <div th:if="${errMsg != null}" class="alert alert-danger" role="alert" th:text="${errMsg}"></div>
+
+            <input type="hidden" name="seqNoteUserDataId" th:value="${note.seqNoteUserDataId}">
             <table class="table table-borderless">
               <tr>
                 <th>
@@ -50,7 +52,7 @@ $(function() {
                   <label class="control-label zero-margin" th:text="#{detail}"></label>
                   <span class="badge badge-danger">必須</span>
                 </th>
-                <td><textarea class="form-control" rows="10" cols="30" name="detail" th:value="${note.detail}"></textarea></td>
+                <td><textarea class="form-control" rows="10" cols="30" name="detail" th:field="${note.detail}"></textarea></td>
               </tr>
               <tr>
                 <td><input type="submit" class="btn btn-outline-primary mt-1" value="編集"></td>

@@ -18,7 +18,7 @@ public interface NoteService {
 
     void entryNote(NoteDto noteDto) throws AppException;
 
-    NoteDto getNote(Integer seqNoteUserDataId);
+    NoteDto getNote(Integer seqNoteUserDataId) throws AppException;
 
     void editNote(NoteDto dto) throws AppException;
 
