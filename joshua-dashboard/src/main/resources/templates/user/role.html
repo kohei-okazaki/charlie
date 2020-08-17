@@ -22,11 +22,11 @@
             <input type="hidden" name="seqLoginId" th:value="${entity.seqLoginId}" />
             <table class="table table-borderless">
               <tr>
-                <th th:text="#{user.seqLoginId}"></th>
+                <th th:text="#{seqLoginId}"></th>
                 <td th:text="${entity.seqLoginId}"></td>
               </tr>
               <tr>
-                <th th:text="#{user.appAuth}"></th>
+                <th th:text="#{appAuth}"></th>
                 <td>
                   <select id="appAuth" name="appAuth" class="custom-select">
                     <option th:each="role : ${roleList}" th:value="${role}" th:selected="${role == entity.appAuth}" th:inline="text">[[${role.value} + ':' + #{'user.app.auth.' + ${role.value}}]]</option>

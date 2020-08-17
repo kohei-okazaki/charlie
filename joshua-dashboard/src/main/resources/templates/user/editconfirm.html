@@ -22,20 +22,20 @@
 
             <table class="table">
               <tr class="form-group zero-margin">
-                <td><label class="control-label zero-margin" th:text="#{user.seqLoginId}"></label></td>
+                <td><label class="control-label zero-margin" th:text="#{seqLoginId}"></label></td>
                 <td><label class="zero-margin" th:text="${session['loginAuthDto'].seqLoginId}"></label></td>
               </tr><!-- /.form-group -->
               <tr class="form-group">
               <tr class="form-group" th:if="${userEditForm.passwordEditFlag} == 'true'">
-                <td><label class="control-label zero-margin" th:text="#{user.password}"></label></td>
+                <td><label class="control-label zero-margin" th:text="#{password}"></label></td>
                 <td><label class="zero-margin" th:text="${userEditForm.password}"></label></td>
               </tr><!-- /.form-group -->
               <tr class="form-group">
-                <td><label class="control-label zero-margin" th:text="#{user.mailAddress}"></label></td>
+                <td><label class="control-label zero-margin" th:text="#{mailAddress}"></label></td>
                 <td><label class="zero-margin" th:text="${userEditForm.mailAddress}"></label></td>
               </tr><!-- /.form-group -->
               <tr class="form-group">
-                <td><label class="control-label zero-margin" th:text="#{user.userName}"></label></td>
+                <td><label class="control-label zero-margin" th:text="#{userName}"></label></td>
                 <td><label class="zero-margin" th:text="${userEditForm.userName}"></label></td>
               </tr><!-- /.form-group -->
 
