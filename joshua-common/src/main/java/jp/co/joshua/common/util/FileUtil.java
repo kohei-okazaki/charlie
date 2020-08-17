@@ -104,7 +104,9 @@ public class FileUtil {
         /** sql */
         SQL(".sql"),
         /** properties */
-        PROPERTY(".properties");
+        PROPERTY(".properties"),
+        /** txt */
+        TEXT(".txt");
 
         /** 値 */
         private String value;

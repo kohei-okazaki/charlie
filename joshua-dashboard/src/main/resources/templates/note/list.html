@@ -21,6 +21,8 @@
           <form th:action="@{/note/entry}" method="post" class="needs-validation" th:object="${noteEntryForm}" novalidate>
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}"></div>
+
+            <div th:if="${entrySuccess}" class="alert alert-success" role="alert">登録完了しました</div>
             <table class="table table-borderless">
               <tr>
                 <th>

@@ -1,10 +1,12 @@
 package jp.co.joshua.common.aws;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ import jp.co.joshua.common.bean.ApplicationComponent;
 import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.log.Logger;
 import jp.co.joshua.common.log.LoggerFactory;
+import jp.co.joshua.common.type.Charset;
 
 /**
  * AWS-S3のラッパークラス
@@ -39,6 +42,8 @@ public class AwsS3Wrapper {
 
     /** LOG */
     private static final Logger LOG = LoggerFactory.getLogger(AwsS3Wrapper.class);
+    /** 文字コード:UTF-8 */
+    private static final Charset CHARSET = Charset.UTF_8;
 
     /** {@linkplain ApplicationComponent} */
     @Autowired
@@ -48,7 +53,7 @@ public class AwsS3Wrapper {
     private AwsCredentialsWrapper credentialsWrapper;
 
     /**
-     * 指定されたバケットへファイルを配置する
+     * 指定されたキーへファイルを配置する
      *
      * @param key
      *            バケット内のキー(ファイル名込)
@@ -66,6 +71,26 @@ public class AwsS3Wrapper {
             throw new AppException(e);
         } catch (IOException e) {
             throw new AppException(e);
+        }
+    }
+
+    /**
+     * 指定されたキーへ文字列データをファイルとして配置する
+     *
+     * @param key
+     * @param strData
+     * @throws AppException
+     *             S3へファイルアップロードに失敗した場合
+     * @see #putFile(String, long, InputStream)
+     */
+    public void putFile(String key, String strData) throws AppException {
+        try {
+            byte[] b = strData.getBytes(CHARSET.getValue());
+            InputStream is = new ByteArrayInputStream(b);
+            putFile(key, b.length, is);
+        } catch (UnsupportedEncodingException e) {
+            // UTF-8指定のため、発生しない
+            LOG.warn("文字コードの指定が不正です", e);
         }
     }
 

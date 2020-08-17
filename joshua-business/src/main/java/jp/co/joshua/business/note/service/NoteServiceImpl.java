@@ -7,17 +7,22 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import jp.co.joshua.business.db.create.NoteUserDataCreateService;
 import jp.co.joshua.business.db.select.NoteUserDataSearchService;
 import jp.co.joshua.business.note.dto.NoteDto;
 import jp.co.joshua.common.aws.AwsS3Wrapper;
 import jp.co.joshua.common.db.entity.NoteUserData;
 import jp.co.joshua.common.exception.AppException;
+import jp.co.joshua.common.util.DateUtil;
+import jp.co.joshua.common.util.DateUtil.DateFormatType;
+import jp.co.joshua.common.util.FileUtil.FileExtension;
 import jp.co.joshua.common.web.auth.login.SecurityContextWrapper;
 
 /**
@@ -34,11 +39,15 @@ public class NoteServiceImpl implements NoteService {
     /** {@linkplain ModelMapper} */
     @Autowired
     private ModelMapper modelMapper;
+    /** {@linkplain AwsS3Wrapper} */
+    @Autowired
+    private AwsS3Wrapper s3Wrapper;
     /** メモユーザ情報検索サービス */
     @Autowired
     private NoteUserDataSearchService noteUserDataSearchService;
-    /** {@linkplain AwsS3Wrapper} */
-    private AwsS3Wrapper s3Wrapper;
+    /** メモユーザ情報作成サービス */
+    @Autowired
+    private NoteUserDataCreateService noteUserDataCreateService;
 
     @Override
     public List<NoteDto> getNoteDtoList(String title, Pageable pageable)
@@ -70,6 +79,35 @@ public class NoteServiceImpl implements NoteService {
         }
 
         return noteDtoList;
+    }
+
+    @Override
+    public void entryNote(NoteDto noteDto) throws AppException {
+
+        String s3Key = getS3Key();
+        s3Wrapper.putFile(s3Key, noteDto.getDetail());
+
+        NoteUserData note = new NoteUserData();
+        note.setSeqLoginId(securityWrapper.getLoginAuthDto().get().getSeqLoginId());
+        note.setTitle(noteDto.getTitle());
+        note.setS3Key(s3Key);
+
+        noteUserDataCreateService.create(note);
+    }
+
+    /**
+     * S3キーを返す
+     *
+     * @return S3キー
+     */
+    private String getS3Key() {
+        return new StringJoiner("/")
+                .add("note")
+                .add(securityWrapper.getLoginAuthDto().get().getSeqLoginId().toString())
+                .add(DateUtil.toString(DateUtil.getSysDate(),
+                        DateFormatType.YYYYMMDDHHMMSS_NOSEP))
+                .add(FileExtension.TEXT.getValue())
+                .toString();
     }
 
 }

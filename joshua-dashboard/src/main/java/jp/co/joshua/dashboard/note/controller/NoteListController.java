@@ -2,15 +2,20 @@ package jp.co.joshua.dashboard.note.controller;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.joshua.business.db.select.NoteUserDataSearchService;
 import jp.co.joshua.business.note.dto.NoteDto;
@@ -27,12 +32,15 @@ import jp.co.joshua.dashboard.note.form.NoteEntryForm;
  * @version 1.0.0
  */
 @Controller
-@RequestMapping("/note/list")
+@RequestMapping("/note")
 public class NoteListController {
 
     /** 認証情報ラッパー */
     @Autowired
     private SecurityContextWrapper securityWrapper;
+    /** {@linkplain ModelMapper} */
+    @Autowired
+    private ModelMapper modelMapper;
     /** メモユーザ情報検索サービス */
     @Autowired
     private NoteUserDataSearchService noteUserDataSearchService;
@@ -58,7 +66,7 @@ public class NoteListController {
      * @throws AppException
      *             S3からファイルの取得に失敗した場合
      */
-    @GetMapping
+    @GetMapping("/list")
     public String list(Model model,
             @PageableDefault(size = 3, page = 0) Pageable pageable,
             @RequestParam(name = "title", required = false) String title)
@@ -73,6 +81,37 @@ public class NoteListController {
                         .countBySeqLoginIdAndLikeTitle(seqLoginId, title)));
 
         return AppView.NOTE_LIST_VIEW.getValue();
+    }
+
+    /**
+     * メモ登録処理
+     *
+     * @param model
+     *            {@linkplain Model}
+     * @param form
+     *            メモ登録Form
+     * @param result
+     *            {@linkplain BindingResult}
+     * @param redirectAttributes
+     *            {@linkplain RedirectAttributes}
+     * @return メモ一覧画面へリダイレクト
+     * @throws AppException
+     *             S3へファイルのアップロード失敗した場合
+     */
+    @PostMapping("/entry")
+    public String entry(Model model,
+            @Validated NoteEntryForm form, BindingResult result,
+            RedirectAttributes redirectAttributes) throws AppException {
+
+        if (result.hasErrors()) {
+            return AppView.NOTE_LIST_VIEW.getValue();
+        }
+
+        noteService.entryNote(modelMapper.map(form, NoteDto.class));
+
+        redirectAttributes.addFlashAttribute("entrySuccess", true);
+
+        return AppView.NOTE_LIST_VIEW.toRedirect();
     }
 
 }
