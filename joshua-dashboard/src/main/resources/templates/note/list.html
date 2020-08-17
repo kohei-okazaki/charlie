@@ -23,12 +23,21 @@
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}"></div>
             <table class="table table-borderless">
               <tr>
-                <th th:text="#{title}"></th>
-                <td><input type="text" th:field="${}"/></td>
+                <th>
+                  <label class="control-label zero-margin" th:text="#{title}"></label>
+                  <span class="badge badge-danger">必須</span>
+                </th>
+                <td><input type="text" class="form-control" th:field="*{title}" placeholder="件名を入力して下さい" /></td>
               </tr>
               <tr>
-                <th th:text="#{detail}"></th>
-                <td></td>
+                <th>
+                  <label class="control-label zero-margin" th:text="#{detail}"></label>
+                  <span class="badge badge-danger">必須</span>
+                </th>
+                <td><textarea class="form-control" rows="10" cols="30" th:field="*{detail}" placeholder="内容を入力して下さい"></textarea></td>
+              </tr>
+              <tr>
+                <td><input type="submit" class="btn btn-outline-primary mt-1" value="登録"></td>
               </tr>
             </table><!-- /.table.table-borderless -->
           </form>
@@ -37,6 +46,29 @@
 
       <div class="row">
         <div class="col">
+          <hr>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+
+      <div class="row">
+        <div class="col">
+          <form th:action="@{/note/list}" method="get" class="needs-validation" novalidate>
+            <table class="table table-borderless">
+              <tr>
+                <th>
+                  <label class="control-label zero-margin" th:text="#{title}"></label>
+                  <span class="badge badge-danger">必須</span>
+                </th>
+              </tr>
+              <tr>
+                <td><input type="text" class="form-control" name="title" placeholder="件名を入力して下さい" /></td>
+              </tr>
+              <tr>
+                <td><input type="submit" class="btn btn-outline-primary mt-1" value="検索" /></td>
+              </tr>
+            </table>
+
+          </form>
           <table class="table table-borderless">
             <tr>
               <th></th>
@@ -46,7 +78,7 @@
               <th th:text="#{updateDate}"></th>
             </tr>
             <tr th:each="note : ${noteList}">
-              <td><a class="link" th:href="@{'/user/list/' + ${note.seqNoteUserDataId}}">編集</a></td>
+              <td><a class="link" th:href="@{'/user/edit/' + ${note.seqNoteUserDataId}}">編集</a></td>
               <td th:text="${note.title}"></td>
               <td th:text="${note.detail}"></td>
               <td th:text="${#temporals.format(note.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
@@ -65,6 +97,7 @@
       </div><!-- /.row -->
 
     </div><!-- /.container.border.col-10 -->
+    <br><br><br>
   </div>
 </body>
 </html>

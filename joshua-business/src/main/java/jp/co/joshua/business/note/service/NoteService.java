@@ -14,6 +14,6 @@ import jp.co.joshua.common.exception.AppException;
  */
 public interface NoteService {
 
-    List<NoteDto> getNoteDtoList(Pageable pageable) throws AppException;
+    List<NoteDto> getNoteDtoList(String title, Pageable pageable) throws AppException;
 
 }

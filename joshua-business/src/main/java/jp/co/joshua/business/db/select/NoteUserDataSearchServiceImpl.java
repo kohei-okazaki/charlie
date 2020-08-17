@@ -23,14 +23,15 @@ public class NoteUserDataSearchServiceImpl implements NoteUserDataSearchService 
     private NoteUserDataDao dao;
 
     @Override
-    public List<NoteUserData> selectBySeqLoginId(Integer seqLoginId, Pageable pageable) {
+    public List<NoteUserData> selectBySeqLoginIdAndLikeTitle(Integer seqLoginId,
+            String title, Pageable pageable) {
         SelectOptions option = DomaUtil.createSelectOptions(pageable, false);
-        return dao.selectBySeqLoginId(seqLoginId, option);
+        return dao.selectBySeqLoginIdAndLikeTitle(seqLoginId, title, option);
     }
 
     @Override
-    public long countBySeqLoginId(Integer seqLoginId) {
-        return dao.countBySeqLoginId(seqLoginId);
+    public long countBySeqLoginIdAndLikeTitle(Integer seqLoginId, String title) {
+        return dao.countBySeqLoginId(seqLoginId, title);
     }
 
 }

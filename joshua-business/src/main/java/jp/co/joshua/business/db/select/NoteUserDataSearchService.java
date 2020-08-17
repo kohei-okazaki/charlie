@@ -13,8 +13,9 @@ import jp.co.joshua.common.db.entity.NoteUserData;
  */
 public interface NoteUserDataSearchService {
 
-    List<NoteUserData> selectBySeqLoginId(Integer seqLoginId, Pageable pageable);
+    List<NoteUserData> selectBySeqLoginIdAndLikeTitle(Integer seqLoginId, String title,
+            Pageable pageable);
 
-    long countBySeqLoginId(Integer seqLoginId);
+    long countBySeqLoginIdAndLikeTitle(Integer seqLoginId, String title);
 
 }

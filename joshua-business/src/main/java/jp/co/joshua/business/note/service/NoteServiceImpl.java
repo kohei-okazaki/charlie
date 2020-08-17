@@ -41,11 +41,13 @@ public class NoteServiceImpl implements NoteService {
     private AwsS3Wrapper s3Wrapper;
 
     @Override
-    public List<NoteDto> getNoteDtoList(Pageable pageable) throws AppException {
+    public List<NoteDto> getNoteDtoList(String title, Pageable pageable)
+            throws AppException {
 
         Integer seqLoginId = securityWrapper.getLoginAuthDto().get().getSeqLoginId();
-        List<NoteUserData> noteList = noteUserDataSearchService.selectBySeqLoginId(
-                seqLoginId, pageable);
+        List<NoteUserData> noteList = noteUserDataSearchService
+                .selectBySeqLoginIdAndLikeTitle(
+                        seqLoginId, title, pageable);
         List<NoteDto> noteDtoList = new ArrayList<>();
         for (NoteUserData note : noteList) {
             try (InputStream is = s3Wrapper.getS3ObjectByKey(note.getS3Key());

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.joshua.business.db.select.NoteUserDataSearchService;
 import jp.co.joshua.business.note.dto.NoteDto;
@@ -51,21 +52,25 @@ public class NoteListController {
      *            {@linkplain Model}
      * @param pageable
      *            {@linkplain Pageable}
+     * @param title
+     *            件名
      * @return メモ一覧画面
      * @throws AppException
      *             S3からファイルの取得に失敗した場合
      */
     @GetMapping
     public String list(Model model,
-            @PageableDefault(size = 10, page = 0) Pageable pageable) throws AppException {
+            @PageableDefault(size = 3, page = 0) Pageable pageable,
+            @RequestParam(name = "title", required = false) String title)
+            throws AppException {
 
-        List<NoteDto> noteList = noteService.getNoteDtoList(pageable);
+        List<NoteDto> noteList = noteService.getNoteDtoList(title, pageable);
         model.addAttribute("noteList", noteList);
 
         Integer seqLoginId = securityWrapper.getLoginAuthDto().get().getSeqLoginId();
         model.addAttribute("paging", PagingFactory.getPageView(pageable,
-                "/note/list?page",
-                noteUserDataSearchService.countBySeqLoginId(seqLoginId)));
+                "/note/list?page", noteUserDataSearchService
+                        .countBySeqLoginIdAndLikeTitle(seqLoginId, title)));
 
         return AppView.NOTE_LIST_VIEW.getValue();
     }

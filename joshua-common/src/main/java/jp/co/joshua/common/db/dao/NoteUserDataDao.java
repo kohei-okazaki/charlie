@@ -31,10 +31,10 @@ public interface NoteUserDataDao extends BaseDao {
     public int insert(NoteUserData entity);
 
     @Select
-    public List<NoteUserData> selectBySeqLoginId(Integer seqLoginId,
-            SelectOptions option);
+    public List<NoteUserData> selectBySeqLoginIdAndLikeTitle(Integer seqLoginId,
+            String title, SelectOptions option);
 
     @Select
-    public long countBySeqLoginId(Integer seqLoginId);
+    public long countBySeqLoginId(Integer seqLoginId, String title);
 
 }
