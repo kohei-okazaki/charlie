@@ -63,11 +63,11 @@
 
         <table class="table">
             <tr class="form-group zero-margin">
-              <th th:text=#{day}></th>
-              <th th:text=#{weekDay}></th>
-              <th th:text=#{beginWork}></th>
-              <th th:text=#{endWork}></th>
-              <th th:text=#{workStatus}></th>
+              <th th:text=#{work.day}></th>
+              <th th:text=#{work.weekDay}></th>
+              <th th:text=#{work.beginWork}></th>
+              <th th:text=#{work.endWork}></th>
+              <th th:text=#{work.workStatus}></th>
               <th></th>
             </tr><!-- /.form-group zero-margin -->
             <tr th:each="data, status : ${authDataList}" class="form-group zero-margin">

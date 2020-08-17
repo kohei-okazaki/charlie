@@ -21,10 +21,10 @@
           <table class="table">
             <tr>
               <th></th>
-              <th th:text="#{seqLoginId}"></th>
-              <th th:text="#{userName}"></th>
-              <th th:text="#{appAuth}"></th>
-              <th th:text="#{regDate}"></th>
+              <th th:text="#{user.seqLoginId}"></th>
+              <th th:text="#{user.userName}"></th>
+              <th th:text="#{user.appAuth}"></th>
+              <th th:text="#{user.regDate}"></th>
             </tr>
             <tr th:each="user : ${userList}">
               <td><a class="link" th:href="@{'/user/role/' + ${user.seqLoginId}}">編集</a></td>

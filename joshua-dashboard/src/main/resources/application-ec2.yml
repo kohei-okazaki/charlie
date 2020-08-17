@@ -43,3 +43,9 @@ joshua:
     stretch-count: 10000
     key-length: 256
     salt: nok12345
+  # AWS設定
+  aws:
+    regions: ap-northeast-1
+    s3:
+      backet: joshua-ec2
+      timeout: 10000

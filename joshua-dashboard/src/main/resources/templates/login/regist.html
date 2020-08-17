@@ -15,7 +15,7 @@
 
   <header class="sticky-top header-contents">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-      <h1 class="text-muted zero-margin" th:text="#{appName}">管理アプリ</h1>
+      <h1 class="text-muted zero-margin" th:text="#{appName}"></h1>
     </nav>
   </header>
   <br>
@@ -30,7 +30,7 @@
           <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
           <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
           <div class="form-group">
-            <label class="control-label" for="validationCustom01" th:text="#{password}"></label>
+            <label class="control-label" for="validationCustom01" th:text="#{user.password}"></label>
             <span class="badge badge-danger">必須</span>
             <input type="password" id="validationCustom01" class="form-control" th:field="*{password}" placeholder="password1234" required />
             <div class="valid-feedback" th:text="#{inputDone}"></div>
@@ -40,7 +40,7 @@
             <a  data-toggle="modal" data-target="#exampleModal">パスワードの扱いについて</a>
           </div><!-- /.form-group -->
           <div class="form-group">
-            <label class="control-label" for="validationCustom02" th:text="#{confirmPassword}"></label>
+            <label class="control-label" for="validationCustom02" th:text="#{user.confirmPassword}"></label>
             <span class="badge badge-danger">必須</span>
             <input type="password" id="validationCustom02" class="form-control" th:field="*{confirmPassword}" placeholder="password1234" required />
             <div class="valid-feedback" th:text="#{inputDone}"></div>
@@ -76,7 +76,7 @@
   </div><!-- /.modal fade -->
 
   <footer class="fixed-bottom footer-contents">
-    <p class="zero-margin" align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;NOK'"></p>
+    <p class="zero-margin" align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;かんりあぷり'"></p>
   </footer>
 
   <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
