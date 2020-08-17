@@ -23,11 +23,11 @@
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}"></div>
             <table class="table table-borderless">
               <tr>
-                <th th:text="#{note.title}"></th>
+                <th th:text="#{title}"></th>
                 <td><input type="text" th:field="${}"/></td>
               </tr>
               <tr>
-                <th th:text="#{note.detail}"></th>
+                <th th:text="#{detail}"></th>
                 <td></td>
               </tr>
             </table><!-- /.table.table-borderless -->
@@ -40,10 +40,10 @@
           <table class="table table-borderless">
             <tr>
               <th></th>
-              <th th:text="#{note.title}"></th>
-              <th th:text="#{note.detail}"></th>
-              <th th:text="#{note.regDate}"></th>
-              <th th:text="#{note.updateDate}"></th>
+              <th th:text="#{title}"></th>
+              <th th:text="#{detail}"></th>
+              <th th:text="#{regDate}"></th>
+              <th th:text="#{updateDate}"></th>
             </tr>
             <tr th:each="note : ${noteList}">
               <td><a class="link" th:href="@{'/user/list/' + ${note.seqNoteUserDataId}}">編集</a></td>
