@@ -144,7 +144,7 @@ public class WorkAuthController {
     @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String done(Model model,
             @PathVariable("seqDailyWorkEntryDataId") String seqDailyWorkEntryDataId,
-            @RequestParam(name = "seq_login_id") String seqLoginId,
+            @RequestParam("seq_login_id") String seqLoginId,
             @RequestParam(name = "year", required = false) String year,
             @RequestParam(name = "month", required = false) String month,
             RedirectAttributes redirectAttributes) throws AppException {
@@ -195,7 +195,7 @@ public class WorkAuthController {
     @PreAuthorize("hasAuthority('00') || hasAuthority('01')")
     public String reject(Model model,
             @PathVariable("seqDailyWorkEntryDataId") String seqDailyWorkEntryDataId,
-            @RequestParam(name = "seq_login_id") String seqLoginId,
+            @RequestParam("seq_login_id") String seqLoginId,
             @RequestParam(name = "year", required = false) String year,
             @RequestParam(name = "month", required = false) String month,
             RedirectAttributes redirectAttributes) throws AppException {

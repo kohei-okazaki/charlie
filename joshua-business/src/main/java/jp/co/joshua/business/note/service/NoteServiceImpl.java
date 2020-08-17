@@ -59,8 +59,8 @@ public class NoteServiceImpl implements NoteService {
 
         Integer seqLoginId = securityWrapper.getLoginAuthDto().get().getSeqLoginId();
         List<NoteUserData> noteList = noteUserDataSearchService
-                .selectBySeqLoginIdAndLikeTitle(
-                        seqLoginId, title, pageable);
+                .selectBySeqLoginIdAndLikeTitle(seqLoginId, title, pageable);
+
         List<NoteDto> noteDtoList = new ArrayList<>();
         for (NoteUserData note : noteList) {
             try (InputStream is = s3Wrapper.getS3ObjectByKey(note.getS3Key());
@@ -74,7 +74,9 @@ public class NoteServiceImpl implements NoteService {
                 }
 
                 NoteDto noteDto = modelMapper.map(note, NoteDto.class);
-                noteDto.setDetail(sb.toString());
+                String detail = sb.toString();
+                noteDto.setDetail(
+                        detail.length() > 30 ? detail.substring(0, 30) + "..." : detail);
                 noteDtoList.add(noteDto);
 
             } catch (IOException e) {
@@ -99,6 +101,31 @@ public class NoteServiceImpl implements NoteService {
         noteUserDataCreateService.create(note);
     }
 
+    @Override
+    public NoteDto getNote(Integer seqNoteUserDataId) {
+        NoteUserData note = noteUserDataSearchService.selectById(seqNoteUserDataId);
+        if (note == null) {
+            return null;
+        }
+        NoteDto dto = modelMapper.map(note, NoteDto.class);
+
+        return dto;
+    }
+
+    @Override
+    public void editNote(NoteDto dto) throws AppException {
+
+        String s3Key = getS3Key();
+        s3Wrapper.putFile(s3Key, dto.getDetail());
+
+        NoteUserData entity = noteUserDataSearchService
+                .selectById(dto.getSeqNoteUserDataId());
+        entity.setS3Key(s3Key);
+        entity.setTitle(dto.getTitle());
+
+        noteUserDataUpdateService.update(entity);
+    }
+
     /**
      * S3キーを返す
      *
@@ -112,6 +139,33 @@ public class NoteServiceImpl implements NoteService {
                         DateFormatType.YYYYMMDDHHMMSS_NOSEP))
                 .add(FileExtension.TEXT.getValue())
                 .toString();
+    }
+
+    private NoteDto toNoteDto(NoteUserData note, boolean isDisp) {
+        try (InputStream is = s3Wrapper.getS3ObjectByKey(note.getS3Key());
+                Reader r = new InputStreamReader(is);
+                BufferedReader br = new BufferedReader(r);) {
+
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+            NoteDto noteDto = modelMapper.map(note, NoteDto.class);
+            String detail = sb.toString();
+
+            if (!isDisp && detail.length() > 30) {
+                // 全表示しない設定、かつ内容が30文字以上の場合
+                noteDto.setDetail(detail.substring(0, 30) + "...");
+            } else {
+                noteDto.setDetail(detail);
+
+            }
+
+        } catch (IOException e) {
+            throw new AppException(e);
+        }
     }
 
 }

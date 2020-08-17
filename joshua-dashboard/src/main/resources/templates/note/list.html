@@ -23,6 +23,7 @@
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}"></div>
 
             <div th:if="${entrySuccess}" class="alert alert-success" role="alert">登録完了しました</div>
+            <div th:if="${errMsg != null}" class="alert alert-warning" role="alert" th:text="${errMsg}"></div>
             <table class="table table-borderless">
               <tr>
                 <th>
@@ -80,7 +81,7 @@
               <th th:text="#{updateDate}"></th>
             </tr>
             <tr th:each="note : ${noteList}">
-              <td><a class="link" th:href="@{'/user/edit/' + ${note.seqNoteUserDataId}}">編集</a></td>
+              <td><a class="link" th:href="@{'/note/edit/' + ${note.seqNoteUserDataId}}">編集</a></td>
               <td th:text="${note.title}"></td>
               <td th:text="${note.detail}"></td>
               <td th:text="${#temporals.format(note.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>

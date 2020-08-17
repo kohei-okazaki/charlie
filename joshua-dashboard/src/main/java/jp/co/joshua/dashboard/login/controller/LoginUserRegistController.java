@@ -32,6 +32,7 @@ public class LoginUserRegistController {
     /** LOG */
     private static final Logger LOG = LoggerFactory
             .getLogger(LoginUserRegistController.class);
+
     @Autowired
     private HttpSession session;
     @Autowired

@@ -18,4 +18,6 @@ public interface NoteUserDataSearchService {
 
     long countBySeqLoginIdAndLikeTitle(Integer seqLoginId, String title);
 
+    NoteUserData selectById(Integer seqNoteUserDataId);
+
 }

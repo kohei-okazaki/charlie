@@ -45,7 +45,9 @@ public enum AppView implements BaseEnum {
     /** 勤怠承認画面-月別勤怠一覧View:/work/authmonthly */
     WORK_AUTH_MONTHLY("/work/authmonthly", "/work/auth/monthly"),
     /** メモ一覧画面View:/note/list */
-    NOTE_LIST_VIEW("/note/list", "/note/list");
+    NOTE_LIST_VIEW("/note/list", "/note/list"),
+    /** メモ編集画面View:/note/edit */
+    NOTE_EDIT_VIEW("/note/edit", "/note/edit"),;
 
     /** パス */
     private String value;

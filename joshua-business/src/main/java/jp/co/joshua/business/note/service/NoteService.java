@@ -17,4 +17,9 @@ public interface NoteService {
     List<NoteDto> getNoteDtoList(String title, Pageable pageable) throws AppException;
 
     void entryNote(NoteDto noteDto) throws AppException;
+
+    NoteDto getNote(Integer seqNoteUserDataId);
+
+    void editNote(NoteDto dto) throws AppException;
+
 }

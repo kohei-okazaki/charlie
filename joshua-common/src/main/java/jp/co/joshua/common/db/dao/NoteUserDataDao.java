@@ -35,6 +35,9 @@ public interface NoteUserDataDao extends BaseDao {
             String title, SelectOptions option);
 
     @Select
-    public long countBySeqLoginId(Integer seqLoginId, String title);
+    public long countBySeqLoginIdAndLikeTitle(Integer seqLoginId, String title);
+
+    @Select
+    public NoteUserData selectById(Integer seqNoteUserDataId);
 
 }

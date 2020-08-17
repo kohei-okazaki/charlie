@@ -31,7 +31,12 @@ public class NoteUserDataSearchServiceImpl implements NoteUserDataSearchService 
 
     @Override
     public long countBySeqLoginIdAndLikeTitle(Integer seqLoginId, String title) {
-        return dao.countBySeqLoginId(seqLoginId, title);
+        return dao.countBySeqLoginIdAndLikeTitle(seqLoginId, title);
+    }
+
+    @Override
+    public NoteUserData selectById(Integer seqNoteUserDataId) {
+        return dao.selectById(seqNoteUserDataId);
     }
 
 }
