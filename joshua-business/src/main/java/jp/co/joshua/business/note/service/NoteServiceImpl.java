@@ -110,7 +110,7 @@ public class NoteServiceImpl implements NoteService {
 
         noteUserDataUpdateService.update(entity);
 
-        s3Wrapper.deleteS3Object(befS3Key);
+        s3Wrapper.deleteS3ObjectByKey(befS3Key);
     }
 
     /**

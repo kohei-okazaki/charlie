@@ -163,7 +163,7 @@ public class AwsS3Wrapper {
      *            キー
      * @throws AppException
      */
-    public void deleteS3Object(String key) throws AppException {
+    public void deleteS3ObjectByKey(String key) throws AppException {
 
         try {
 
