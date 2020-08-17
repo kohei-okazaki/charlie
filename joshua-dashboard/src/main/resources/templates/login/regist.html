@@ -30,7 +30,7 @@
           <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
           <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
           <div class="form-group">
-            <label class="control-label" for="validationCustom01" th:text="#{user.password}"></label>
+            <label class="control-label" for="validationCustom01" th:text="#{password}"></label>
             <span class="badge badge-danger">必須</span>
             <input type="password" id="validationCustom01" class="form-control" th:field="*{password}" placeholder="password1234" required />
             <div class="valid-feedback" th:text="#{inputDone}"></div>
@@ -40,7 +40,7 @@
             <a  data-toggle="modal" data-target="#exampleModal">パスワードの扱いについて</a>
           </div><!-- /.form-group -->
           <div class="form-group">
-            <label class="control-label" for="validationCustom02" th:text="#{user.confirmPassword}"></label>
+            <label class="control-label" for="validationCustom02" th:text="#{confirmPassword}"></label>
             <span class="badge badge-danger">必須</span>
             <input type="password" id="validationCustom02" class="form-control" th:field="*{confirmPassword}" placeholder="password1234" required />
             <div class="valid-feedback" th:text="#{inputDone}"></div>
