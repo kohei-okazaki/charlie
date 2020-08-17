@@ -40,11 +40,11 @@ $(function() {
               <table class="table table-borderless">
                 <tr class="form-group zero-margin">
                   <td colspan=4>
-                    <label class="control-label zero-margin" th:text="#{work.beginWork}"></label>
+                    <label class="control-label zero-margin" th:text="#{beginWork}"></label>
                     <span class="badge badge-danger">必須</span>
                   </td>
                   <td colspan=5>
-                    <label class="control-label zero-margin" th:text="#{work.endWork}"></label>
+                    <label class="control-label zero-margin" th:text="#{endWork}"></label>
                     <span class="badge badge-danger">必須</span>
                   </td>
                 </tr><!-- /.form-group zero-margin -->
@@ -73,12 +73,12 @@ $(function() {
               <input type="hidden" name="seqRegularWorkMtId" th:value="${mt.seqRegularWorkMtId}" />
               <table class="table table-borderless">
                 <tr class="form-group zero-margin">
-                  <td th:text="#{work.seqRegularWorkMtId}"></td>
+                  <td th:text="#{seqRegularWorkMtId}"></td>
                   <td th:text="${mt.seqRegularWorkMtId}"></td>
                 </tr><!-- /.form-group zero-margin -->
                 <tr class="form-group zero-margin">
                   <td>
-                    <label class="control-label zero-margin" th:text="#{work.beginWork}"></label>
+                    <label class="control-label zero-margin" th:text="#{beginWork}"></label>
                     <span class="badge badge-danger">必須</span>
                   </td>
                   <td><input type="number" id="validationCustom01" class="form-control" name="beginHour" th:value="${#numbers.formatInteger(mt.beginHour, 2, 'COMMA')}" /></td>
@@ -87,7 +87,7 @@ $(function() {
                 </tr><!-- /.form-group zero-margin -->
                 <tr class="form-group zero-margin">
                   <td>
-                    <label class="control-label zero-margin" th:text="#{work.endWork}"></label>
+                    <label class="control-label zero-margin" th:text="#{endWork}"></label>
                     <span class="badge badge-danger">必須</span>
                   </td>
                   <td><input type="number" id="validationCustom03" class="form-control" name="endHour" th:value="${#numbers.formatInteger(mt.endHour, 2, 'COMMA')}"/></td>
@@ -116,11 +116,11 @@ $(function() {
           <table class="table">
             <tr>
               <th></th>
-              <th th:text="#{work.seqRegularWorkMtId}"></th>
-              <th th:text="#{work.beginWork}"></th>
-              <th th:text="#{work.endWork}"></th>
-              <th th:text="#{work.regDate}"></th>
-              <th th:text="#{work.updateDate}"></th>
+              <th th:text="#{seqRegularWorkMtId}"></th>
+              <th th:text="#{beginWork}"></th>
+              <th th:text="#{endWork}"></th>
+              <th th:text="#{regDate}"></th>
+              <th th:text="#{updateDate}"></th>
             </tr>
             <tr th:each="mt : ${mtList}">
               <td><a class="link" th:href="@{'/work/regular/edit/' + ${mt.seqRegularWorkMtId}}">編集</a></td>

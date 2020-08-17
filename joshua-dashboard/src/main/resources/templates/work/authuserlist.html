@@ -45,9 +45,9 @@
         <table class="table">
           <tr>
             <th></th>
-            <th th:text="#{work.seqLoginId}"></th>
-            <th th:text="#{work.workStatus}"></th>
-            <th th:text="#{work.authTargetDate}"></th>
+            <th th:text="#{seqLoginId}"></th>
+            <th th:text="#{workStatus}"></th>
+            <th th:text="#{authTargetDate}"></th>
           </tr>
           <tr th:each="user : ${userList}">
             <td><a class="link" th:href="@{'/work/auth/monthly?seq_login_id=' + ${user.seqLoginId} + '&year=' + ${selectedYear} + '&month=' + ${selectedMonth}}">承認</a></td>

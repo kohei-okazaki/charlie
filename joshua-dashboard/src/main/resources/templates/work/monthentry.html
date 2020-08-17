@@ -59,19 +59,19 @@ $(function() {
             <div class="col-4">
               <table class="table table-sm">
                 <tr>
-                  <td th:text=#{work.actualTime}></td>
+                  <td th:text=#{actualTime}></td>
                   <td th:text=${summary.actualTime}></td>
                 </tr>
                 <tr>
-                  <td th:text=#{work.overTime}></td>
+                  <td th:text=#{overTime}></td>
                   <td th:text=${summary.overTime}></td>
                 </tr>
                 <tr>
-                  <td th:text=#{work.lateOverTime}></td>
+                  <td th:text=#{lateOverTime}></td>
                   <td th:text=${summary.lateOverTime}></td>
                 </tr>
                 <tr>
-                  <td th:text=#{work.holidayWorkTime}></td>
+                  <td th:text=#{holidayWorkTime}></td>
                   <td th:text=${summary.holidayWorkTime}></td>
                 </tr>
               </table><!-- /.table -->
@@ -93,16 +93,16 @@ $(function() {
                 </td>
               </tr><!-- /.form-group zero-margin -->
               <tr class="form-group zero-margin">
-                <th th:text=#{work.day}></th>
-                <th th:text=#{work.weekDay}></th>
-                <th th:text=#{work.beginWork}></th>
-                <th th:text=#{work.endWork}></th>
-                <th th:text=#{work.regular}></th>
-                <th th:text=#{work.actualTime}></th>
-                <th th:text=#{work.overTime}></th>
-                <th th:text=#{work.lateOverTime}></th>
-                <th th:text=#{work.holidayWorkTime}></th>
-                <th th:text=#{work.workStatus}></th>
+                <th th:text=#{day}></th>
+                <th th:text=#{weekDay}></th>
+                <th th:text=#{beginWork}></th>
+                <th th:text=#{endWork}></th>
+                <th th:text=#{regular}></th>
+                <th th:text=#{actualTime}></th>
+                <th th:text=#{overTime}></th>
+                <th th:text=#{lateOverTime}></th>
+                <th th:text=#{holidayWorkTime}></th>
+                <th th:text=#{workStatus}></th>
               </tr><!-- /.form-group zero-margin -->
               <tr th:each="mt, status : ${thisMonthList}" class="form-group zero-margin">
                 <td>
