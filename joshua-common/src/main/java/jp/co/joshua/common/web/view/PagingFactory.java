@@ -101,6 +101,9 @@ public class PagingFactory {
         int fromRecordNum;
         if (count == 0) {
             fromRecordNum = 0;
+        } else if (count < pageable.getOffset()) {
+            fromRecordNum = (int) (count / pageable.getPageSize()
+                    * pageable.getPageSize());
         } else {
             fromRecordNum = pageable.getPageSize() * pageable.getPageNumber() + 1;
         }

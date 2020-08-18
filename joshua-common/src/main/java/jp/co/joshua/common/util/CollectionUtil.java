@@ -1,9 +1,14 @@
 package jp.co.joshua.common.util;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.springframework.data.domain.Pageable;
+
+import jp.co.joshua.common.log.Logger;
+import jp.co.joshua.common.log.LoggerFactory;
 
 /**
  * Collection操作のUtilクラス
@@ -11,6 +16,8 @@ import java.util.stream.Stream;
  * @version 1.0.0
  */
 public class CollectionUtil {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CollectionUtil.class);
 
     /**
      * プライベートコンストラクタ
@@ -101,7 +108,7 @@ public class CollectionUtil {
      * @return 空のリスト
      */
     public static <T> List<T> getEmptyList(Class<T> clazz) {
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
 
     /**
@@ -124,6 +131,35 @@ public class CollectionUtil {
      */
     public static <T> List<T> copyList(List<T> src) {
         return src.stream().collect(Collectors.toList());
+    }
+
+    /**
+     * 指定したページ数のリストを抽出する
+     *
+     * @param list
+     *            リスト
+     * @param pageable
+     *            {@linkplain Pageable}
+     * @return ページ数のみのリスト
+     */
+    public static <T> List<T> getListByPageable(List<T> list, Pageable pageable) {
+
+        LOG.debug("PageNumber=" + pageable.getPageNumber());
+        LOG.debug("PageSize=" + pageable.getPageSize());
+        LOG.debug("Offset=" + pageable.getOffset());
+
+        List<T> resultList;
+        if (list.size() < pageable.getOffset()) {
+            resultList = list.subList(
+                    list.size() / pageable.getPageSize() * pageable.getPageSize(),
+                    list.size());
+        } else if (list.size() < (pageable.getPageSize() + pageable.getOffset())) {
+            resultList = list.subList((int) pageable.getOffset(), list.size());
+        } else {
+            resultList = list.subList((int) pageable.getOffset(),
+                    (int) (pageable.getPageSize() + pageable.getOffset()));
+        }
+        return resultList;
     }
 
 }
