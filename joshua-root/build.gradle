@@ -18,11 +18,22 @@ subprojects {
 
 project(':joshua-common') {
     // Commonプロジェクトの設定
+
     apply plugin: 'java'
+    apply plugin: 'eclipse'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-    sourceCompatibility = '1.8'
-    targetCompatibility = '1.8'
+
+    sourceCompatibility = targetCompatibility = '1.8'
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    // コンパイルより前にSQLファイルを出力先ディレクトリにコピーするために依存関係を逆転する
+    compileJava.dependsOn processResources
+
+    def aptGeneratePath = 'build/classes/java/main'
+    compileJava.options.compilerArgs = ['-s', aptGeneratePath]
+    new File(aptGeneratePath).mkdirs()
+
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
         implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -32,6 +43,18 @@ project(':joshua-common') {
         implementation 'org.springframework.boot:spring-boot-starter-jdbc'
         implementation 'org.springframework.boot:spring-boot-starter-security'
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.boot:spring-boot-starter-websocket'
+        implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+        // implementation 'org.springframework:spring-core:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-context:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-context-support:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-tx:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-jdbc:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-web:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-webmvc:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-beans:5.2.6.RELEASE'
+
         implementation 'org.springframework.security:spring-security-web'
         implementation 'org.springframework.security:spring-security-config'
         implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
@@ -75,11 +98,15 @@ project(':joshua-common') {
 
 project(':joshua-business') {
     // Businessプロジェクトの設定
+
     apply plugin: 'java'
+    apply plugin: 'eclipse'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-    sourceCompatibility = '1.8'
-    targetCompatibility = '1.8'
+
+    sourceCompatibility = targetCompatibility = '1.8'
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
     dependencies {
         compile project(':joshua-common')
     }
@@ -87,11 +114,18 @@ project(':joshua-business') {
 
 project(':joshua-dashboard') {
     // Dashboardプロジェクトの設定
+
     apply plugin: 'java'
+    apply plugin: 'eclipse'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-    sourceCompatibility = '1.8'
-    targetCompatibility = '1.8'
+    apply plugin: 'application'
+
+    sourceCompatibility = targetCompatibility = '1.8'
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    mainClassName = 'jp.co.joshua.dashboard.App'
+
     dependencies {
         compile project(':joshua-common')
         compile project(':joshua-business')
@@ -100,14 +134,16 @@ project(':joshua-dashboard') {
 
 project(':joshua-tools') {
     // Toolsプロジェクトの設定
+
     apply plugin: 'java'
+    apply plugin: 'eclipse'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-    sourceCompatibility = '1.8'
-    targetCompatibility = '1.8'
+
+    sourceCompatibility = targetCompatibility = '1.8'
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
     dependencies {
         compile project(':joshua-common')
     }
 }
-
-

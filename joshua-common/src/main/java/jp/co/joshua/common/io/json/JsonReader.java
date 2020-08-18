@@ -2,6 +2,7 @@ package jp.co.joshua.common.io.json;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,6 +28,11 @@ public class JsonReader {
 
     public String read(Object bean) throws JsonProcessingException {
         return new ObjectMapper().writeValueAsString(bean);
+    }
+
+    public <T> T read(InputStream is, Class<T> clazz)
+            throws JsonParseException, JsonMappingException, IOException {
+        return new ObjectMapper().readValue(is, clazz);
     }
 
 }

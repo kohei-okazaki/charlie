@@ -47,7 +47,9 @@ public enum AppView implements BaseEnum {
     /** メモ一覧画面View:/note/list */
     NOTE_LIST_VIEW("/note/list", "/note/list"),
     /** メモ編集画面View:/note/edit */
-    NOTE_EDIT_VIEW("/note/edit", "/note/edit"),;
+    NOTE_EDIT_VIEW("/note/edit", "/note/edit"),
+    /** お知らせ画面View:/news/list */
+    NEWS_LIST_VIEW("/news/list", "/news/list"),;
 
     /** パス */
     private String value;
