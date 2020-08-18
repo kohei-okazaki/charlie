@@ -30,7 +30,7 @@ project(':joshua-common') {
     // コンパイルより前にSQLファイルを出力先ディレクトリにコピーするために依存関係を逆転する
     compileJava.dependsOn processResources
 
-    def aptGeneratePath = 'bin/main'
+    def aptGeneratePath = 'build/classes/java/main'
     compileJava.options.compilerArgs = ['-s', aptGeneratePath]
     new File(aptGeneratePath).mkdirs()
 
@@ -43,6 +43,18 @@ project(':joshua-common') {
         implementation 'org.springframework.boot:spring-boot-starter-jdbc'
         implementation 'org.springframework.boot:spring-boot-starter-security'
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.boot:spring-boot-starter-websocket'
+        implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+        // implementation 'org.springframework:spring-core:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-context:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-context-support:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-tx:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-jdbc:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-web:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-webmvc:5.2.6.RELEASE'
+        // implementation 'org.springframework:spring-beans:5.2.6.RELEASE'
+
         implementation 'org.springframework.security:spring-security-web'
         implementation 'org.springframework.security:spring-security-config'
         implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
