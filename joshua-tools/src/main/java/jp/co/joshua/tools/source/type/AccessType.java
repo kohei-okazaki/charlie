@@ -18,7 +18,6 @@ public enum AccessType implements BaseEnum {
     /** private */
     PRIVATE("private");
 
-    /** 値 */
     private String value;
 
     private AccessType(String value) {

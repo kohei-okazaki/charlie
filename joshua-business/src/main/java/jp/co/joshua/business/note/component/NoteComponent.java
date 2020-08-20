@@ -1,4 +1,4 @@
-package jp.co.joshua.business.note.service;
+package jp.co.joshua.business.note.component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.StringJoiner;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import jp.co.joshua.business.db.create.NoteUserDataCreateService;
 import jp.co.joshua.business.db.select.NoteUserDataSearchService;
@@ -27,12 +27,12 @@ import jp.co.joshua.common.util.FileUtil.FileExtension;
 import jp.co.joshua.common.web.auth.login.SecurityContextWrapper;
 
 /**
- * メモのサービス実装クラス
+ * メモのComponent
  *
  * @version 1.0.0
  */
-@Service
-public class NoteServiceImpl implements NoteService {
+@Component
+public class NoteComponent {
 
     /** {@linkplain SecurityContextWrapper} */
     @Autowired
@@ -53,7 +53,6 @@ public class NoteServiceImpl implements NoteService {
     @Autowired
     private NoteUserDataUpdateService noteUserDataUpdateService;
 
-    @Override
     public List<NoteDto> getNoteDtoList(String title, Pageable pageable)
             throws AppException {
 
@@ -70,7 +69,6 @@ public class NoteServiceImpl implements NoteService {
         return noteDtoList;
     }
 
-    @Override
     public void entryNote(NoteDto noteDto) throws AppException {
 
         String s3Key = getS3Key();
@@ -84,7 +82,6 @@ public class NoteServiceImpl implements NoteService {
         noteUserDataCreateService.create(note);
     }
 
-    @Override
     public NoteDto getNote(Integer seqNoteUserDataId) throws AppException {
         NoteUserData note = noteUserDataSearchService.selectById(seqNoteUserDataId);
         if (note == null) {
@@ -93,7 +90,6 @@ public class NoteServiceImpl implements NoteService {
         return toNoteDto(note, true);
     }
 
-    @Override
     public void editNote(NoteDto dto) throws AppException {
 
         String s3Key = getS3Key();
@@ -114,7 +110,8 @@ public class NoteServiceImpl implements NoteService {
     }
 
     /**
-     * S3キーを返す
+     * S3キーを返す<br>
+     * S3キー=note/${ログインID}/システム日時(yyyyMMddHH24mmss).txt
      *
      * @return S3キー
      */

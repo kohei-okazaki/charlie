@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
+import jp.co.joshua.business.work.component.MonthlyWorkEntryComponent;
 import jp.co.joshua.business.work.component.WorkEntryComponent;
 import jp.co.joshua.business.work.dto.DailyWorkEntryDataDto;
 import jp.co.joshua.business.work.dto.MonthlySummaryDto;
-import jp.co.joshua.business.work.service.MonthlyWorkEntryService;
 import jp.co.joshua.common.db.entity.CompositeDailyWorkEntryData;
 import jp.co.joshua.common.db.entity.CompositeWorkUserMt;
 import jp.co.joshua.common.db.type.BusinessFlg;
@@ -45,12 +45,12 @@ import jp.co.joshua.dashboard.work.form.MonthEntryForm;
 @RequestMapping("/work/month")
 public class MonthlyEntryController {
 
-    /** 勤怠関連Component */
+    /** {@linkplain WorkEntryComponent} */
     @Autowired
     private WorkEntryComponent workEntryComponent;
-    /** 当月勤怠登録画面サービス */
+    /** {@linkplain MonthlyWorkEntryComponent} */
     @Autowired
-    private MonthlyWorkEntryService monthlyWorkEntryService;
+    private MonthlyWorkEntryComponent monthlyWorkEntryComponent;
     /** 日別勤怠登録情報検索サービス */
     @Autowired
     private DailyWorkEntryDataSearchService dailyWorkEntryDataSearchService;
@@ -142,7 +142,7 @@ public class MonthlyEntryController {
                 loginAuthDto.getSeqLoginId());
         List<Integer> deleteIdList = getDeleteIdList(form.getDailyEntryFormList());
 
-        monthlyWorkEntryService.executeEntry(targetDate, loginAuthDto.getSeqLoginId(),
+        monthlyWorkEntryComponent.executeEntry(targetDate, loginAuthDto.getSeqLoginId(),
                 dtoList, deleteIdList);
 
         redirectAttributes.addFlashAttribute("entrySuccess", true);
