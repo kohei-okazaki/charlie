@@ -29,28 +29,28 @@ public class UserEditComponent {
     /** LOG */
     private static final Logger LOG = LoggerFactory.getLogger(UserEditComponent.class);
 
-    /** トランザクション管理クラス */
+    /** {@linkplain PlatformTransactionManager} */
     @Autowired
     private PlatformTransactionManager transactionManager;
-    /** トランザクションクラス */
+    /** {@linkplain DefaultTransactionDefinition} */
     @Autowired
     private DefaultTransactionDefinition defaultTransactionDefinition;
-    /** ログインユーザ情報検索サービス */
+    /** {@linkplain LoginUserDataSearchService} */
     @Autowired
     private LoginUserDataSearchService loginUserDataSearchService;
-    /** ログインユーザ情報更新サービス */
+    /** {@linkplain LoginUserDataUpdateService} */
     @Autowired
     private LoginUserDataUpdateService loginUserDataUpdateService;
-    /** メールユーザ情報検索サービス */
+    /** {@linkplain PrivateDataSearchService} */
     @Autowired
     private PrivateDataSearchService privateDataSearchService;
-    /** メールユーザ情報作成サービス */
+    /** {@linkplain PrivateDataCreateService} */
     @Autowired
     private PrivateDataCreateService privateDataCreateService;
-    /** メールユーザ情報更新サービス */
+    /** {@linkplain PrivateDataUpdateService} */
     @Autowired
     private PrivateDataUpdateService privateDataUpdateService;
-    /** ModelMapper */
+    /** {@linkplain ModelMapper} */
     @Autowired
     private ModelMapper modelMapper;
 

@@ -42,16 +42,16 @@ public class MonthlyWorkEntryComponent {
     /** {@linkplain WorkEntryComponent} */
     @Autowired
     private WorkEntryComponent workEntryComponent;
-    /** 日別勤怠登録情報検索サービス */
+    /** {@linkplain DailyWorkEntryDataSearchService} */
     @Autowired
     private DailyWorkEntryDataSearchService dailyWorkEntryDataSearchService;
-    /** 日別勤怠登録情報登録サービス */
+    /** {@linkplain DailyWorkEntryDataCreateService} */
     @Autowired
     private DailyWorkEntryDataCreateService dailyWorkEntryDataCreateService;
-    /** 日別勤怠登録情報更新サービス */
+    /** {@linkplain DailyWorkEntryDataUpdateService} */
     @Autowired
     private DailyWorkEntryDataUpdateService dailyWorkEntryDataUpdateService;
-    /** 日別勤怠登録情報削除サービス */
+    /** {@linkplain DailyWorkEntryDataDeleteService} */
     @Autowired
     private DailyWorkEntryDataDeleteService dailyWorkEntryDataDeleteService;
 

@@ -43,13 +43,13 @@ public class NoteComponent {
     /** {@linkplain AwsS3Wrapper} */
     @Autowired
     private AwsS3Wrapper s3Wrapper;
-    /** メモユーザ情報検索サービス */
+    /** {@linkplain NoteUserDataSearchService} */
     @Autowired
     private NoteUserDataSearchService noteUserDataSearchService;
-    /** メモユーザ情報作成サービス */
+    /** {@linkplain NoteUserDataCreateService} */
     @Autowired
     private NoteUserDataCreateService noteUserDataCreateService;
-    /** メモユーザ情報更新サービス */
+    /** {@linkplain NoteUserDataUpdateService} */
     @Autowired
     private NoteUserDataUpdateService noteUserDataUpdateService;
 
