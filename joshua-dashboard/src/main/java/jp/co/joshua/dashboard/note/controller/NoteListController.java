@@ -41,10 +41,10 @@ public class NoteListController {
     /** {@linkplain ModelMapper} */
     @Autowired
     private ModelMapper modelMapper;
-    /** メモユーザ情報検索サービス */
+    /** {@linkplain NoteUserDataSearchService} */
     @Autowired
     private NoteUserDataSearchService noteUserDataSearchService;
-    /** メモサービス */
+    /** {@linkplain NoteComponent} */
     @Autowired
     private NoteComponent noteComponent;
 

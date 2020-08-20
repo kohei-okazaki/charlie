@@ -27,6 +27,7 @@ import jp.co.joshua.dashboard.login.form.LoginForm;
 @RequestMapping("/login")
 public class LoginController {
 
+    /** {@linkplain HttpSession} */
     @Autowired
     private HttpSession session;
 

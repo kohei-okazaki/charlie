@@ -38,13 +38,13 @@ import jp.co.joshua.common.web.view.PagingFactory;
 @RequestMapping("/work/auth")
 public class WorkAuthController {
 
-    /** 勤怠関連Component */
+    /** {@linkplain WorkEntryComponent} */
     @Autowired
     private WorkEntryComponent workEntryComponent;
-    /** 日別勤怠登録情報検索サービス */
+    /** {@linkplain DailyWorkEntryDataSearchService} */
     @Autowired
     private DailyWorkEntryDataSearchService dailyWorkEntryDataSearchService;
-    /** 日別勤怠登録情報更新サービス */
+    /** {@linkplain DailyWorkEntryDataUpdateService} */
     @Autowired
     private DailyWorkEntryDataUpdateService dailyWorkEntryDataUpdateService;
 

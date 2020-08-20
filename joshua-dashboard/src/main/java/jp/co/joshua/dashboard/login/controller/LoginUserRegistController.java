@@ -33,10 +33,13 @@ public class LoginUserRegistController {
     private static final Logger LOG = LoggerFactory
             .getLogger(LoginUserRegistController.class);
 
+    /** {@linkplain HttpSession} */
     @Autowired
     private HttpSession session;
+    /** {@linkplain ModelMapper} */
     @Autowired
     private ModelMapper modelMapper;
+    /** {@linkplain LoginUserDataCreateService} */
     @Autowired
     private LoginUserDataCreateService loginUserCreateService;
 

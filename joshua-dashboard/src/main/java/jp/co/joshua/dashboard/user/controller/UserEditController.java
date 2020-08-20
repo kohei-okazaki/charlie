@@ -42,8 +42,10 @@ public class UserEditController {
     /** {@linkplain SecurityContextWrapper} */
     @Autowired
     private SecurityContextWrapper wrapper;
+    /** {@linkplain UserEditComponent} */
     @Autowired
     private UserEditComponent userEditComponent;
+    /** {@linkplain ModelMapper} */
     @Autowired
     private ModelMapper modelMapper;
 

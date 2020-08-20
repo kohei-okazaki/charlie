@@ -51,7 +51,7 @@ public class MonthlyEntryController {
     /** {@linkplain MonthlyWorkEntryComponent} */
     @Autowired
     private MonthlyWorkEntryComponent monthlyWorkEntryComponent;
-    /** 日別勤怠登録情報検索サービス */
+    /** {@linkplain DailyWorkEntryDataSearchService} */
     @Autowired
     private DailyWorkEntryDataSearchService dailyWorkEntryDataSearchService;
     /** {@linkplain SecurityContextWrapper} */
