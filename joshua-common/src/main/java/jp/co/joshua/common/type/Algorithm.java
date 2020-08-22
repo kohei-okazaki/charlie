@@ -15,7 +15,6 @@ public enum Algorithm implements BaseEnum {
     /** SHA-512 */
     SHA_512("SHA-512");
 
-    /** 値 */
     private String value;
 
     private Algorithm(String value) {

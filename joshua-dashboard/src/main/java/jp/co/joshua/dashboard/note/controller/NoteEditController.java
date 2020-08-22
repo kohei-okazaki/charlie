@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.co.joshua.business.note.component.NoteComponent;
 import jp.co.joshua.business.note.dto.NoteDto;
-import jp.co.joshua.business.note.service.NoteService;
 import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.web.view.AppView;
 import jp.co.joshua.dashboard.note.form.NoteEditForm;
@@ -35,9 +35,9 @@ public class NoteEditController {
     /** {@linkplain ModelMapper} */
     @Autowired
     private ModelMapper modelMapper;
-    /** メモサービス */
+    /** {@linkplain NoteComponent} */
     @Autowired
-    private NoteService noteService;
+    private NoteComponent noteComponent;
 
     @ModelAttribute
     private NoteEditForm noteEditForm() {
@@ -71,7 +71,7 @@ public class NoteEditController {
             return AppView.NOTE_LIST_VIEW.toRedirect();
         }
 
-        NoteDto note = noteService.getNote(seqNoteUserDataId.get());
+        NoteDto note = noteComponent.getNote(seqNoteUserDataId.get());
         if (note == null) {
             redirectAttributes.addFlashAttribute("errMsg", "メモが存在しません");
             return AppView.NOTE_LIST_VIEW.toRedirect();
@@ -111,7 +111,7 @@ public class NoteEditController {
         }
 
         NoteDto dto = modelMapper.map(form, NoteDto.class);
-        noteService.editNote(dto);
+        noteComponent.editNote(dto);
 
         redirectAttributes.addAttribute("seqNoteUserDataId", dto.getSeqNoteUserDataId());
         redirectAttributes.addFlashAttribute("editSuccess", true);

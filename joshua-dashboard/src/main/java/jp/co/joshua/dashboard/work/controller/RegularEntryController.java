@@ -36,16 +36,16 @@ import jp.co.joshua.dashboard.work.form.RegularEntryForm;
 @RequestMapping("/work/regular")
 public class RegularEntryController {
 
-    /** ModelMapper */
+    /** {@linkplain ModelMapper} */
     @Autowired
     private ModelMapper modelMapper;
-    /** 定時情報マスタ検索サービス */
+    /** {@linkplain RegularWorkMtSearchService} */
     @Autowired
     private RegularWorkMtSearchService regularWorkMtSearchService;
-    /** 定時情報マスタ作成サービス */
+    /** {@linkplain RegularWorkMtCreateService} */
     @Autowired
     private RegularWorkMtCreateService regularWorkMtCreateService;
-    /** 定時情報マスタ更新サービス */
+    /** {@linkplain RegularWorkMtUpdateService} */
     @Autowired
     private RegularWorkMtUpdateService regularWorkMtUpdateService;
 

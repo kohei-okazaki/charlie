@@ -1,8 +1,8 @@
-package jp.co.joshua.business.user.service;
+package jp.co.joshua.business.user.component;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -19,42 +19,41 @@ import jp.co.joshua.common.log.Logger;
 import jp.co.joshua.common.log.LoggerFactory;
 
 /**
- * ユーザ情報変更画面のサービス実装クラス
+ * ユーザ情報編集のComponent
  *
  * @version 1.0.0
  */
-@Service
-public class UserEditServiceImpl implements UserEditService {
+@Component
+public class UserEditComponent {
 
     /** LOG */
-    private static final Logger LOG = LoggerFactory.getLogger(UserEditServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserEditComponent.class);
 
-    /** トランザクション管理クラス */
+    /** {@linkplain PlatformTransactionManager} */
     @Autowired
     private PlatformTransactionManager transactionManager;
-    /** トランザクションクラス */
+    /** {@linkplain DefaultTransactionDefinition} */
     @Autowired
     private DefaultTransactionDefinition defaultTransactionDefinition;
-    /** ログインユーザ情報検索サービス */
+    /** {@linkplain LoginUserDataSearchService} */
     @Autowired
     private LoginUserDataSearchService loginUserDataSearchService;
-    /** ログインユーザ情報更新サービス */
+    /** {@linkplain LoginUserDataUpdateService} */
     @Autowired
     private LoginUserDataUpdateService loginUserDataUpdateService;
-    /** メールユーザ情報検索サービス */
+    /** {@linkplain PrivateDataSearchService} */
     @Autowired
     private PrivateDataSearchService privateDataSearchService;
-    /** メールユーザ情報作成サービス */
+    /** {@linkplain PrivateDataCreateService} */
     @Autowired
     private PrivateDataCreateService privateDataCreateService;
-    /** メールユーザ情報更新サービス */
+    /** {@linkplain PrivateDataUpdateService} */
     @Autowired
     private PrivateDataUpdateService privateDataUpdateService;
-    /** ModelMapper */
+    /** {@linkplain ModelMapper} */
     @Autowired
     private ModelMapper modelMapper;
 
-    @Override
     public void edit(UserEditDto dto) {
 
         LOG.debugBean(dto);
@@ -104,7 +103,6 @@ public class UserEditServiceImpl implements UserEditService {
 
     }
 
-    @Override
     public UserEditDto getUserEditDto(Integer seqLoginId) {
 
         PrivateData privateData = privateDataSearchService

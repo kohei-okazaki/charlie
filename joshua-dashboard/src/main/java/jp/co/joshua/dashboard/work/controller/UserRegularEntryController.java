@@ -43,31 +43,31 @@ import jp.co.joshua.dashboard.work.form.UserRegularEntryForm;
 @RequestMapping("/work/userregular")
 public class UserRegularEntryController {
 
-    /** ModelMapper */
+    /** {@linkplain ModelMapper} */
     @Autowired
     private ModelMapper modelMapper;
-    /** ログインユーザ情報検索サービス */
+    /** {@linkplain LoginUserDataSearchService} */
     @Autowired
     private LoginUserDataSearchService loginUserDataSearchService;
-    /** 定時情報マスタ検索サービス */
+    /** {@linkplain RegularWorkMtSearchService} */
     @Autowired
     private RegularWorkMtSearchService regularWorkMtSearchService;
-    /** 勤怠ユーザ管理マスタ検索サービス */
+    /** {@linkplain WorkUserMngMtSearchService} */
     @Autowired
     private WorkUserMngMtSearchService mngMtSearchService;
-    /** 勤怠ユーザ管理マスタ作成サービス */
+    /** {@linkplain WorkUserMngMtCreateService} */
     @Autowired
     private WorkUserMngMtCreateService mngMtCreateService;
-    /** 勤怠ユーザ管理マスタ更新サービス */
+    /** {@linkplain WorkUserMngMtUpdateService} */
     @Autowired
     private WorkUserMngMtUpdateService mngMtUpdateService;
-    /** 勤怠ユーザ詳細マスタ作成サービス */
+    /** {@linkplain WorkUserDetailMtCreateService} */
     @Autowired
     private WorkUserDetailMtCreateService detailMtCreateService;
-    /** 勤怠ユーザ履歴マスタ作成サービス */
+    /** {@linkplain WorkUserHistMtCreateService} */
     @Autowired
     private WorkUserHistMtCreateService histMtCreateService;
-    /** 勤怠ユーザ履歴マスタ検索サービス */
+    /** {@linkplain WorkUserHistMtSearchService} */
     @Autowired
     private WorkUserHistMtSearchService histMtSearchService;
 

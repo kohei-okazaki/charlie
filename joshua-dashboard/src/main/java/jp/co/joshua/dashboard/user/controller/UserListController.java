@@ -22,7 +22,7 @@ import jp.co.joshua.common.web.view.PagingFactory;
 @RequestMapping("/user")
 public class UserListController {
 
-    /** ログインユーザ情報検索サービス */
+    /** {@linkplain LoginUserDataSearchService} */
     @Autowired
     private LoginUserDataSearchService loginUserDataSearchService;
 

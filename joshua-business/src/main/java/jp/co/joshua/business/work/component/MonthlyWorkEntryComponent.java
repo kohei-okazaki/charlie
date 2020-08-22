@@ -1,10 +1,10 @@
-package jp.co.joshua.business.work.service;
+package jp.co.joshua.business.work.component;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -13,7 +13,6 @@ import jp.co.joshua.business.db.create.DailyWorkEntryDataCreateService;
 import jp.co.joshua.business.db.delete.DailyWorkEntryDataDeleteService;
 import jp.co.joshua.business.db.select.DailyWorkEntryDataSearchService;
 import jp.co.joshua.business.db.update.DailyWorkEntryDataUpdateService;
-import jp.co.joshua.business.work.component.WorkEntryComponent;
 import jp.co.joshua.business.work.dto.DailyWorkEntryDataDto;
 import jp.co.joshua.common.db.entity.DailyWorkEntryData;
 import jp.co.joshua.common.db.entity.WorkUserMngMt;
@@ -23,16 +22,16 @@ import jp.co.joshua.common.log.LoggerFactory;
 import jp.co.joshua.common.util.DateUtil;
 
 /**
- * 当月勤怠登録画面サービス実装クラス
+ * 当月勤怠登録画面Component
  *
  * @version 1.0.0
  */
-@Service
-public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
+@Component
+public class MonthlyWorkEntryComponent {
 
     /** LOG */
     private static final Logger LOG = LoggerFactory
-            .getLogger(MonthlyWorkEntryServiceImpl.class);
+            .getLogger(MonthlyWorkEntryComponent.class);
 
     /** {@linkplain PlatformTransactionManager} */
     @Autowired
@@ -40,23 +39,22 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
     /** {@linkplain DefaultTransactionDefinition} */
     @Autowired
     private DefaultTransactionDefinition defaultTransactionDefinition;
-    /** 勤怠関連Component */
+    /** {@linkplain WorkEntryComponent} */
     @Autowired
     private WorkEntryComponent workEntryComponent;
-    /** 日別勤怠登録情報検索サービス */
+    /** {@linkplain DailyWorkEntryDataSearchService} */
     @Autowired
     private DailyWorkEntryDataSearchService dailyWorkEntryDataSearchService;
-    /** 日別勤怠登録情報登録サービス */
+    /** {@linkplain DailyWorkEntryDataCreateService} */
     @Autowired
     private DailyWorkEntryDataCreateService dailyWorkEntryDataCreateService;
-    /** 日別勤怠登録情報更新サービス */
+    /** {@linkplain DailyWorkEntryDataUpdateService} */
     @Autowired
     private DailyWorkEntryDataUpdateService dailyWorkEntryDataUpdateService;
-    /** 日別勤怠登録情報削除サービス */
+    /** {@linkplain DailyWorkEntryDataDeleteService} */
     @Autowired
     private DailyWorkEntryDataDeleteService dailyWorkEntryDataDeleteService;
 
-    @Override
     public void executeEntry(LocalDate targetDate, Integer seqLoginId,
             List<DailyWorkEntryDataDto> dtoList, List<Integer> deleteIdList) {
 
@@ -147,5 +145,4 @@ public class MonthlyWorkEntryServiceImpl implements MonthlyWorkEntryService {
 
         dailyWorkEntryDataCreateService.create(entity);
     }
-
 }

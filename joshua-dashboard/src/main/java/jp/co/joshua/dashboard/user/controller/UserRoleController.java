@@ -30,10 +30,10 @@ import jp.co.joshua.dashboard.user.form.UserRoleForm;
 @RequestMapping("/user")
 public class UserRoleController {
 
-    /** ログインユーザ情報検索サービス */
+    /** {@linkplain LoginUserDataSearchService} */
     @Autowired
     private LoginUserDataSearchService loginUserDataSearchService;
-    /** ログインユーザ情報更新サービス */
+    /** {@linkplain LoginUserDataUpdateService} */
     @Autowired
     private LoginUserDataUpdateService loginUserDataUpdateService;
 

@@ -10,7 +10,7 @@ buildscript {
     }
 }
 
-subprojects {
+allprojects {
     repositories {
         mavenCentral()
     }
@@ -27,12 +27,25 @@ project(':joshua-common') {
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
+    // JavaクラスとSQLファイルの出力先ディレクトリを同じにする
     // コンパイルより前にSQLファイルを出力先ディレクトリにコピーするために依存関係を逆転する
+    processResources.destinationDir = compileJava.destinationDir
     compileJava.dependsOn processResources
+    println "processResources.destinationDir=" + processResources.destinationDir
+    println "compileJava.destinationDir=" + compileJava.destinationDir
 
-    def aptGeneratePath = 'build/classes/java/main'
-    compileJava.options.compilerArgs = ['-s', aptGeneratePath]
-    new File(aptGeneratePath).mkdirs()
+    configurations {
+        // for Doma 2
+        domaGenRuntime
+    }
+
+    bootJar {
+        enabled = false
+    }
+
+    jar {
+        enabled = true
+    }
 
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -45,23 +58,10 @@ project(':joshua-common') {
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
         implementation 'org.springframework.boot:spring-boot-starter-websocket'
         implementation 'org.springframework.boot:spring-boot-starter-webflux'
-
-        // implementation 'org.springframework:spring-core:5.2.6.RELEASE'
-        // implementation 'org.springframework:spring-context:5.2.6.RELEASE'
-        // implementation 'org.springframework:spring-context-support:5.2.6.RELEASE'
-        // implementation 'org.springframework:spring-tx:5.2.6.RELEASE'
-        // implementation 'org.springframework:spring-jdbc:5.2.6.RELEASE'
-        // implementation 'org.springframework:spring-web:5.2.6.RELEASE'
-        // implementation 'org.springframework:spring-webmvc:5.2.6.RELEASE'
-        // implementation 'org.springframework:spring-beans:5.2.6.RELEASE'
-
         implementation 'org.springframework.security:spring-security-web'
         implementation 'org.springframework.security:spring-security-config'
         implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-
-        // MySQL
         implementation 'mysql:mysql-connector-java:8.0.21'
-        // flyway
         implementation 'org.flywaydb:flyway-core:6.5.4'
         // Doma
         annotationProcessor 'org.seasar.doma.boot:doma-spring-boot-starter:1.2.1'
@@ -74,15 +74,12 @@ project(':joshua-common') {
             exclude group: 'org.springframework.boot'
         }
 
-        // その他ライブラリ
         implementation 'org.apache.commons:commons-lang3:3.11'
         implementation 'org.modelmapper:modelmapper:2.3.8'
         implementation 'org.modelmapper.extensions:modelmapper-spring:2.3.8'
         implementation 'org.apache.poi:poi:4.1.2'
         implementation 'org.apache.poi:poi-ooxml:4.1.2'
         implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1'
-
-        // AWS関連のライブラリ
         implementation 'com.amazonaws:aws-java-sdk:1.11.842'
 
         // フロントライブラリを定義
@@ -107,6 +104,19 @@ project(':joshua-business') {
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
+    // JavaクラスとSQLファイルの出力先ディレクトリを同じにする
+    processResources.destinationDir = compileJava.destinationDir
+    // コンパイルより前にSQLファイルを出力先ディレクトリにコピーするために依存関係を逆転する
+    compileJava.dependsOn processResources
+
+    bootJar {
+        enabled = false
+    }
+
+    jar {
+        enabled = true
+    }
+
     dependencies {
         compile project(':joshua-common')
     }
@@ -123,6 +133,11 @@ project(':joshua-dashboard') {
 
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    // JavaクラスとSQLファイルの出力先ディレクトリを同じにする
+    processResources.destinationDir = compileJava.destinationDir
+    // コンパイルより前にSQLファイルを出力先ディレクトリにコピーするために依存関係を逆転する
+    compileJava.dependsOn processResources
 
     mainClassName = 'jp.co.joshua.dashboard.App'
 

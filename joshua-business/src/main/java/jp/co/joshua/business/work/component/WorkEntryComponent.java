@@ -33,7 +33,7 @@ import jp.co.joshua.common.util.StringUtil;
 @Component
 public class WorkEntryComponent {
 
-    /** 勤怠ユーザ管理マスタ検索サービス */
+    /** {@linkplain WorkUserMngMtSearchService} */
     @Autowired
     private WorkUserMngMtSearchService mngSearchService;
 

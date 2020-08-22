@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.joshua.business.user.component.UserEditComponent;
 import jp.co.joshua.business.user.dto.UserEditDto;
-import jp.co.joshua.business.user.service.UserEditService;
 import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.log.Logger;
 import jp.co.joshua.common.log.LoggerFactory;
@@ -42,8 +42,10 @@ public class UserEditController {
     /** {@linkplain SecurityContextWrapper} */
     @Autowired
     private SecurityContextWrapper wrapper;
+    /** {@linkplain UserEditComponent} */
     @Autowired
-    private UserEditService userEditService;
+    private UserEditComponent userEditComponent;
+    /** {@linkplain ModelMapper} */
     @Autowired
     private ModelMapper modelMapper;
 
@@ -52,7 +54,7 @@ public class UserEditController {
 
         LoginAuthDto loginAuthDto = wrapper.getLoginAuthDto()
                 .orElseThrow(() -> new AppException("認証情報が設定されていません"));
-        UserEditDto dto = userEditService
+        UserEditDto dto = userEditComponent
                 .getUserEditDto(loginAuthDto.getSeqLoginId());
 
         UserEditForm form = modelMapper.map(dto, UserEditForm.class);
@@ -116,7 +118,7 @@ public class UserEditController {
         UserEditDto dto = modelMapper.map(form, UserEditDto.class);
         dto.setSeqLoginId(loginAuthDto.getSeqLoginId());
 
-        userEditService.edit(dto);
+        userEditComponent.edit(dto);
 
         return AppView.USER_EDIT_PROCESS_VIEW.getValue();
     }

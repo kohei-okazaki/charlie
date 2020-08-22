@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.joshua.business.db.select.NoteUserDataSearchService;
+import jp.co.joshua.business.note.component.NoteComponent;
 import jp.co.joshua.business.note.dto.NoteDto;
-import jp.co.joshua.business.note.service.NoteService;
 import jp.co.joshua.common.exception.AppException;
 import jp.co.joshua.common.web.auth.login.SecurityContextWrapper;
 import jp.co.joshua.common.web.view.AppView;
@@ -41,12 +41,12 @@ public class NoteListController {
     /** {@linkplain ModelMapper} */
     @Autowired
     private ModelMapper modelMapper;
-    /** メモユーザ情報検索サービス */
+    /** {@linkplain NoteUserDataSearchService} */
     @Autowired
     private NoteUserDataSearchService noteUserDataSearchService;
-    /** メモサービス */
+    /** {@linkplain NoteComponent} */
     @Autowired
-    private NoteService noteService;
+    private NoteComponent noteComponent;
 
     @ModelAttribute
     private NoteEntryForm noteEntryForm() {
@@ -72,7 +72,7 @@ public class NoteListController {
             @RequestParam(name = "title", required = false) String title)
             throws AppException {
 
-        List<NoteDto> noteList = noteService.getNoteDtoList(title, pageable);
+        List<NoteDto> noteList = noteComponent.getNoteDtoList(title, pageable);
         model.addAttribute("noteList", noteList);
 
         Integer seqLoginId = securityWrapper.getLoginAuthDto().get().getSeqLoginId();
@@ -107,7 +107,7 @@ public class NoteListController {
             return AppView.NOTE_LIST_VIEW.getValue();
         }
 
-        noteService.entryNote(modelMapper.map(form, NoteDto.class));
+        noteComponent.entryNote(modelMapper.map(form, NoteDto.class));
 
         redirectAttributes.addFlashAttribute("entrySuccess", true);
 

@@ -209,33 +209,17 @@ public class Logger {
         /** ERROR */
         ERROR("ERROR");
 
-        /** 値 */
         private String value;
 
-        /**
-         * コンストラクタ
-         *
-         * @param value
-         *            値
-         */
         private LogLevel(String value) {
             this.value = value;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public String getValue() {
             return this.value;
         }
 
-        /**
-         * @see jp.co.joshua.common.type.BaseEnum#of(Class, String)
-         * @param value
-         *            値
-         * @return LogLevel
-         */
         public static LogLevel of(String value) {
             return BaseEnum.of(LogLevel.class, value);
         }
