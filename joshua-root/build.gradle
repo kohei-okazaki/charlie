@@ -27,12 +27,6 @@ project(':joshua-common') {
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-    configurations {
-      compileOnly {
-        extendsFrom annotationProcessor
-      }
-    }
-
     bootJar {
         enabled = true
         baseName = 'common'
