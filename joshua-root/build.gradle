@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.2.7.RELEASE'
+        springBootVersion = '2.3.4.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -27,20 +27,16 @@ project(':joshua-common') {
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-    // JavaクラスとSQLファイルの出力先ディレクトリを同じにする
-    // コンパイルより前にSQLファイルを出力先ディレクトリにコピーするために依存関係を逆転する
-    processResources.destinationDir = compileJava.destinationDir
-    compileJava.dependsOn processResources
-    println "processResources.destinationDir=" + processResources.destinationDir
-    println "compileJava.destinationDir=" + compileJava.destinationDir
-
     configurations {
-        // for Doma 2
-        domaGenRuntime
+      compileOnly {
+        extendsFrom annotationProcessor
+      }
     }
 
     bootJar {
-        enabled = false
+        enabled = true
+        baseName = 'common'
+        version =  '1.0.0'
     }
 
     jar {
@@ -62,7 +58,7 @@ project(':joshua-common') {
         implementation 'org.springframework.security:spring-security-config'
         implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
         implementation 'mysql:mysql-connector-java:8.0.21'
-        implementation 'org.flywaydb:flyway-core:6.5.4'
+        implementation 'org.flywaydb:flyway-core:7.0.2'
         // Doma
         annotationProcessor 'org.seasar.doma.boot:doma-spring-boot-starter:1.2.1'
         implementation ('org.seasar.doma.boot:doma-spring-boot-starter:1.2.1') {
@@ -104,13 +100,10 @@ project(':joshua-business') {
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-    // JavaクラスとSQLファイルの出力先ディレクトリを同じにする
-    processResources.destinationDir = compileJava.destinationDir
-    // コンパイルより前にSQLファイルを出力先ディレクトリにコピーするために依存関係を逆転する
-    compileJava.dependsOn processResources
-
     bootJar {
-        enabled = false
+        enabled = true
+        baseName = 'business'
+        version =  '1.0.0'
     }
 
     jar {
@@ -134,12 +127,13 @@ project(':joshua-dashboard') {
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-    // JavaクラスとSQLファイルの出力先ディレクトリを同じにする
-    processResources.destinationDir = compileJava.destinationDir
-    // コンパイルより前にSQLファイルを出力先ディレクトリにコピーするために依存関係を逆転する
-    compileJava.dependsOn processResources
-
     mainClassName = 'jp.co.joshua.dashboard.App'
+
+    bootJar {
+        enabled = true
+        baseName = 'dashboard'
+        version =  '1.0.0'
+    }
 
     dependencies {
         compile project(':joshua-common')

@@ -1,0 +1,8 @@
+buildscript {
+
+  println "common buildscript called"
+
+  sourceCompatibility = targetCompatibility = '1.8'
+  [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+}
