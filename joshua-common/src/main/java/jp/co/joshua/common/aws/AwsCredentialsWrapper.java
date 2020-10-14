@@ -55,7 +55,7 @@ public class AwsCredentialsWrapper {
      *
      * @return ProfileCredentialsProvider
      */
-    public ProfileCredentialsProvider getProfileCredentialsProvider() {
+    public AWSCredentialsProvider getProfileCredentialsProvider() {
         return new ProfileCredentialsProvider();
     }
 
@@ -64,7 +64,7 @@ public class AwsCredentialsWrapper {
      *
      * @return InstanceProfileCredentialsProvider
      */
-    public InstanceProfileCredentialsProvider getInstanceProfileCredentialsProvider() {
+    public AWSCredentialsProvider getInstanceProfileCredentialsProvider() {
         return new InstanceProfileCredentialsProvider(false);
     }
 }

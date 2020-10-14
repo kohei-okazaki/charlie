@@ -69,7 +69,7 @@ public class AwsS3Wrapper {
         try (InputStream is = new FileInputStream(file)) {
             putFile(key, file.length(), is);
         } catch (FileNotFoundException e) {
-            throw new AppException(e);
+            throw new AppException(file.getPath() + "が存在しません", e);
         } catch (IOException e) {
             throw new AppException(e);
         }
@@ -168,7 +168,7 @@ public class AwsS3Wrapper {
         try {
 
             LOG.debug("Amazon S3 region=" + applicationComponent.getRegions().getName()
-                    + ",backet=" + applicationComponent.getBacket());
+                    + ",backet=" + applicationComponent.getBacket() + ",key=" + key);
 
             getAmazonS3().deleteObject(
                     new DeleteObjectRequest(applicationComponent.getBacket(), key));
