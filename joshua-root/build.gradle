@@ -12,7 +12,9 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenLocal()
         mavenCentral()
+        maven {url 'http://maven.seasar.org/maven2'}
     }
 }
 
@@ -26,6 +28,8 @@ project(':joshua-common') {
 
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+    processResources.destinationDir = compileJava.destinationDir
+    compileJava.dependsOn processResources
 
     bootJar {
         enabled = true

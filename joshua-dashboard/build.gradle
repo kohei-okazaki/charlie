@@ -2,4 +2,9 @@ buildscript {
 
   println "dashboard buildscript called"
 
+  sourceCompatibility = targetCompatibility = '1.8'
+  [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+  processResources.destinationDir = compileJava.destinationDir
+  compileJava.dependsOn processResources
+
 }
