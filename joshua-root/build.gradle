@@ -3,7 +3,9 @@ buildscript {
         springBootVersion = '2.3.4.RELEASE'
     }
     repositories {
+        mavenLocal()
         mavenCentral()
+        maven { url 'http://repo.spring.io/libs-release' }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -11,6 +13,7 @@ buildscript {
 }
 
 allprojects {
+    apply plugin: 'eclipse'
     repositories {
         mavenLocal()
         mavenCentral()
@@ -18,24 +21,19 @@ allprojects {
     }
 }
 
-project(':joshua-common') {
-    // Commonプロジェクトの設定
-
+subprojects {
     apply plugin: 'java'
-    apply plugin: 'eclipse'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
+}
+
+project(':joshua-common') {
+    // Commonプロジェクトの設定
 
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
     processResources.destinationDir = compileJava.destinationDir
     compileJava.dependsOn processResources
-
-    bootJar {
-        enabled = true
-        baseName = 'common'
-        version =  '1.0.0'
-    }
 
     jar {
         enabled = true
@@ -90,19 +88,8 @@ project(':joshua-common') {
 project(':joshua-business') {
     // Businessプロジェクトの設定
 
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
-
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-
-    bootJar {
-        enabled = true
-        baseName = 'business'
-        version =  '1.0.0'
-    }
 
     jar {
         enabled = true
@@ -116,10 +103,6 @@ project(':joshua-business') {
 project(':joshua-dashboard') {
     // Dashboardプロジェクトの設定
 
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
     apply plugin: 'application'
 
     sourceCompatibility = targetCompatibility = '1.8'
@@ -131,6 +114,7 @@ project(':joshua-dashboard') {
         enabled = true
         baseName = 'dashboard'
         version =  '1.0.0'
+        mainClassName = 'jp.co.joshua.dashboard.App'
     }
 
     dependencies {
@@ -141,11 +125,6 @@ project(':joshua-dashboard') {
 
 project(':joshua-tools') {
     // Toolsプロジェクトの設定
-
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
 
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
