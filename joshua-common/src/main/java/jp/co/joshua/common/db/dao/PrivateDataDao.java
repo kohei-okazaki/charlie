@@ -30,4 +30,7 @@ public interface PrivateDataDao extends BaseDao {
     @Select
     public PrivateData selectBySeqLoginId(Integer seqLoginId);
 
+    @Select
+    public PrivateData selectById(Integer seqPrivateDataId);
+
 }
