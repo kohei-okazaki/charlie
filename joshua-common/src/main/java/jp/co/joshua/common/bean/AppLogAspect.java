@@ -1,7 +1,9 @@
 package jp.co.joshua.common.bean;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -26,16 +28,18 @@ public class AppLogAspect {
 
     @Before("execution(* jp.co.joshua.business.*.component.*.*(..))")
     public void beforeComponent(JoinPoint jp) {
-        String logMessage = "CLASS_NAME=" + getClassName(jp) + ",METHOD_NAME="
-                + getSignatureName(jp) + ",ARGS=" + getArguments(jp);
+        String logMessage = "CLASS_NAME=" + getClassName(jp)
+                + ",METHOD_NAME=" + getSignatureName(jp)
+                + ",ARGS=" + getArguments(jp);
         LOG.debug(logMessage);
     }
 
     @AfterReturning(pointcut = "execution(* jp.co.joshua.business.*.component.*.*(..))", returning = "returnValue")
-    public void invokeControllerAfter(JoinPoint jp, Object returnValue) {
-        String logMessage = "CLASS_NAME=" + getClassName(jp) + ",METHOD_NAME="
-                + getSignatureName(jp) + ",ARGS=" + getArguments(jp) + ",RETURN="
-                + getReturnValue(returnValue);
+    public void afterComponent(JoinPoint jp, Object returnValue) {
+        String logMessage = "CLASS_NAME=" + getClassName(jp)
+                + ",METHOD_NAME=" + getSignatureName(jp)
+                + ",ARGS=" + getArguments(jp)
+                + ",RETURN=" + getReturnValue(returnValue);
         LOG.debug(logMessage);
     }
 
@@ -52,16 +56,15 @@ public class AppLogAspect {
             return "argument is null";
         }
 
-        List<String> argumentStrings = new ArrayList<>();
-        for (Object argument : joinPoint.getArgs()) {
-            if (argument != null) {
-                argumentStrings.add(argument.toString());
-            }
-        }
+        List<String> argumentStrings = Stream.of(joinPoint.getArgs())
+                .filter(Objects::nonNull)
+                .map(Object::toString)
+                .collect(Collectors.toList());
+
         return String.join(",", argumentStrings);
     }
 
     private String getReturnValue(Object returnValue) {
-        return (returnValue != null) ? returnValue.toString() : "return value is null";
+        return returnValue == null ? "return value is null" : returnValue.toString();
     }
 }

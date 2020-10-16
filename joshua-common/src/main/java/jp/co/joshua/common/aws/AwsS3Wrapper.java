@@ -69,7 +69,7 @@ public class AwsS3Wrapper {
         try (InputStream is = new FileInputStream(file)) {
             putFile(key, file.length(), is);
         } catch (FileNotFoundException e) {
-            throw new AppException(e);
+            throw new AppException(file.getPath() + "が存在しません", e);
         } catch (IOException e) {
             throw new AppException(e);
         }
@@ -168,17 +168,17 @@ public class AwsS3Wrapper {
         try {
 
             LOG.debug("Amazon S3 region=" + applicationComponent.getRegions().getName()
-                    + ",backet=" + applicationComponent.getBacket());
+                    + ",backet=" + applicationComponent.getBacket() + ",key=" + key);
 
             getAmazonS3().deleteObject(
                     new DeleteObjectRequest(applicationComponent.getBacket(), key));
 
         } catch (AmazonServiceException e) {
             throw new AppException("リクエストの処理中にAmazon S3でエラーが発生。backet="
-                    + applicationComponent.getBacket(), e);
+                    + applicationComponent.getBacket() + ", key=" + key, e);
         } catch (SdkClientException e) {
             throw new AppException("リクエストの作成中またはレスポンスの処理中にクライアントでエラーが発生。backet="
-                    + applicationComponent.getBacket(), e);
+                    + applicationComponent.getBacket() + ", key=" + key, e);
         }
     }
 

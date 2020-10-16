@@ -28,8 +28,8 @@ public class RequestTrackingInterceptor implements HandlerInterceptor {
             .getLogger(RequestTrackingInterceptor.class);
 
     @Override
-    public boolean preHandle(HttpServletRequest request,
-            HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+            Object handler) throws Exception {
 
         if (handler instanceof ResourceHttpRequestHandler) {
             // 静的リソースの場合、トレースを行わない
@@ -48,9 +48,8 @@ public class RequestTrackingInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request,
-            HttpServletResponse response, Object handler, Exception e)
-            throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
+            Object handler, Exception e) throws Exception {
 
         Long before = START_TIME_HOLDER.get();
         if (before == null) {

@@ -28,6 +28,7 @@ public class BeanConfig implements WebMvcConfigurer {
      */
     @Bean
     public ModelMapper modelMapper() {
+
         ModelMapper modelMapper = new ModelMapper();
         org.modelmapper.config.Configuration conf = modelMapper.getConfiguration();
         conf.setMatchingStrategy(MatchingStrategies.STRICT);

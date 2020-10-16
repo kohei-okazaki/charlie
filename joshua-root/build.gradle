@@ -1,47 +1,42 @@
 buildscript {
     ext {
-        springBootVersion = '2.2.7.RELEASE'
+        springBootVersion = '2.3.4.RELEASE'
     }
+
     repositories {
+        mavenLocal()
         mavenCentral()
+        maven { url 'http://repo.spring.io/libs-release' }
     }
+
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
+
 }
 
 allprojects {
+    apply plugin: 'eclipse'
     repositories {
+        mavenLocal()
         mavenCentral()
+        maven {url 'http://maven.seasar.org/maven2'}
     }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
 }
 
 project(':joshua-common') {
     // Commonプロジェクトの設定
 
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
-
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-
-    // JavaクラスとSQLファイルの出力先ディレクトリを同じにする
-    // コンパイルより前にSQLファイルを出力先ディレクトリにコピーするために依存関係を逆転する
     processResources.destinationDir = compileJava.destinationDir
     compileJava.dependsOn processResources
-    println "processResources.destinationDir=" + processResources.destinationDir
-    println "compileJava.destinationDir=" + compileJava.destinationDir
-
-    configurations {
-        // for Doma 2
-        domaGenRuntime
-    }
-
-    bootJar {
-        enabled = false
-    }
 
     jar {
         enabled = true
@@ -62,7 +57,7 @@ project(':joshua-common') {
         implementation 'org.springframework.security:spring-security-config'
         implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
         implementation 'mysql:mysql-connector-java:8.0.21'
-        implementation 'org.flywaydb:flyway-core:6.5.4'
+        implementation 'org.flywaydb:flyway-core:7.0.2'
         // Doma
         annotationProcessor 'org.seasar.doma.boot:doma-spring-boot-starter:1.2.1'
         implementation ('org.seasar.doma.boot:doma-spring-boot-starter:1.2.1') {
@@ -96,22 +91,8 @@ project(':joshua-common') {
 project(':joshua-business') {
     // Businessプロジェクトの設定
 
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
-
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-
-    // JavaクラスとSQLファイルの出力先ディレクトリを同じにする
-    processResources.destinationDir = compileJava.destinationDir
-    // コンパイルより前にSQLファイルを出力先ディレクトリにコピーするために依存関係を逆転する
-    compileJava.dependsOn processResources
-
-    bootJar {
-        enabled = false
-    }
 
     jar {
         enabled = true
@@ -125,21 +106,19 @@ project(':joshua-business') {
 project(':joshua-dashboard') {
     // Dashboardプロジェクトの設定
 
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
     apply plugin: 'application'
 
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-    // JavaクラスとSQLファイルの出力先ディレクトリを同じにする
-    processResources.destinationDir = compileJava.destinationDir
-    // コンパイルより前にSQLファイルを出力先ディレクトリにコピーするために依存関係を逆転する
-    compileJava.dependsOn processResources
-
     mainClassName = 'jp.co.joshua.dashboard.App'
+
+    bootJar {
+        enabled = true
+        baseName = 'dashboard'
+        version =  '1.0.0'
+        mainClassName = 'jp.co.joshua.dashboard.App'
+    }
 
     dependencies {
         compile project(':joshua-common')
@@ -149,11 +128,6 @@ project(':joshua-dashboard') {
 
 project(':joshua-tools') {
     // Toolsプロジェクトの設定
-
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
 
     sourceCompatibility = targetCompatibility = '1.8'
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
