@@ -175,10 +175,10 @@ public class AwsS3Wrapper {
 
         } catch (AmazonServiceException e) {
             throw new AppException("リクエストの処理中にAmazon S3でエラーが発生。backet="
-                    + applicationComponent.getBacket(), e);
+                    + applicationComponent.getBacket() + ", key=" + key, e);
         } catch (SdkClientException e) {
             throw new AppException("リクエストの作成中またはレスポンスの処理中にクライアントでエラーが発生。backet="
-                    + applicationComponent.getBacket(), e);
+                    + applicationComponent.getBacket() + ", key=" + key, e);
         }
     }
 
