@@ -57,7 +57,7 @@ project(':joshua-common') {
         implementation 'org.springframework.security:spring-security-config'
         implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
         implementation 'mysql:mysql-connector-java:8.0.22'
-        implementation 'org.flywaydb:flyway-core:7.3.0'
+        implementation 'org.flywaydb:flyway-core:7.3.2'
         // Doma
         annotationProcessor 'org.seasar.doma.boot:doma-spring-boot-starter:1.2.1'
         implementation ('org.seasar.doma.boot:doma-spring-boot-starter:1.2.1') {
@@ -74,8 +74,8 @@ project(':joshua-common') {
         implementation 'org.modelmapper.extensions:modelmapper-spring:2.3.9'
         implementation 'org.apache.poi:poi:4.1.2'
         implementation 'org.apache.poi:poi-ooxml:4.1.2'
-        implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1'
-        implementation 'com.amazonaws:aws-java-sdk:1.11.842'
+        implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.5.1'
+        implementation 'com.amazonaws:aws-java-sdk:1.11.923'
 
         // フロントライブラリを定義
         implementation 'org.webjars:jquery:3.4.1'
